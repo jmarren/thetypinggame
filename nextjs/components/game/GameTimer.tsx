@@ -16,11 +16,12 @@ const GameTimer: React.FC<GameTimerProps> = ({ gameState, finalStats}) => {
   const [time, setTime] = useState(0);
 
 
-  useEffect(() => {
-    if (gameState === GameState.Ended) {
-      finalStats(time);
-    }
-  }, [gameState]);
+  // useEffect(() => {
+  //   if (gameState === GameState.Ended) {
+  //     console.log('FINAL TIME (TIMER COMPONENT):  ', time)
+  //     finalStats(time);
+  //   }
+  // }, [gameState]);
 
 
 
@@ -35,9 +36,13 @@ const GameTimer: React.FC<GameTimerProps> = ({ gameState, finalStats}) => {
     }
 
     return () => {
+      if (gameState === GameState.InProgress) {
+        console.log('FINAL TIME (TIMER COMPONENT):  ', time)
+        finalStats(time);
+      }
       clearInterval(interval);
     };
-  }, [gameState]);
+  }, [gameState, time]);
 
   const formatTime = (time: number): string => {
     const minutes = Math.floor(time / 60);

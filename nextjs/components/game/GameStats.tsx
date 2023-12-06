@@ -8,7 +8,7 @@ import FeedbackCard from "../FeedbackCard";
 
 
 
-const GameStats: React.FC<{ feedback: Feedback }> = ({ feedback}) => {
+const GameStats: React.FC<{ feedback: Feedback }> = ({ feedback }) => {
 
 
   return (
