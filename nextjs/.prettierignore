@@ -1,0 +1,79 @@
+# Dependency directories
+node_modules/
+
+# Build directories
+dist/
+build/
+out/
+.next/
+
+# Version control directories
+.git/
+
+# Lock files
+package-lock.json
+yarn.lock
+
+# Minified files
+*.min.js
+*.min.css
+
+# Large data files
+data/large-dataset.json
+
+# Log files
+*.log
+
+# Generated files
+src/generated/
+
+
+
+
+
+
+<!-- # Dependency directories
+node_modules/
+
+# Build directories
+dist/
+build/
+out/
+.next/
+
+# Version control directories
+.git/
+.gitignore
+
+
+# Lock files
+package.json
+package-lock.json
+
+# Minified files
+*.min.js
+*.min.css
+
+# Large data files
+data/large-dataset.json
+
+# Log files
+*.log
+
+# Generated files
+src/generated/
+
+
+*.json
+
+.eslintrc.json
+
+next-env.d.ts
+next.config.js
+
+tailwind.config.ts
+
+tsconfig.json
+
+postcss.config.js
+ -->
