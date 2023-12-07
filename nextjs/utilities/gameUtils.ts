@@ -125,6 +125,7 @@ export function initializeKeyStats(inputString: string): KeyStats {
     // };
   
     const feedback: Feedback = {
+      totalMistakes: totalMistakes,
       accuracy: accuracy.toFixed(2),
       mistypedChars: mostMistyped.join(', ').replaceAll('●', 'space'),
       wordsPerMinute: wpm.toFixed(1),

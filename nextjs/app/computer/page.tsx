@@ -19,8 +19,9 @@ const Page: React.FC = () => {
          </div>
         </div>
         <div className='col-span-9 row-span-2 flex justify-center'>
-          <div className='w-2/3 h-full'>
-                      <KeyboardResponsive />
+          <div className='w-2/3 h-full p-6'>
+                      {/* <KeyboardResponsive /> */}
+                      <CustomKeyboard />
           </div>
         </div>
       {/* <div className='w-full h-[500px] '>

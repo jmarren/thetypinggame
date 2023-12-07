@@ -7,6 +7,7 @@ const Page: React.FC = () => {
 
  
 const feedback: Feedback = {
+  totalMistakes: 0,
   accuracy: '84%', 
   mistypedChars: '13', 
   wordsPerMinute: '45', 

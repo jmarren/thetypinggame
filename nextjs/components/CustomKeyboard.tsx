@@ -41,7 +41,7 @@ const CustomKeyboard = () => {
     { keyName: "ctrl", eventName: "Control" },
     { keyName: "fn", eventName: "FnLock" },
     { keyName: "opt", eventName: "Alt" },
-    { keyName: "cmd⌘", eventName: "Meta" },
+    { keyName: "⌘", eventName: "Meta" },
 
     // ... other keys
   ];
@@ -50,22 +50,22 @@ const CustomKeyboard = () => {
     display: "grid",
     gridTemplateColumns: "repeat(90, 1fr)" ,
     gridTemplateRows: "repeat(11, auto)" ,
-    gap: "0.5rem",
     padding: "0.75rem 0.75rem 1rem 1rem",
-    width: "75rem" /* Adjust the width as needed */,
-    height: "25rem",
-    boxSizing: "borderbox",
+    width: "100%" /* Adjust the width as needed */,
+    height: "100%",
+    boxSizing: "border-box",
     border: "1px solid rgb(140, 140, 140)",
     background: "rgb(220, 220, 220)",
     borderRadius: "5px",
     boxShadow:
-    '0px 0px 3px rgb(180, 180, 180) inset, -1.5px 3px 0px 0.5px rgb(210, 210, 210), -2px 4px 0px 2px rgb(140, 140, 140), -2px 4px 20px 3px gray',
+    '0px 0px 3px rgb(180, 180, 180) inset, -1.5px 3px 0px 0.5px rgb(210, 210, 210), -2px 4px 0px 2px rgb(140, 140, 140), -2px 4px 8px 3px gray',
     // transform: 'rotate3d(10, 1, 1, 30deg)'
     
   };
 
   return (
-    <div style={containerStyles}>
+    <div className='w-full h-full'>
+    <div style={containerStyles} className='text-[0.2rem] min-[800px]:text-[0.4rem] min-[1000px]:text-[0.75rem] min-[1400px]:text-[0.9rem] gap-[0.25rem] min-[1000px]:gap-[0.5rem]'>
       <div
         className="key"
         style={{
@@ -76,6 +76,7 @@ const CustomKeyboard = () => {
           gridRow: "span 1",
           gridColumn: "span 6",
           width: "100%",
+          height: "100%", 
           margin: 0,
           boxSizing: "border-box",
         }}
@@ -85,6 +86,7 @@ const CustomKeyboard = () => {
       {keysRow1.map((key) => (
         <div
           className="key"
+          key={key}
           style={{
             lineHeight: "100%",
             textAlign: "center",
@@ -119,6 +121,7 @@ const CustomKeyboard = () => {
       {keysRow2.map((key) => (
         <div
           className="key"
+          key={key} 
           style={{
             lineHeight: "100%",
             textAlign: "center",
@@ -164,6 +167,7 @@ const CustomKeyboard = () => {
       </div>
       {keysRow3.map((key) => (
         <div
+        key={key}
           className="key"
           style={{
             lineHeight: "100%",
@@ -211,6 +215,7 @@ const CustomKeyboard = () => {
 
       {keysRow4.map((key) => (
         <div
+          key={key}
           className="key"
           style={{
             lineHeight: "100%",
@@ -258,6 +263,7 @@ const CustomKeyboard = () => {
 
       {keysRow5.map((key) => (
         <div
+          key={key}
           className="key"
           style={{
             lineHeight: "100%",
@@ -352,7 +358,7 @@ const CustomKeyboard = () => {
           boxSizing: "border-box",
         }}
       >
-        <CustomKey keyName={"cmd⌘"} eventName={"Meta"} />
+        <CustomKey keyName={"⌘"} eventName={"Meta"} />
       </div>
       <div
         className="key"
@@ -465,6 +471,7 @@ const CustomKeyboard = () => {
           </div>
         </div>
       </div>
+    </div>
 
       {/* <div style={{ gridRow: 'span 1', gridColumn: 'span 17',  boxSizing: 'border-box' }} > */}
       {/* <div style={{ display: 'flex', alignItems: 'center', padding: '0', height: '100%', boxSizing: 'border-box' }}>

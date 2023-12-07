@@ -9,7 +9,7 @@ const Computer: React.FC = () => {
   return (
     <div className='w-full h-full'>
         <div className='w-full h-5/6 rounded-3xl' style={{boxShadow: '-2px -2px 0px lightgray'}}>
-        <div className='w-full h-[90%] bg-black rounded-t-3xl text-white pt-4 px-4 border-4 border-white'>
+        <div className='w-full h-[90%] bg-black rounded-t-3xl text-white pt-4 px-4 '>
         {/* <TypingGame2 modalOpen={modalOpen}/> */}
         <MainGame /> 
         </div>

@@ -3,13 +3,16 @@
 
 
 const Leaderboard = () => {
-
-
-
-
-
     return (
-        <div className='w-[50%] h-[80%] bg-yellow-300 rounded-md z-[30] absolute '>
+        <div className=''>
+            <p>Leaderboard</p>
+            <ol>
+                <li>Player 1</li>
+                <li>Player 2</li>
+                <li>Player 3</li>
+                <li>Player 4</li>
+                <li>Player 5</li>
+            </ol>
         </div>
     )
 }

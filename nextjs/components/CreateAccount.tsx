@@ -70,7 +70,7 @@ const CreateAccount = ({toggleSignIn}) => {
     return (
 
 
-        <div className='w-[50%] h-[80%] bg-sky-300 rounded-md z-[30] absolute p-14 flex'>
+        <div className='w-[50%] h-[80%] bg-sky-300 rounded-md absolute p-14 flex'>
 
 <form onSubmit={handleSubmit} className="space-y-4 w-full mt-10">
                 <div>

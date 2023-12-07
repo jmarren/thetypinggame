@@ -16,7 +16,7 @@ interface GameTextProps {
 
 const GameText: React.FC<GameTextProps> = ({ templateString, gameState, incrementBackspace, endGame, startGame, addIncorrect }) => {
   const [userInput, setUserInput] = useState('');
-  const inputString = templateString.replaceAll(' ', '●');
+  const inputString = templateString.replaceAll(' ', '-');
   const textContainerRef = useRef(null); // Ref for the text container
 
 
@@ -51,7 +51,7 @@ useEffect(() => {
   
       if (key === ' ') {
         event.preventDefault();
-        nextUserInput = userInput + '●';
+        nextUserInput = userInput + '-';
       } else if (key.length === 1 && key !== ' ') {
         nextUserInput = userInput + event.key;
       } else if (key === 'Backspace') {
@@ -82,6 +82,32 @@ useEffect(() => {
       window.removeEventListener('keydown', handleKeydown);
     };
   }, [gameState, startGame, userInput, inputString, addIncorrect]);
+
+
+
+
+  const getStyledText = () => {
+    let styledText = '';
+
+    for (let i = 0; i < inputString.length; i++) {
+      if (i < userInput.length) {
+        if (userInput[i] === inputString[i]) {
+          styledText += `<span style="color: green">${userInput[i]}</span>`;
+        } else {
+          styledText += `<span style="color: red">${userInput[i]}</span>`;
+        }
+      } else {
+        styledText += `<span>${inputString[i]}</span>`;
+      }
+    }
+
+    return styledText;
+  };
+
+  return  <div className='text-2xl leading-loose font-[courier] h-full overflow-y-scroll' ref={textContainerRef} dangerouslySetInnerHTML={{ __html: getStyledText() }} />;
+};
+
+export default GameText;
 // useEffect(() => {
 //     if (gameState === GameState.NotStarted || gameState === GameState.Ended) {
 //         return;
@@ -119,29 +145,3 @@ useEffect(() => {
 //     }
 
 // }, [gameState, startGame]);
-
-
-
-
-  const getStyledText = () => {
-    let styledText = '';
-
-    for (let i = 0; i < inputString.length; i++) {
-      if (i < userInput.length) {
-        if (userInput[i] === inputString[i]) {
-          styledText += `<span style="color: green">${userInput[i]}</span>`;
-        } else {
-          styledText += `<span style="color: red">${userInput[i]}</span>`;
-        }
-      } else {
-        styledText += `<span>${inputString[i]}</span>`;
-      }
-    }
-
-    return styledText;
-  };
-
-  return  <div ref={textContainerRef} dangerouslySetInnerHTML={{ __html: getStyledText() }} />;
-};
-
-export default GameText;

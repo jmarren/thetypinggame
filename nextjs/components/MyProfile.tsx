@@ -13,7 +13,7 @@ useEffect(() => {
 
 
     return (
-        <div className='w-[50%] h-[80%] bg-green-300 rounded-md z-[30] absolute '>
+        <div className='w-[50%] h-[80%] bg-green-300 rounded-md absolute '>
             <div>
                 Username: {username}
             </div>

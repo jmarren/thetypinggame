@@ -9,20 +9,12 @@ enum GameState {
 interface GameTimerProps {
   gameState: GameState;
   finalStats: (totalTime: number) => void;
+  resetGame: () => void;
 }
 
 
-const GameTimer: React.FC<GameTimerProps> = ({ gameState, finalStats}) => {
+const GameTimer: React.FC<GameTimerProps> = ({ gameState, finalStats, resetGame}) => {
   const [time, setTime] = useState(0);
-
-
-  // useEffect(() => {
-  //   if (gameState === GameState.Ended) {
-  //     console.log('FINAL TIME (TIMER COMPONENT):  ', time)
-  //     finalStats(time);
-  //   }
-  // }, [gameState]);
-
 
 
 
@@ -51,7 +43,15 @@ const GameTimer: React.FC<GameTimerProps> = ({ gameState, finalStats}) => {
     return `${minutes}:${seconds.toString().padStart(2, '0')}`;
   };
 
-  return <div>{gameState === GameState.NotStarted ? '0:00' : formatTime(time)}</div>;
-};
+  return (
+  <div className='font-[Sora] text-slate-600  flex gap-4'>
+    <div>
+      {gameState === GameState.NotStarted ? '0:00' : formatTime(time)}
+      </div>
+    <button onClick={resetGame}>
+      Reset
+    </button>
+    </div>
+)};
 
 export default GameTimer;

@@ -6,6 +6,7 @@ import GameTimer from './GameTimer';
 import GameStats from './GameStats';
 import {incrementIncorrectCount, initializeKeyStats, finalizeStats, analyzeData} from '@/utilities/gameUtils';
 import type { Feedback } from '@/types';
+import FeedbackCard from '../FeedbackCard';
 
 export enum GameState {
   NotStarted,
@@ -22,6 +23,7 @@ const MainGame: React.FC = () => {
 
 
   const [feedback, setFeedback] = useState<Feedback>({
+    totalMistakes: 0,
     accuracy: ``,
     mistypedChars: ``,
     wordsPerMinute: ``,
@@ -60,7 +62,9 @@ const MainGame: React.FC = () => {
   };
 
   const resetGame = () => {
+    setKeyStats(initializeKeyStats(inputString))
     setGameState(GameState.NotStarted);
+
   };
 
 
@@ -84,114 +88,61 @@ useEffect(() => {
 
 const SAMPLE_TEXT_SHORT = 'This is a test to see if my typing game is working properly.'
 const SAMPLE_TEXT_LONG = `This is a test to see if my typing game is working properly. Lets find out! Lorem ipsum dolor sit amet.This is a test to see if my typing game is working properly. Lets find out! Lorem ipsum dolor sit amet.This is a test to see if my typing game is working properly. Lets find out! Lorem ipsum dolor sit amet.This is a test to see if my typing game is working properly. Lets find out! Lorem ipsum dolor sit amet.`;
-
+const SAMPLE_TEXT_XTRA_LONG=`This is a test to see if my typing game is working properly. Lets find out! Lorem ipsum dolor sit amet.This is a test to see if my typing game is working properly. Lets find out! Lorem ipsum dolor sit amet.This is a test to see if my typing game is working properly. Lets find out! Lorem ipsum dolor sit amet.This is a test to see if my typing game is working properly. Lets find out! Lorem ipsum dolor sit amet.This is a test to see if my typing game is working properly. Lets find out! Lorem ipsum dolor sit amet. This is a test to see if my typing game is working properly.`;
 
 
   return (
 
 
     <>
+    <div className='h-[400px]  px-10 pt-10 pb-6 overflow-hidden'>
       {gameState === GameState.NotStarted && (
         <>
         <div className='w-full h-full relative'>
-      <div className='absolute w-full flex items-center justify-center h-full border border-green-500 z-50' >
+      <div className='absolute w-full flex items-center justify-center h-full z-50' >
           <div>
-          Press Enter to begin
+          Press Enter to Begin
           </div>
       </div>
-          <div className='absolute w-full h-full blur z-10'>
-              <GameTimer gameState={gameState} finalStats={finalStats}   /> 
+          <div className='absolute w-full h-full blur z-10 flex flex-col'>
+              <GameTimer gameState={gameState} finalStats={finalStats} resetGame={resetGame}  /> 
+              <div className='flex-grow overflow-hidden'>
               <GameText  gameState={gameState} updateStats={updateStats} incrementBackspace={incrementBackspace} addIncorrect={addIncorrect} startGame={startGame} endGame={endGame} templateString={SAMPLE_TEXT_SHORT} />
+              </div>
         </div> 
         </div>
         </> 
       )}
       {gameState === GameState.InProgress && (
         <>
-        <div className='absolute'>
-              <GameTimer gameState={gameState} finalStats={finalStats}   /> 
+        <div className='w-full h-full relative'>
+        <div className='absolute w-full h-full z-10 flex flex-col'>
+              <GameTimer gameState={gameState} finalStats={finalStats} resetGame={resetGame}  /> 
+        <div className='flex-grow overflow-hidden'>
               <GameText  gameState={gameState} updateStats={updateStats} incrementBackspace={incrementBackspace} addIncorrect={addIncorrect} startGame={startGame} endGame={endGame} templateString={SAMPLE_TEXT_SHORT} />
+              </div>
         </div> 
+        </div>
         </>
       )}
       {gameState === GameState.Ended && (
         <>
+        <div className='w-full h-full relative'>
         <div className='blur absolute'>
-              <GameTimer gameState={gameState} finalStats={finalStats}   /> 
+              <GameTimer gameState={gameState} finalStats={finalStats} resetGame={resetGame}  /> 
               <GameText  gameState={gameState} updateStats={updateStats} incrementBackspace={incrementBackspace} addIncorrect={addIncorrect} startGame={startGame} endGame={endGame} templateString={SAMPLE_TEXT_SHORT} />
         </div> 
-        <div className='absolute'>
-          <GameStats feedback={feedback} />
+        <div className='absolute w-full h-full'>
+          <div className='w-full flex flex-col items-center justify-center h-full  z-50' >
+            <FeedbackCard feedback={feedback} resetGame={resetGame} />
+            </div>
+          </div>
           </div>
         </>
       )}
-
-
-
-
+      </div>
     </>
-    
-    // <div className='absolute'>
-    //   {gameState === GameState.NotStarted && (
-    //     <button onClick={startGame}>Start Game</button>
-    //   )}
-
-    //   {gameState === GameState.InProgress && (
-    //     <div className='absolute'>
-    //       {/* Your game components when the game is in progress */}
-    //       <button onClick={endGame}>End Game</button>
-    //     </div>
-    //   )}
-
-      
-
-
-/* {gameState === GameState.Ended ? (
-  <div className='w-full h-full border-2 border-green-400'>
-    <div className='flex items-center justify-center z-[11] border-yellow-500 border-2 '>
-      <GameStats feedback={feedback} />
-    </div>
-    <button onClick={resetGame}>Reset Game</button>
-  </div>
-) : (
-  <div className='w-full h-full border-2 border-red-400 z-[1]'>
-    <GameTimer gameState={gameState} finalStats={finalStats} />
-    <GameText gameState={gameState} updateStats={updateStats} incrementBackspace={incrementBackspace} addIncorrect={addIncorrect} startGame={startGame} endGame={endGame} templateString='This is a test to see if my typing game is working properly. Lets find out! Lorem ipsum dolor sit amet.' />
-  </div>
-)} */
-
-
-
-
-
-
-/*
-
- {gameState === GameState.Ended && (
-        <div className='w-full h-full border-2 border-green-400'> 
-
-
-        <div className='w-full h-full flex items-center justify-center z-[11] border-yellow-500 border-2 '>
-        <GameStats feedback={feedback} />
-        </div>
-          <button onClick={resetGame}>Reset Game</button>
-          
-          <div className='w-full h-full border-2 border-red-400 z-[1]'>
-
-           
-        </div>
-        
-        </div>
-      )} 
-       
-
-     <GameTimer gameState={gameState} finalStats={finalStats}   /> 
-          <GameText gameState={gameState} updateStats={updateStats} incrementBackspace={incrementBackspace} addIncorrect={addIncorrect} startGame={startGame} endGame={endGame} templateString='This is a test to see if my typing game is working properly. Lets find out! Lorem ipsum dolor sit amet.' />
-
-
-    </div>
-
-    */
+   
   );
 };
 

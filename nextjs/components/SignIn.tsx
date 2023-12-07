@@ -33,7 +33,7 @@ const SignIn = () => {
       }, [username]);
     
       return (
-    <div className='w-[50%] h-[80%] bg-orange-300 rounded-md z-[30] absolute p-14 flex'>
+    <div className='w-[50%] h-[80%] bg-orange-300 rounded-md  absolute p-14 flex'>
         {username ?  <div className='text-white text-3xl'>{successMessage}</div> :
         <form onSubmit={handleSubmit}  className="space-y-4 w-full mt-10">
           <div>

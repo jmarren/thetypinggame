@@ -106,35 +106,65 @@ export const AuthProvider = ({ children }) => {
 
 
 
-
     useEffect(() => {
-        fetch('http://localhost:3004/verify-session', {
-            method: 'GET',
-            credentials: 'include'
-        })
-            .then(response => {
+        const verifySession = async () => {
+            try {
+                const response = await fetch('http://localhost:3004/verify-session', {
+                    method: 'GET',
+                    credentials: 'include'
+                });
+
                 if (response.ok) {
-                    return response.json();
-                }
-                else {
+                    const data = await response.json();
+                    console.log(data);
+                    if (data && data.validSession) {
+                        setIsLoggedIn(true);
+                        setUsername(data.username);  // Set username here
+                    } else {
+                        setIsLoggedIn(false);
+                    }
+                } else {
                     setIsLoggedIn(false);
                     throw new Error('Session verification failed');
                 }
-            })
-            .then(data => {
-                console.log(data)
-                if (data && data.validSession) {
-                    setIsLoggedIn(true);
-                    setUsername(data.username);  // Set username here
-                } else {
-                    setIsLoggedIn(false);
-                }
-            })
-            .catch(error => {
-                console.error(error.message)
-                setIsLoggedIn(false)
-            })
+            } catch (error) {
+                console.error(error.message);
+                setIsLoggedIn(false);
+            }
+        };
+
+        verifySession();
     }, []);
+
+
+    // useEffect(() => {
+    //     fetch('http://localhost:3004/verify-session', {
+    //         method: 'GET',
+    //         credentials: 'include'
+    //     })
+    //         .then(response => {
+    //             if (response.ok) {
+    //                 return response.json();
+    //             }
+    //             else {
+    //                 setIsLoggedIn(false);
+    //                 throw new Error('Session verification failed');
+    //             }
+    //         })
+    //         .then(data => {
+    //             console.log(data)
+    //             if (data && data.validSession) {
+    //                 setIsLoggedIn(true);
+    //                 setUsername(data.username);  // Set username here
+    //             } else {
+    //                 setIsLoggedIn(false);
+    //             }
+    //         })
+    //         .catch(error => {
+    //             console.error(error.message)
+    //             setIsLoggedIn(false)
+    //         })
+    // }, []);
 
 
 

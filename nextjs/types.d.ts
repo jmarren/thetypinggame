@@ -36,6 +36,7 @@
 
 
   export type Feedback = {
+    totalMistakes: number;
     accuracy: string;
     mistypedChars: string;
     wordsPerMinute: string;
