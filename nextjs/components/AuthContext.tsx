@@ -100,10 +100,14 @@ export const AuthProvider = ({ children }) => {
             })
             .catch(error => console.error('there was an error when logging out: ', error))
 
-
+        setUsername(null)
         setIsLoggedIn(false)
     }
 
+
+    useEffect(() => {
+        if (isLoggedIn === false) setUsername(null)
+    }, [isLoggedIn]);
 
 
     useEffect(() => {

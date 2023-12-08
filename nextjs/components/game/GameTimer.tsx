@@ -8,16 +8,18 @@ enum GameState {
 
 interface GameTimerProps {
   gameState: GameState;
-  finalStats: (totalTime: number) => void;
+  finalStats: () => void;
   resetGame: () => void;
+  updateSeconds: () => void;
 }
 
 
-const GameTimer: React.FC<GameTimerProps> = ({ gameState, finalStats, resetGame}) => {
+const GameTimer: React.FC<GameTimerProps> = ({ gameState, finalStats, resetGame, updateSeconds}) => {
   const [time, setTime] = useState(0);
 
 
 
+/*
   useEffect(() => {
     let interval: NodeJS.Timeout;
 
@@ -28,13 +30,44 @@ const GameTimer: React.FC<GameTimerProps> = ({ gameState, finalStats, resetGame}
     }
 
     return () => {
+      clearInterval(interval);
+    };
+  }, [gameState]);
+
+  useEffect(() => {
+    if (gameState === GameState.Ended) {
+      console.log('FINAL TIME (TIMER COMPONENT):  ', time);
+      finalStats(time);
+    }
+  }, [gameState, time]);
+
+  */
+   
+  useEffect(() => {
+    let interval: NodeJS.Timeout;
+
+    if (gameState === GameState.InProgress) {
+      interval = setInterval(() => {
+        setTime((prevTime) => prevTime + 1);
+        updateSeconds();
+      }, 1000);
+    }
+
+    if (gameState === GameState.Ended) {
+      console.log('FINAL TIME (TIMER COMPONENT):  ', time) 
+      // finalStats();
+    }
+
+    return () => {
       if (gameState === GameState.InProgress) {
-        console.log('FINAL TIME (TIMER COMPONENT):  ', time)
-        finalStats(time);
+        // console.log('FINAL TIME (TIMER COMPONENT):  ', time)
+        // finalStats(time);
       }
       clearInterval(interval);
     };
-  }, [gameState, time]);
+  }, [gameState]);
+
+  // */
 
   const formatTime = (time: number): string => {
     const minutes = Math.floor(time / 60);

@@ -9,7 +9,7 @@ import { useAuth } from './AuthContext';
 import BurgerButton from './BurgerButton';
 import ModalCard from './ModalCard';
 
-const NavBar = ({setModalOpen}) => {
+const NavBar = ({openModal, closeModal}) => {
 
 const [isCreateAccountOpen, setCreateAccountOpen] = useState(false)
 const [isMyProfileOpen, setMyProfileOpen] = useState(false);
@@ -19,22 +19,69 @@ const { logout} = useAuth()
 const [navOpen, setNavOpen] = useState(false);
 
 
-const testServer = () => {
-    fetch('http://localhost:3004/test', {
+const testServer = async () => {
+    console.log('click');
+    try {
+        const response =  await fetch('http://localhost:3004/test', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         credentials: 'include',
         body:   JSON.stringify({"testing": "testing"}),
-      }).then(response => response.text())
-        .then(data => {
-          console.log('success: ', data);
-        })
-        .catch((error) => {
-          console.error('Error: ', error)
-        })
+      })
+  if (response.ok) {
+        const data = await response.json();
+        console.log(data);
+    } 
+    else {
+       console.error('error in testServer: ', response.status)
+        // throw new Error('HTTP error! status: ' + response.status);
     }
+    } catch (error) {
+        console.error('Error: ', error)
+        }
+    }
+
+  
+
+    // .then(response => response.text())
+    //     .then(data => {
+    //       console.log('success: ', data);
+    //     })
+    //     .catch((error) => {
+    //       console.error('Error: ', error)
+    //     })
+    // }
+
+
+    /*
+            const verifySession = async () => {
+            try {
+                const response = await fetch('http://localhost:3004/verify-session', {
+                    method: 'GET',
+                    credentials: 'include'
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    console.log(data);
+                    if (data && data.validSession) {
+                        setIsLoggedIn(true);
+                        setUsername(data.username);  // Set username here
+                    } else {
+                        setIsLoggedIn(false);
+                    }
+                } else {
+                    setIsLoggedIn(false);
+                    throw new Error('Session verification failed');
+                }
+            } catch (error) {
+                console.error(error.message);
+                setIsLoggedIn(false);
+            }
+        };
+    */
 
 
 
@@ -73,9 +120,9 @@ const toggleNav = () => {
 
 useEffect(() => {
     if (isMyProfileOpen || isLeaderboardOpen || isCreateAccountOpen || isSignInOpen) {
-        setModalOpen(true)
+        openModal();
     } else {
-        setModalOpen(false)
+        closeModal();
     }
 
 }, [isMyProfileOpen, isLeaderboardOpen, isCreateAccountOpen, isSignInOpen]);
@@ -98,7 +145,7 @@ useEffect(() => {
         <div className='absolute top-0 left-0 p-4 z-[210]'>
               <BurgerButton toggleNav={toggleNav}/>
             </div>
-          <div className={navOpen ? 'bg-[#F2f7f7] border-r border-blue-300 flex flex-col justify-evenly z-[120] font-[Sora] text-md text-blue-500' : 'w-10'}>
+          <div className={navOpen ? 'bg-[#F2f7f7] border-r border-blue-300 flex flex-col justify-evenly z-[120] font-[Sora] text-md text-blue-500 transition-all duration-[0.5s]  transform translate-x-0' : 'transform -translate-x-full'}>
             {navOpen && 
               <>
                 <div className='h-16'> </div>

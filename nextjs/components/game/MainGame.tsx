@@ -4,7 +4,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import GameText from '@/components/game/GameText';
 import GameTimer from './GameTimer';
 import GameStats from './GameStats';
-import {incrementIncorrectCount, initializeKeyStats, finalizeStats, analyzeData} from '@/utilities/gameUtils';
+import {incrementIncorrectCount, initializeKeyStats, finalizeStats, analyzeData, submitGame} from '@/utilities/gameUtils';
 import type { Feedback } from '@/types';
 import FeedbackCard from '../FeedbackCard';
 
@@ -16,11 +16,20 @@ export enum GameState {
 
 const MainGame: React.FC = () => {
   const templateString = 'This is a test to see if my typing game is working properly. Lets find out! Lorem ipsum dolor sit amet.';
-  const inputString = templateString.replaceAll(' ', '●');
+  const inputString = templateString.replaceAll(' ', '-');
   const [gameState, setGameState] = useState(GameState.NotStarted);
   const [keyStats, setKeyStats] = useState(initializeKeyStats(inputString));
   const backspaceCount = useRef(0);
+  const [totalSeconds, setTotalSeconds] = useState(0)
 
+
+  const updateSeconds = () => {
+    setTotalSeconds(prevSeconds => prevSeconds + 1)
+  }
+
+  useEffect(() => {
+    console.log('totalSeconds.current: ',  totalSeconds)
+  }, [totalSeconds]);
 
   const [feedback, setFeedback] = useState<Feedback>({
     totalMistakes: 0,
@@ -39,14 +48,13 @@ const MainGame: React.FC = () => {
     setKeyStats((prevStats) => incrementIncorrectCount(prevStats, char));
   }
 
-  const finalStats = (totalTime) => {
-    console.log('TOTAL TIME: ', totalTime);
-    const finalStats = finalizeStats(keyStats, totalTime, backspaceCount.current);
+  const finalStats = () => {
+
+    const finalStats = finalizeStats(keyStats, totalSeconds, backspaceCount.current);
     const finalData = analyzeData(finalStats);
-    console.log('FINAL DATA: ',  finalData);
+    submitGame(finalStats)
     setFeedback(finalData);
-    
-  }
+}
 
 
   const incrementBackspace = () => {
@@ -58,12 +66,14 @@ const MainGame: React.FC = () => {
   };
 
   const endGame = () => {
+    finalStats();
     setGameState(GameState.Ended);
   };
 
   const resetGame = () => {
     setKeyStats(initializeKeyStats(inputString))
     setGameState(GameState.NotStarted);
+    setTotalSeconds(0)
 
   };
 
@@ -105,7 +115,7 @@ const SAMPLE_TEXT_XTRA_LONG=`This is a test to see if my typing game is working 
           </div>
       </div>
           <div className='absolute w-full h-full blur z-10 flex flex-col'>
-              <GameTimer gameState={gameState} finalStats={finalStats} resetGame={resetGame}  /> 
+              <GameTimer gameState={gameState} finalStats={finalStats} resetGame={resetGame} updateSeconds={updateSeconds}  /> 
               <div className='flex-grow overflow-hidden'>
               <GameText  gameState={gameState} updateStats={updateStats} incrementBackspace={incrementBackspace} addIncorrect={addIncorrect} startGame={startGame} endGame={endGame} templateString={SAMPLE_TEXT_SHORT} />
               </div>
@@ -117,7 +127,7 @@ const SAMPLE_TEXT_XTRA_LONG=`This is a test to see if my typing game is working 
         <>
         <div className='w-full h-full relative'>
         <div className='absolute w-full h-full z-10 flex flex-col'>
-              <GameTimer gameState={gameState} finalStats={finalStats} resetGame={resetGame}  /> 
+              <GameTimer gameState={gameState} finalStats={finalStats} resetGame={resetGame} updateSeconds={updateSeconds}  /> 
         <div className='flex-grow overflow-hidden'>
               <GameText  gameState={gameState} updateStats={updateStats} incrementBackspace={incrementBackspace} addIncorrect={addIncorrect} startGame={startGame} endGame={endGame} templateString={SAMPLE_TEXT_SHORT} />
               </div>
@@ -129,7 +139,7 @@ const SAMPLE_TEXT_XTRA_LONG=`This is a test to see if my typing game is working 
         <>
         <div className='w-full h-full relative'>
         <div className='blur absolute'>
-              <GameTimer gameState={gameState} finalStats={finalStats} resetGame={resetGame}  /> 
+              <GameTimer gameState={gameState} finalStats={finalStats} resetGame={resetGame} updateSeconds={updateSeconds}  /> 
               <GameText  gameState={gameState} updateStats={updateStats} incrementBackspace={incrementBackspace} addIncorrect={addIncorrect} startGame={startGame} endGame={endGame} templateString={SAMPLE_TEXT_SHORT} />
         </div> 
         <div className='absolute w-full h-full'>

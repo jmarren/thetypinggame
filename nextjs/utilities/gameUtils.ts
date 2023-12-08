@@ -9,7 +9,7 @@ export function initializeKeyStats(inputString: string): KeyStats {
           totalTime: 0,
           totalCharacters: inputString.length,
           charactersPerSecond: 0,
-          totalWords: inputString.split('●').length,
+          totalWords: inputString.split('-').length,
           wordsPerMinute: 0,
           totalMistakes: 0,
           backspaceCount: 0
@@ -98,6 +98,7 @@ export function initializeKeyStats(inputString: string): KeyStats {
   export function analyzeData(keyStats) {
     const { keyData, gameStats } = keyStats;
 
+
     // Overall Accuracy
     const totalMistakes = gameStats.totalMistakes;
     const totalTyped = gameStats.totalCharacters;
@@ -127,7 +128,7 @@ export function initializeKeyStats(inputString: string): KeyStats {
     const feedback: Feedback = {
       totalMistakes: totalMistakes,
       accuracy: accuracy.toFixed(2),
-      mistypedChars: mostMistyped.join(', ').replaceAll('●', 'space'),
+      mistypedChars: mostMistyped.join(', ').replaceAll('-', 'space'),
       wordsPerMinute: wpm.toFixed(1),
       backspaceUsage: backspaceUsage
     };
@@ -137,3 +138,35 @@ export function initializeKeyStats(inputString: string): KeyStats {
 
     return feedback;
 }
+
+
+export const submitGame = async (keyStats) => {
+
+  const { keyData, gameStats } = keyStats;
+  // console.log('submitting game data ------------')
+  // console.log('keydata', keyData);
+  // console.log('gamestats', gameStats);
+  // console.log('-------------------')
+  try {
+    const response = await fetch('http://localhost:3004/submit-game', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include',
+      body: JSON.stringify({keyData, gameStats }),
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const message = await response.text();
+    console.log(message);
+  } catch (error) {
+    console.error('Error submitting game data', error);
+  }
+};
+
+
+

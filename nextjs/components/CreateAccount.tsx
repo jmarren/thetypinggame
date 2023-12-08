@@ -70,51 +70,52 @@ const CreateAccount = ({toggleSignIn}) => {
     return (
 
 
-        <div className='w-[50%] h-[80%] bg-sky-300 rounded-md absolute p-14 flex'>
+        <div className='w-[50%]  bg-blue-400 rounded-md absolute p-14 flex font-[Sora] text-white flex flex-col'>
+            <div className='text-3xl'>Create Account</div> 
 
 <form onSubmit={handleSubmit} className="space-y-4 w-full mt-10">
                 <div>
-                    <label htmlFor="username" className="block text-sm font-medium text-gray-700">Username</label>
+                    <label htmlFor="username" className="block text-sm font-medium ">Username</label>
                     <input
                         type="text"
                         name="username"
                         id="username"
                         value={formData.username}
                         onChange={handleChange}
-                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                        className="mt-1 block w-full px-3 py-2 border border-gray-300 bg-slate-200 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                     />
                 </div>
                 <div>
-                    <label htmlFor="password" className="block text-sm font-medium text-gray-700">Password</label>
+                    <label htmlFor="password" className="block text-sm font-medium ">Password</label>
                     <input
                         type="password"
                         name="password"
                         id="password"
                         value={formData.password}
                         onChange={handleChange}
-                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-slate-200 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                     />
                 </div>
                 <div>
-                    <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700">Confirm Password</label>
+                    <label htmlFor="confirmPassword" className="block text-sm font-medium ">Confirm Password</label>
                     <input
                         type="password"
                         name="confirmPassword"
                         id="confirmPassword"
                         value={formData.confirmPassword}
                         onChange={handleChange}
-                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-slate-200 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                     />
                 </div>
                 <div>
-                    <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email</label>
+                    <label htmlFor="email" className="block text-sm font-medium ">Email</label>
                     <input
                         type="email"
                         name="email"
                         id="email"
                         value={formData.email}
                         onChange={handleChange}
-                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-slate-200 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                     />
                 </div>
                 <button
@@ -123,7 +124,7 @@ const CreateAccount = ({toggleSignIn}) => {
                 >
                     Submit
                 </button>
-                {error && <div style={{ color: 'red' }}>{error}</div>}
+                {error && <div className='text-black text-center'>{error}</div>}
                 {successMessage && <div className='text-green-600 text-3xl'>{successMessage}</div>}
             </form>
 

@@ -13,7 +13,7 @@ dotenv.config();
 const app = express();
 const port = 3004;
 const saltRounds = 10;
-const whitelist = ['http://localhost:3000', 'http://localhost:3000/layout1', 'http://localhost:3000/', 'http://localhost:3000/layout1/', 'http://localhost:3000/computer' ]
+const whitelist = ['http://localhost:3000', 'http://localhost:3000/layout1', 'http://localhost:3000/', 'http://localhost:3000/layout1/', 'http://localhost:3000/computer', 'http://localhost:3000/layout2' ]
 
 
 var corsOptions = {
@@ -50,8 +50,8 @@ app.use(express.urlencoded({ extended: true }));
 
 
 
-app.post('/test',  userAuthMiddleware,  (req, res) => {
-    // console.log('test req.user: ', req.user);
+app.post('/test', userAuthMiddleware, (req, res) => {
+    console.log('test req.user: ', req.user);
     console.log('/TEST ROUTE, req.cookies: ', req.cookies);
     console.log('/TEST ROUTE, req.cookies.token: ', req.cookies.token);
     console.log('/TEST ROUTE, req.user: ', req.user)
@@ -219,8 +219,11 @@ app.post('/logout', (req, res) => {
 
 app.post('/submit-game', userAuthMiddleware, async (req, res) => {
     console.log('submit game req.body: ', req.body)
+    // console.log('submit game req.user: ', req.user);
     try {
-        const {userId, username, keyData, gameStats } = req.body;
+        const { keyData, gameStats } = req.body;
+        const userId = req.user.id;
+        const username = req.user.username;
         // const gameStats = keyStats.gameStats;
         // const keyData = keyStats.keyData;
 

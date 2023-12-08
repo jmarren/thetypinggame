@@ -8,13 +8,21 @@ import NavBar from '@/components/NavBar';
 
 const Page: React.FC = () => {
     const [modalOpen, setModalOpen] = useState(false)
+
+    const openModal = () => {
+        setModalOpen(true);
+    }
+    const closeModal = () => {
+        setModalOpen(false);
+    }
+
     return (
         <div className='w-full h-full min-h-screen  flex flex-row'>
             
             <div className='h-full min-h-screen'>
-                <NavBar setModalOpen={setModalOpen}/>
+                <NavBar openModal={openModal} closeModal={closeModal} />
             </div>
-            <div className='h-full min-h-screen flex-grow  flex flex-col'>
+            <div className={modalOpen ? 'h-full min-h-screen flex-grow  flex flex-col blur' : 'h-full min-h-screen flex-grow  flex flex-col' }>
                 <div className='w-full '> 
                 <MainGame />
                 </div>

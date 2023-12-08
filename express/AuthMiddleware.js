@@ -33,13 +33,14 @@ const userAuthMiddleware = async (req, res, next) => {
         }
 
         // Add user information to the request object
+        // console.log('user.rows[0]: ', user.rows[0])
         req.user = {
             id: user.rows[0].user_id,
             username: user.rows[0].username,
             // Add other user details as needed
         };
-
-        console.log('AUTH MIDDLEWARE REQ.USER: ', req.user);
+        // console.log('req.user: ', req.user)
+        // console.log('AUTH MIDDLEWARE REQ.USER: ', req.user);
 
         next();
     } catch (error) {
