@@ -11,10 +11,16 @@ import ModalCard from './ModalCard';
 
 const NavBar = ({openModal, closeModal}) => {
 
-const [isCreateAccountOpen, setCreateAccountOpen] = useState(false)
-const [isMyProfileOpen, setMyProfileOpen] = useState(false);
-const [isLeaderboardOpen, setLeaderboardOpen] = useState(false)
-const [isSignInOpen, setSignInOpen] = useState(false);
+    enum ModalType {
+        None,
+        CreateAccount,
+        MyProfile,
+        Leaderboard,
+        SignIn,
+        ChooseText
+      }
+      const [activeModal, setActiveModal] = useState(ModalType.None);
+
 const { logout} = useAuth()
 const [navOpen, setNavOpen] = useState(false);
 
@@ -36,109 +42,47 @@ const testServer = async () => {
     } 
     else {
        console.error('error in testServer: ', response.status)
-        // throw new Error('HTTP error! status: ' + response.status);
     }
     } catch (error) {
         console.error('Error: ', error)
         }
     }
 
-  
+ 
 
-    // .then(response => response.text())
-    //     .then(data => {
-    //       console.log('success: ', data);
-    //     })
-    //     .catch((error) => {
-    //       console.error('Error: ', error)
-    //     })
-    // }
-
-
-    /*
-            const verifySession = async () => {
-            try {
-                const response = await fetch('http://localhost:3004/verify-session', {
-                    method: 'GET',
-                    credentials: 'include'
-                });
-
-                if (response.ok) {
-                    const data = await response.json();
-                    console.log(data);
-                    if (data && data.validSession) {
-                        setIsLoggedIn(true);
-                        setUsername(data.username);  // Set username here
-                    } else {
-                        setIsLoggedIn(false);
-                    }
-                } else {
-                    setIsLoggedIn(false);
-                    throw new Error('Session verification failed');
-                }
-            } catch (error) {
-                console.error(error.message);
-                setIsLoggedIn(false);
+        const toggleModal = (modalType: ModalType) => {
+            if (activeModal === modalType) {
+              setActiveModal(ModalType.None);
+            } else {
+              setActiveModal(modalType);
             }
-        };
-    */
+          };
+          const toggleCreateAccount = () => toggleModal(ModalType.CreateAccount);
+          const toggleProfile = () => toggleModal(ModalType.MyProfile);
+          const toggleLeaderboard = () => toggleModal(ModalType.Leaderboard);
+          const toggleSignIn = () => toggleModal(ModalType.SignIn);
+          const toggleChooseText = () => toggleModal(ModalType.ChooseText);
 
 
-
-const toggleCreateAccount = () => {
-    setMyProfileOpen(false);
-    setLeaderboardOpen(false);
-    setCreateAccountOpen(!isCreateAccountOpen);
-    setSignInOpen(false);
-}
-const toggleProfile = () => {
-    setMyProfileOpen(!isMyProfileOpen);
-    setLeaderboardOpen(false);
-    setCreateAccountOpen(false);
-    setSignInOpen(false);
-
-}
-const toggleLeaderboard = () => {
-    setMyProfileOpen(false);
-    setLeaderboardOpen(!isLeaderboardOpen);
-    setCreateAccountOpen(false);
-    setSignInOpen(false);
-
-}
-
-const toggleSignIn = () => {
-    setMyProfileOpen(false);
-    setLeaderboardOpen(false);
-    setCreateAccountOpen(false);
-    setSignInOpen(!isSignInOpen);
-
-}
 
 const toggleNav = () => {
     setNavOpen(!navOpen)
 }
 
 useEffect(() => {
-    if (isMyProfileOpen || isLeaderboardOpen || isCreateAccountOpen || isSignInOpen) {
+    if (activeModal !== ModalType.None) {
         openModal();
     } else {
         closeModal();
     }
 
-}, [isMyProfileOpen, isLeaderboardOpen, isCreateAccountOpen, isSignInOpen]);
-
-
-useEffect(() => {
-    console.log(isSignInOpen)
-}, [isSignInOpen]);
+}, [activeModal]);
 
 
 
-    // const buttonStyle = {
-    //     margin: '10px',
-    //     padding: '5px',
-    // }
-    const buttonClass = 'w-full p-4'
+    const buttonClass = 'w-full p-4 hover:text-blue-700 active:transform active:scale-95 transition-all duration-75'
+    const modalOpenClass = 'text-blue-300 hover:text-blue-400'
+
 
     return (
         <div className="flex h-full min-h-screen">            
@@ -149,90 +93,24 @@ useEffect(() => {
             {navOpen && 
               <>
                 <div className='h-16'> </div>
-                <button className={buttonClass} onClick={toggleCreateAccount}>Create Account</button>
-                <button className={buttonClass} onClick={toggleProfile}>My Profile</button>
-                <button className={buttonClass} onClick={toggleLeaderboard}>Leaderboard</button>
-                <button className={buttonClass} onClick={toggleSignIn}>Sign In</button>
+                <button className={buttonClass} onClick={toggleCreateAccount}><span className={activeModal === ModalType.CreateAccount ? modalOpenClass : ''}>Create Account </span></button>
+                <button className={buttonClass} onClick={toggleProfile}><span className={activeModal === ModalType.MyProfile ? modalOpenClass : ''}>My Profile </span></button>
+                <button className={buttonClass} onClick={toggleLeaderboard}><span className={activeModal === ModalType.Leaderboard ? modalOpenClass : ''}> Leaderboard</span></button>
+                <button className={buttonClass} onClick={toggleSignIn}><span className={activeModal === ModalType.SignIn ? modalOpenClass : ''}>Sign In </span></button>
+                <button className={buttonClass} onClick={toggleChooseText}><span className={activeModal === ModalType.ChooseText ? modalOpenClass : ''}>Sign In </span></button>
                 <button className={buttonClass} onClick={testServer}>Test Server</button>
                 <button className={buttonClass} onClick={logout}>Log Out</button>
               </>
             }
             <div className='flex-grow w-full bg-[#F2f7f7]'></div>
           </div>
-          {isCreateAccountOpen && <div className='flex-grow w-full min-h-screen flex justify-center items-center z-[100] fixed'><CreateAccount toggleSignIn={toggleSignIn}/></div>}
-          {isLeaderboardOpen && <div className='flex-grow w-full min-h-screen flex justify-center items-center z-[100] fixed'><ModalCard ><Leaderboard /></ModalCard> </div>}
-          {isMyProfileOpen && <div className='flex-grow w-full min-h-screen flex justify-center items-center z-[100] fixed'><MyProfile /></div>}
-          {isSignInOpen && <div className='flex-grow w-full min-h-screen flex justify-center items-center z-[100] fixed'><SignIn /></div>}
+        {activeModal === ModalType.CreateAccount && <div className='flex-grow w-full min-h-screen flex justify-center items-center z-[100] fixed'><CreateAccount toggleSignIn={toggleSignIn}/></div>}
+        {activeModal === ModalType.Leaderboard && <div className='flex-grow w-full min-h-screen flex justify-center items-center z-[100] fixed'><ModalCard ><Leaderboard /></ModalCard> </div>}
+        {activeModal === ModalType.MyProfile && <div className='flex-grow w-full min-h-screen flex justify-center items-center z-[100] fixed'><ModalCard><MyProfile /></ModalCard></div>}
+        {activeModal === ModalType.SignIn && <div className='flex-grow w-full min-h-screen flex justify-center items-center z-[100] fixed'><SignIn /></div>}
         </div>
       )
 
-
-    /*
-    return (
-
-
-
-
-        <>
-            <>  
-            {isCreateAccountOpen && <div className='w-full min-h-screen flex justify-center items-center z-[150] fixed'><CreateAccount  toggleSignIn={toggleSignIn}/></div>}
-  {isLeaderboardOpen && <div className='w-full min-h-screen flex justify-center items-center z-[150] fixed'><Leaderboard /></div>}
-  {isMyProfileOpen && <div className='w-full min-h-screen flex justify-center items-center z-[150] fixed'><MyProfile /></div>}
-  {isSignInOpen && <div className='w-full min-h-screen flex justify-center items-center z-[200] absolute'><SignIn /></div>}
-
-            <div className='absolute top-0 left-0 p-4 z-[210] border border-blue-600'>
-            <BurgerButton toggleNav={toggleNav}/>
-            </div> 
-            </>
-    <div className={navOpen ? 'bg-[#F2f7f7]  h-full min-h-screen border-r border-blue-300 flex flex-col justify-evenly  z-[120]   font-[Sora] text-md text-blue-500' : 'w-10'}>
-        <div className='h-16 relative'>
-
-        </div>
-        
-        {navOpen ? 
-        <>
-         <button  className={buttonClass} onClick={toggleCreateAccount}>
-            Create Account
-        </button>
-
-        <button  className={buttonClass} onClick={toggleProfile}>
-            My Profile
-        </button>
-
-        <button  className={buttonClass} onClick={toggleLeaderboard}>
-            Leaderboard
-        </button>
-
-        <button  className={buttonClass} onClick={toggleSignIn}>
-            Sign In
-        </button>
-
-        <button  className={buttonClass} onClick={testServer} >
-            Test Server
-        </button>
-
-        <button  className={buttonClass} onClick={logout} >
-            Log Out
-        </button>
-        </>
-    :
-            <></>
-    }
-       
-        <div className='flex-grow w-full bg-[#F2f7f7] '>
-        </div>
-    </div>
-
-    </>
-    )
-
-
-    */
 }
 
 export default NavBar;
-
-    {/* {isCreateAccountOpen ? <div className='w-full min-h-screen flex justify-center items-center z-[150] fixed'><CreateAccount  toggleSignIn={toggleSignIn}/></div> : <></>}
-    {isLeaderboardOpen ? <div className='w-full min-h-screen flex justify-center items-center z-[150] fixed'><Leaderboard /></div> : <></>}
-    {isMyProfileOpen ? <div className='w-full min-h-screen flex justify-center items-center z-[150] fixed'><MyProfile /></div> : <></>}
-    {isSignInOpen ? <div className='w-full min-h-screen flex justify-center items-center z-[150] fixed '><SignIn /></div> : <></>} */}

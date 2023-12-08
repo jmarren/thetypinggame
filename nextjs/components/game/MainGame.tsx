@@ -14,11 +14,15 @@ export enum GameState {
   Ended,
 }
 
-const MainGame: React.FC = () => {
-  const templateString = 'This is a test to see if my typing game is working properly. Lets find out! Lorem ipsum dolor sit amet.';
+const MainGame: React.FC<{ templateString: string }> = ({ templateString }) => {
   const inputString = templateString.replaceAll(' ', '-');
+
+  // Rest of the code...
+
   const [gameState, setGameState] = useState(GameState.NotStarted);
   const [keyStats, setKeyStats] = useState(initializeKeyStats(inputString));
+
+
   const backspaceCount = useRef(0);
   const [totalSeconds, setTotalSeconds] = useState(0)
 
@@ -117,7 +121,7 @@ const SAMPLE_TEXT_XTRA_LONG=`This is a test to see if my typing game is working 
           <div className='absolute w-full h-full blur z-10 flex flex-col'>
               <GameTimer gameState={gameState} finalStats={finalStats} resetGame={resetGame} updateSeconds={updateSeconds}  /> 
               <div className='flex-grow overflow-hidden'>
-              <GameText  gameState={gameState} updateStats={updateStats} incrementBackspace={incrementBackspace} addIncorrect={addIncorrect} startGame={startGame} endGame={endGame} templateString={SAMPLE_TEXT_SHORT} />
+              <GameText  gameState={gameState} updateStats={updateStats} incrementBackspace={incrementBackspace} addIncorrect={addIncorrect} startGame={startGame} endGame={endGame} templateString={templateString} />
               </div>
         </div> 
         </div>
@@ -129,7 +133,7 @@ const SAMPLE_TEXT_XTRA_LONG=`This is a test to see if my typing game is working 
         <div className='absolute w-full h-full z-10 flex flex-col'>
               <GameTimer gameState={gameState} finalStats={finalStats} resetGame={resetGame} updateSeconds={updateSeconds}  /> 
         <div className='flex-grow overflow-hidden'>
-              <GameText  gameState={gameState} updateStats={updateStats} incrementBackspace={incrementBackspace} addIncorrect={addIncorrect} startGame={startGame} endGame={endGame} templateString={SAMPLE_TEXT_SHORT} />
+              <GameText  gameState={gameState} updateStats={updateStats} incrementBackspace={incrementBackspace} addIncorrect={addIncorrect} startGame={startGame} endGame={endGame} templateString={templateString} />
               </div>
         </div> 
         </div>
@@ -140,17 +144,22 @@ const SAMPLE_TEXT_XTRA_LONG=`This is a test to see if my typing game is working 
         <div className='w-full h-full relative'>
         <div className='blur absolute'>
               <GameTimer gameState={gameState} finalStats={finalStats} resetGame={resetGame} updateSeconds={updateSeconds}  /> 
-              <GameText  gameState={gameState} updateStats={updateStats} incrementBackspace={incrementBackspace} addIncorrect={addIncorrect} startGame={startGame} endGame={endGame} templateString={SAMPLE_TEXT_SHORT} />
+              <GameText  gameState={gameState} updateStats={updateStats} incrementBackspace={incrementBackspace} addIncorrect={addIncorrect} startGame={startGame} endGame={endGame} templateString={templateString} />
         </div> 
-        <div className='absolute w-full h-full'>
-          <div className='w-full flex flex-col items-center justify-center h-full  z-50' >
-            <FeedbackCard feedback={feedback} resetGame={resetGame} />
-            </div>
+        {/* <div className='absolute w-full h-full'>
+
+          </div> */}
           </div>
-          </div>
+
         </>
       )}
       </div>
+      {gameState === GameState.Ended && (
+            <div className=' absolute w-full h-full top-0 left-0 flex items-center justify-center z-50 border border-green-500' >
+            <FeedbackCard feedback={feedback} resetGame={resetGame} />
+            </div>
+      
+      )}
     </>
    
   );

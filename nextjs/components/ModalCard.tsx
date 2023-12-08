@@ -6,8 +6,8 @@ interface ModalCardProps {
 
 const ModalCard: React.FC<ModalCardProps> = ({ children }) => {
     return (
-        // min-w-[400px] min-h-[500px
-<div className="bg-blue-400 p-2 rounded-lg shadow-2xl text-white font-[Sora]">
+        <div className='w-[50%]  bg-blue-400 rounded-md absolute p-14 flex font-[Sora] text-white flex flex-col '>
+
             {children}
         </div>
     );

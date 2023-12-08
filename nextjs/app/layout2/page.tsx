@@ -8,6 +8,8 @@ import NavBar from '@/components/NavBar';
 
 const Page: React.FC = () => {
     const [modalOpen, setModalOpen] = useState(false)
+    const [textChosen, setTextChosen] = useState('Hello! Welcome to the wonderful world of typing')
+    
 
     const openModal = () => {
         setModalOpen(true);
@@ -24,9 +26,9 @@ const Page: React.FC = () => {
             </div>
             <div className={modalOpen ? 'h-full min-h-screen flex-grow  flex flex-col blur' : 'h-full min-h-screen flex-grow  flex flex-col' }>
                 <div className='w-full '> 
-                <MainGame />
+                <MainGame templateString={textChosen}/>
                 </div>
-                <div className='w-full h-[200px]  min-[750px]:h-[300px] px-6'> 
+                <div className='w-full h-[200px]  min-[750px]:h-[300px] min-[1000px]:h-[375px] px-6'> 
                     <CustomKeyboard /> 
                 </div>
             </div>

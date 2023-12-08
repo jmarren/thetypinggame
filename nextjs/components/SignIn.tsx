@@ -34,16 +34,18 @@ const SignIn = () => {
     
       return (
     <div className='w-[50%] min-w-[200px] bg-blue-400 text-white font-[Sora] rounded-md  absolute p-14 flex-col'>
-      <div className='text-3xl'>
+
+        {username ?  <div className='text-white text-3xl'>{successMessage}</div> :      
+        <>
+        <div className='text-3xl'>
         Sign In
         </div>
-        {username ?  <div className='text-white text-3xl'>{successMessage}</div> :
         <form onSubmit={handleSubmit}  className="space-y-4 w-full mt-10">
           <div>
             <label htmlFor="username"
             >Username:</label>
             <input
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-slate-200 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+              className="mt-1 text-slate-700 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-slate-200 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
               type="text"
               id="username"
               name="username"
@@ -55,7 +57,7 @@ const SignIn = () => {
           <div>
             <label htmlFor="password">Password:</label>
             <input
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-slate-200 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+              className="mt-1 text-slate-700 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-slate-200 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
               type="password"
               id="password"
               name="password"
@@ -70,7 +72,8 @@ const SignIn = () => {
           >Sign In</button>
             {errorMessage && <div style={{ color: 'red' }}>{errorMessage}</div>}
             
-        </form> }
+        </form> 
+        </>}
         </div>
       );
 

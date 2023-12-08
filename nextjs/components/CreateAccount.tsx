@@ -77,45 +77,49 @@ const CreateAccount = ({toggleSignIn}) => {
                 <div>
                     <label htmlFor="username" className="block text-sm font-medium ">Username</label>
                     <input
+                        placeholder='Username'
                         type="text"
                         name="username"
                         id="username"
                         value={formData.username}
                         onChange={handleChange}
-                        className="mt-1 block w-full px-3 py-2 border border-gray-300 bg-slate-200 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                        className="mt-1 block text-slate-700 w-full px-3 py-2 border border-gray-300 bg-slate-200 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                     />
                 </div>
                 <div>
                     <label htmlFor="password" className="block text-sm font-medium ">Password</label>
                     <input
+                        placeholder='password'
                         type="password"
                         name="password"
                         id="password"
                         value={formData.password}
                         onChange={handleChange}
-                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-slate-200 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                        className="mt-1 block text-slate-700 w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-slate-200 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                     />
                 </div>
                 <div>
                     <label htmlFor="confirmPassword" className="block text-sm font-medium ">Confirm Password</label>
                     <input
+                        placeholder='confirm password'
                         type="password"
                         name="confirmPassword"
                         id="confirmPassword"
                         value={formData.confirmPassword}
                         onChange={handleChange}
-                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-slate-200 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                        className="mt-1 block text-slate-700 w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-slate-200 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                     />
                 </div>
                 <div>
                     <label htmlFor="email" className="block text-sm font-medium ">Email</label>
                     <input
+                        placeholder='email@site.com'
                         type="email"
                         name="email"
                         id="email"
                         value={formData.email}
                         onChange={handleChange}
-                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-slate-200 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                        className="mt-1 block text-slate-700 w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-slate-200 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                     />
                 </div>
                 <button

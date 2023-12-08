@@ -2,6 +2,7 @@
 
 import { useAuth } from "./AuthContext"
 import {useEffect} from 'react'
+import ModalCard from "./ModalCard"
 
 const MyProfile = () => {
 const {username} = useAuth();
@@ -13,12 +14,64 @@ useEffect(() => {
 
 
     return (
-        <div className='w-[50%] h-[80%] bg-green-300 rounded-md absolute '>
-            <div>
-                Username: {username}
+        <>
+            <div className='text-3xl'>
+                My Profile
+                </div>
+            
+            <div className='mt-10 space-y-4'>
+           
+            <div className=''>
+                Username
+                    <br/>
+            <div className='ml-2 text-slate-500'>
+                {username}
+                </div>
             </div>
-        
-        </div> 
+            
+            <div>
+                Email 
+                    <br /> 
+            <div className='ml-2 text-slate-500'>
+                {/* email */}
+                </div>
+            </div>
+
+
+            <div>
+                Games Played
+                <br /> 
+            <div className='ml-2 text-slate-500'>
+                {/* games played */}
+                </div>
+            </div>
+
+            <div>
+                Highest WPM
+                <br /> 
+            <div className='ml-2 text-slate-500'>
+                {/* highest wpm */}
+                </div>
+            </div>
+
+            <div>
+                Account Created
+                <br /> 
+            <div className='ml-2 text-slate-500'>
+                {/* account creation date */}
+                </div>
+            </div>
+
+
+            
+            <hr className='mt-6'/> 
+
+            <div className='mt-6'>
+                <span className='flex justify-evenly'><button className=''>Change Password</button><button className=''>Log Out</button> </span>
+            </div> 
+            </div>
+        </> 
+    
 
 
     )

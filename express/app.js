@@ -6,7 +6,7 @@ const dotenv = require('dotenv');
 const pool = require('./db');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const userAuthMiddleware = require('./AuthMiddleware'); // Adjust the path
+const userAuthMiddleware = require('./AuthMiddleware'); 
 
 dotenv.config();
 
