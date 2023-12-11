@@ -58,7 +58,7 @@ const FeedbackCard: React.FC<FeedbackCardProps> = ({ feedback, resetGame }) => {
                     </div>
                     <hr className='my-4 text-blue-900' /> 
                 <div className='flex justify-center mt-2'>
-                    <button className='p-2 px-4 w-1/2 bg-blue-600 rounded-full' onClick={resetGame}>
+                    <button className='p-2 px-4 w-[9rem] bg-blue-600 rounded-full hover:bg-blue-500 active:scale-95' onClick={resetGame}>
                         Play Again!
                     </button>
                 </div>

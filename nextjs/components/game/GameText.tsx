@@ -12,12 +12,13 @@ interface GameTextProps {
     endGame: () => void;
     startGame: () => void;
     addIncorrect: (char: string) => void;
+    addCorrect: (char: string) => void;
   }
 
-const GameText: React.FC<GameTextProps> = ({ templateString, gameState, incrementBackspace, endGame, startGame, addIncorrect }) => {
+const GameText: React.FC<GameTextProps> = ({ templateString, gameState, incrementBackspace, endGame, startGame, addCorrect, addIncorrect }) => {
   const [userInput, setUserInput] = useState('');
   const inputString = templateString.replaceAll(' ', '-');
-  const textContainerRef = useRef(null); // Ref for the text container
+  const textContainerRef = useRef(null);
 
 
 useEffect(() => {
@@ -35,8 +36,6 @@ useEffect(() => {
   if (userInput === inputString) {
         endGame();
   }
-
-
 }, [userInput]);
 
 
@@ -61,13 +60,21 @@ useEffect(() => {
       }
   
       if (key !== 'Backspace' && key !== inputString[nextUserInput.length - 1] && key !== ' ') {
+        console.log('INCORRECT')
         console.log(inputString[nextUserInput.length - 1])
         addIncorrect(inputString[nextUserInput.length - 1]);
       }
-      else if(key === ' ' && '●' !== inputString[nextUserInput.length - 1]) {
+      else if(key === ' ' && '-' !== inputString[nextUserInput.length - 1]) {
+        console.log('INCORRECT')
         console.log(inputString[nextUserInput.length - 1])
-          addIncorrect(inputString[nextUserInput.length - 1]);
+        addIncorrect(inputString[nextUserInput.length - 1]);
+      }  
+      else if (key === inputString[nextUserInput.length - 1]) {
+        addCorrect(inputString[nextUserInput.length - 1]);
+        console.log('CORRECT')
       }
+
+      
   
       setUserInput(nextUserInput);
   
@@ -81,7 +88,7 @@ useEffect(() => {
     return () => {
       window.removeEventListener('keydown', handleKeydown);
     };
-  }, [gameState, startGame, userInput, inputString, addIncorrect]);
+  }, [gameState, startGame, userInput, inputString, addIncorrect, addCorrect]);
 
 
 
@@ -108,40 +115,6 @@ useEffect(() => {
 };
 
 export default GameText;
-// useEffect(() => {
-//     if (gameState === GameState.NotStarted || gameState === GameState.Ended) {
-//         return;
-//     }
-//     const handleKeydown = (event: React.KeyboardEvent) => {
-//         const key = event.key
-//         if (key === ' ') {
-//             event.preventDefault();
-//             setUserInput(prev => prev + '●' )
-//             console.log('userInput: ', userInput)
-//             if ('●' !== inputString[userInput.length] ) {
-//               console.log(inputString[userInput.length])
-//               addIncorrect(inputString[userInput.length])
-//             }
-//         } else if (key.length === 1 && key !== ' ') {
-//             setUserInput(prev => prev + event.key);
-//             if (key !== inputString[userInput.length]) {
-//               console.log(inputString[userInput.length])
-//               addIncorrect(inputString[userInput.length])
-//             }
-//         }
-//         if (event.key === 'Backspace')  {
-//                 setUserInput(prev => prev.slice(0, -1));
-//                 incrementBackspace(); 
-//         }
-//         if (event.key === 'Enter') {
-//             startGame();
-//         }        
-//     }
 
-//     window.addEventListener('keydown', handleKeydown);
 
-//     return () => {
-//         window.removeEventListener('keydown', handleKeydown)
-//     }
 
-// }, [gameState, startGame]);

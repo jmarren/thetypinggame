@@ -35,7 +35,7 @@ const CustomKeyboard = () => {
   const keysRow3 = ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P", "[", "]"];
   const keysRow4 = ["A", "S", "D", "F", "G", "H", "J", "K", "L", ";", "'"];
   const keysRow5 = ["Z", "X", "C", "V", "B", "N", "M", ",", ".", "/"];
-  //   const keysRow6 = ["ctrl", "fn", "opt", "cmd⌘"];
+
 
   const keysRow6 = [
     { keyName: "ctrl", eventName: "Control" },

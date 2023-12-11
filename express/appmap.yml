@@ -1,4 +1,6 @@
 name: express
-packages: []
+packages:
+  - path: controllers
+  - path: routes
 language: javascript
 appmap_dir: tmp/appmap

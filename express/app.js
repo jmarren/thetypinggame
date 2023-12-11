@@ -9,8 +9,10 @@ const jwt = require('jsonwebtoken');
 const userAuthMiddleware = require('./AuthMiddleware'); 
 const {createProxyMiddleware } = require('http-proxy-middleware');
 const axios = require('axios');
-
+const gameStatsRoutes = require('./routes/gameStats');
 const userRoutes = require('./routes/users');
+const gameRoutes = require('./routes/games');
+
 
 
 dotenv.config();
@@ -34,19 +36,6 @@ var corsOptions = {
 
 app.use(cors(corsOptions));
 
-
-
-
-app.use('/genius-api', createProxyMiddleware({
-    target: `https://api.lyrics.ovh`,
-    changeOrigin: true,
-    logLevel: 'debug', // Enable logging
-    onError: function(err, req, res) {
-        console.error('Error occurred while trying to proxy:', err);
-      },
-  }));
-
-
 app.use(express.json());
 
 
@@ -54,10 +43,9 @@ app.use(cookieParser());
 
 app.use(express.urlencoded({ extended: true }));
 
-// app.use(authMiddleware)
 app.use('/user', userRoutes);
-
-
+app.use('/game-stats', gameStatsRoutes);
+app.use('/games', gameRoutes);
 
 app.post('/test', userAuthMiddleware, (req, res) => {
     console.log('test req.user: ', req.user);
@@ -67,29 +55,6 @@ app.post('/test', userAuthMiddleware, (req, res) => {
     console.log('testing')
     res.json('testing');
 })
-
-
-
-app.get('/poem-titles', async (req, res) => {
-    try {
-        const response = await axios.get(`https://poetrydb.org/author/${req.author}`);
-        const poems = response.data;
-
-        // Assuming each poem object has a 'title' property
-        const titles = poems.map(poem => poem.title);
-
-        res.json(titles);
-    } catch (error) {
-        console.error('Error fetching poems:', error);
-        res.status(500).send('Error fetching poem titles');
-    }
-});
-
-
-app.post('/submit-game', userAuthMiddleware, async (req, res) => {
-   
-})
-
 
 
 
@@ -103,7 +68,29 @@ app.listen(port, () => {
 
 
 
+// app.use('/genius-api', createProxyMiddleware({
+//     target: `https://api.lyrics.ovh`,
+//     changeOrigin: true,
+//     logLevel: 'debug', // Enable logging
+//     onError: function(err, req, res) {
+//         console.error('Error occurred while trying to proxy:', err);
+//       },
+//   }));
 
+// app.get('/poem-titles', async (req, res) => {
+//     try {
+//         const response = await axios.get(`https://poetrydb.org/author/${req.author}`);
+//         const poems = response.data;
+
+//         // Assuming each poem object has a 'title' property
+//         const titles = poems.map(poem => poem.title);
+
+//         res.json(titles);
+//     } catch (error) {
+//         console.error('Error fetching poems:', error);
+//         res.status(500).send('Error fetching poem titles');
+//     }
+// });
 
 
 

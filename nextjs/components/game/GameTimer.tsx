@@ -78,7 +78,7 @@ const GameTimer: React.FC<GameTimerProps> = ({ gameState, finalStats, resetGame,
 
   return (
   <div className='font-[Sora] text-slate-600  flex gap-4'>
-    <div>
+    <div className='w-[4rem]'>
       {gameState === GameState.NotStarted ? '0:00' : formatTime(time)}
       </div>
     <button onClick={resetGame}>

@@ -43,7 +43,7 @@ const SignIn = () => {
         <form onSubmit={handleSubmit}  className="space-y-4 w-full mt-10">
           <div>
             <label htmlFor="username"
-            >Username:</label>
+            >Username</label>
             <input
               className="mt-1 text-slate-700 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-slate-200 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
               type="text"
@@ -55,7 +55,7 @@ const SignIn = () => {
             />
           </div>
           <div>
-            <label htmlFor="password">Password:</label>
+            <label htmlFor="password">Password</label>
             <input
               className="mt-1 text-slate-700 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-slate-200 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
               type="password"

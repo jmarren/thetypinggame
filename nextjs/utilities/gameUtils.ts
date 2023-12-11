@@ -46,12 +46,34 @@ export function initializeKeyStats(inputString: string): KeyStats {
         ...prevStats.keyData,
         [char]: {
           ...prevStats.keyData[char],
-          incorrect: prevStats.keyData[char].incorrect + 1
+          incorrect: prevStats.keyData[char].incorrect + 1,
+          total: prevStats.keyData[char].total + 1
         }
       },
       gameStats: {
         ...prevStats.gameStats,
         totalMistakes: prevStats.gameStats.totalMistakes + 1
+      }
+    };
+  }
+
+  // If the character doesn't exist in keyData, return the previous state
+  return prevStats;
+}
+
+
+export function incrementCorrectCount(prevStats, char) {
+  // Check if the character exists in the keyData stats
+  if (prevStats.keyData[char]) {
+    return {
+      ...prevStats,
+      keyData: {
+        ...prevStats.keyData,
+        [char]: {
+          ...prevStats.keyData[char],
+          correct: prevStats.keyData[char].correct + 1,
+          total: prevStats.keyData[char].total + 1
+        }
       }
     };
   }
@@ -117,14 +139,6 @@ export function initializeKeyStats(inputString: string): KeyStats {
     // Backspace Usage
     const backspaceUsage = gameStats.backspaceCount;
   
-    // Construct feedback
-    // const feedback = {
-    //   accuracy: `Accuracy: ${accuracy.toFixed(2)}%.`,
-    //   mistypedChars: `Most Missed: ${mostMistyped.join(', ').replaceAll('●', 'space')}.`,
-    //   typingSpeed: `Speed: ${wpm.toFixed(1)} words per minute.`,
-    //   backspaceInfo: `Backspace: ${backspaceUsage} times.`
-    // };
-  
     const feedback: Feedback = {
       totalMistakes: totalMistakes,
       accuracy: accuracy.toFixed(2),
@@ -143,12 +157,8 @@ export function initializeKeyStats(inputString: string): KeyStats {
 export const submitGame = async (keyStats) => {
 
   const { keyData, gameStats } = keyStats;
-  // console.log('submitting game data ------------')
-  // console.log('keydata', keyData);
-  // console.log('gamestats', gameStats);
-  // console.log('-------------------')
   try {
-    const response = await fetch('http://localhost:3004/submit-game', {
+    const response = await fetch('http://localhost:3004/games/submit-game', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

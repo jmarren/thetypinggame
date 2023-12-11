@@ -4,7 +4,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import GameText from '@/components/game/GameText';
 import GameTimer from './GameTimer';
 import GameStats from './GameStats';
-import {incrementIncorrectCount, initializeKeyStats, finalizeStats, analyzeData, submitGame} from '@/utilities/gameUtils';
+import {incrementIncorrectCount, incrementCorrectCount, initializeKeyStats, finalizeStats, analyzeData, submitGame} from '@/utilities/gameUtils';
 import type { Feedback } from '@/types';
 import FeedbackCard from '../FeedbackCard';
 
@@ -49,6 +49,10 @@ const MainGame: React.FC<{ templateString: string }> = ({ templateString }) => {
 
   const addIncorrect = (char: string) => {
     setKeyStats((prevStats) => incrementIncorrectCount(prevStats, char));
+  }
+
+  const addCorrect = (char: string) => {
+    setKeyStats((prevStats) => incrementCorrectCount(prevStats, char))
   }
 
   const finalStats = () => {
@@ -120,7 +124,7 @@ const SAMPLE_TEXT_XTRA_LONG=`This is a test to see if my typing game is working 
           <div className='absolute w-full h-full blur z-10 flex flex-col'>
               <GameTimer gameState={gameState} finalStats={finalStats} resetGame={resetGame} updateSeconds={updateSeconds}  /> 
               <div className='flex-grow overflow-hidden'>
-              <GameText  gameState={gameState} updateStats={updateStats} incrementBackspace={incrementBackspace} addIncorrect={addIncorrect} startGame={startGame} endGame={endGame} templateString={templateString} />
+              <GameText  gameState={gameState} updateStats={updateStats} incrementBackspace={incrementBackspace} addIncorrect={addIncorrect} addCorrect={addCorrect} startGame={startGame} endGame={endGame} templateString={templateString} />
               </div>
         </div> 
         </div>
@@ -132,7 +136,7 @@ const SAMPLE_TEXT_XTRA_LONG=`This is a test to see if my typing game is working 
         <div className='absolute w-full h-full z-10 flex flex-col'>
               <GameTimer gameState={gameState} finalStats={finalStats} resetGame={resetGame} updateSeconds={updateSeconds}  /> 
         <div className='flex-grow overflow-hidden'>
-              <GameText  gameState={gameState} updateStats={updateStats} incrementBackspace={incrementBackspace} addIncorrect={addIncorrect} startGame={startGame} endGame={endGame} templateString={templateString} />
+              <GameText  gameState={gameState} updateStats={updateStats} incrementBackspace={incrementBackspace} addIncorrect={addIncorrect} addCorrect={addCorrect} startGame={startGame} endGame={endGame} templateString={templateString} />
               </div>
         </div> 
         </div>
@@ -143,12 +147,9 @@ const SAMPLE_TEXT_XTRA_LONG=`This is a test to see if my typing game is working 
         <div className='w-full h-full relative'>
         <div className='blur absolute'>
               <GameTimer gameState={gameState} finalStats={finalStats} resetGame={resetGame} updateSeconds={updateSeconds}  /> 
-              <GameText  gameState={gameState} updateStats={updateStats} incrementBackspace={incrementBackspace} addIncorrect={addIncorrect} startGame={startGame} endGame={endGame} templateString={templateString} />
-        </div> 
-        {/* <div className='absolute w-full h-full'>
-
-          </div> */}
-          </div>
+              <GameText  gameState={gameState} updateStats={updateStats} incrementBackspace={incrementBackspace} addIncorrect={addIncorrect} addCorrect={addCorrect} startGame={startGame} endGame={endGame} templateString={templateString} />
+          </div> 
+        </div>
 
         </>
       )}

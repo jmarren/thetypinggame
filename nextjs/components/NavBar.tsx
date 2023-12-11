@@ -96,7 +96,7 @@ useEffect(() => {
     return (
         <div className="flex h-full min-h-screen">            
         <div className='absolute top-0 left-0 p-4 z-[210]'>
-              <BurgerButton toggleNav={toggleNav}/>
+              <BurgerButton toggleNav={toggleNav} navOpen={navOpen} />
             </div>
           <div className={navOpen ? 'bg-[#F2f7f7] border-r border-blue-300 flex flex-col justify-evenly z-[120] font-[Sora] text-md text-blue-500 transition-all duration-[0.5s]  transform translate-x-0' : 'transform -translate-x-full'}>
             {navOpen && 
