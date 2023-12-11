@@ -12,7 +12,7 @@ type FeedbackCardProps = {
 const FeedbackCard: React.FC<FeedbackCardProps> = ({ feedback, resetGame }) => {
     return (
         <ModalCard >
-            <div  className=' p-4 text-white font-[Sora] text-sm text-shadow-black '>
+            <div  className='text-white font-[Sora] text-sm text-shadow-black '>
             <div className=' text-center text-2xl text-shadow-black'>Great Job!</div>
             <div className='  font-[Sora] text-xs flex  flex-col items-left justify-between  '>
                <hr className='my-4 text-blue-900' /> 

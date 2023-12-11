@@ -17,7 +17,6 @@ export enum GameState {
 const MainGame: React.FC<{ templateString: string }> = ({ templateString }) => {
   const inputString = templateString.replaceAll(' ', '-');
 
-  // Rest of the code...
 
   const [gameState, setGameState] = useState(GameState.NotStarted);
   const [keyStats, setKeyStats] = useState(initializeKeyStats(inputString));
@@ -155,7 +154,7 @@ const SAMPLE_TEXT_XTRA_LONG=`This is a test to see if my typing game is working 
       )}
       </div>
       {gameState === GameState.Ended && (
-            <div className=' absolute w-full h-full top-0 left-0 flex items-center justify-center z-50 border border-green-500' >
+            <div className=' absolute w-full h-full top-0 left-0 flex items-center justify-center z-50' >
             <FeedbackCard feedback={feedback} resetGame={resetGame} />
             </div>
       

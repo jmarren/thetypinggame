@@ -11,6 +11,10 @@ const Page: React.FC = () => {
     const [textChosen, setTextChosen] = useState('Hello! Welcome to the wonderful world of typing')
     
 
+    const setText = (text: string) => {
+        setTextChosen(text);
+    };
+
     const openModal = () => {
         setModalOpen(true);
     }
@@ -22,11 +26,11 @@ const Page: React.FC = () => {
         <div className='w-full h-full min-h-screen  flex flex-row'>
             
             <div className='h-full min-h-screen'>
-                <NavBar openModal={openModal} closeModal={closeModal} />
+                <NavBar openModal={openModal} closeModal={closeModal} setText={setText} />
             </div>
             <div className={modalOpen ? 'h-full min-h-screen flex-grow  flex flex-col blur' : 'h-full min-h-screen flex-grow  flex flex-col' }>
                 <div className='w-full '> 
-                <MainGame templateString={textChosen}/>
+                <MainGame templateString={textChosen} />
                 </div>
                 <div className='w-full h-[200px]  min-[750px]:h-[300px] min-[1000px]:h-[375px] px-6'> 
                     <CustomKeyboard /> 

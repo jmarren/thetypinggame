@@ -8,10 +8,10 @@ const dotenv = require('dotenv');
 
 
 const userAuthMiddleware = async (req, res, next) => {
-    console.log('USER AUTH MIDDLEWARE REQ.BODY: ', req.body);
-    console.log('USER AUTH MIDDLEWARE REQ.HEADERS: ', req.headers);
-    console.log('USER AUTH MIDDLEWARE REQ.COOKIES: ', req.cookies);
-    console.log('USER AUTH MIDDLEWARE TOKEN: ', req.cookies.token);
+    // console.log('USER AUTH MIDDLEWARE REQ.BODY: ', req.body);
+    // console.log('USER AUTH MIDDLEWARE REQ.HEADERS: ', req.headers);
+    // console.log('USER AUTH MIDDLEWARE REQ.COOKIES: ', req.cookies);
+    // console.log('USER AUTH MIDDLEWARE TOKEN: ', req.cookies.token);
     try {
         // Retrieve the token from the cookie
         const token = req.cookies.token;
@@ -44,7 +44,7 @@ const userAuthMiddleware = async (req, res, next) => {
 
         next();
     } catch (error) {
-        console.error('Authentication error: ', error);
+        // console.error('Authentication error: ', error);
         res.status(401).json({ message: 'Authentication error.' });
     }
 };

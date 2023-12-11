@@ -58,7 +58,7 @@ const CustomKeyboard = () => {
     background: "rgb(220, 220, 220)",
     borderRadius: "5px",
     boxShadow:
-    '0px 0px 3px rgb(180, 180, 180) inset, -1.5px 3px 0px 0.5px rgb(210, 210, 210), -2px 4px 0px 2px rgb(140, 140, 140), -2px 4px 8px 3px gray',
+    '0px 0px 3px rgb(180, 180, 180) inset, -1.5px 3px 0px 0.5px rgb(210, 210, 210), -2px 4px 0px 2px rgb(140, 140, 140), -2px 4px 8px 3px lightgray',
     // transform: 'rotate3d(10, 1, 1, 30deg)'
     
   };

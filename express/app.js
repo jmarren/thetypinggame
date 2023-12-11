@@ -7,6 +7,8 @@ const pool = require('./db');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const userAuthMiddleware = require('./AuthMiddleware'); 
+const {createProxyMiddleware } = require('http-proxy-middleware');
+const axios = require('axios');
 
 dotenv.config();
 
@@ -39,6 +41,16 @@ app.use(cors(corsOptions));
 //   }));
 
 
+app.use('/genius-api', createProxyMiddleware({
+    target: `https://api.lyrics.ovh`,
+    changeOrigin: true,
+    logLevel: 'debug', // Enable logging
+    onError: function(err, req, res) {
+        console.error('Error occurred while trying to proxy:', err);
+      },
+  }));
+
+
 app.use(express.json());
 
 
@@ -60,6 +72,21 @@ app.post('/test', userAuthMiddleware, (req, res) => {
 })
 
 
+
+app.get('/poem-titles', async (req, res) => {
+    try {
+        const response = await axios.get(`https://poetrydb.org/author/${req.author}`);
+        const poems = response.data;
+
+        // Assuming each poem object has a 'title' property
+        const titles = poems.map(poem => poem.title);
+
+        res.json(titles);
+    } catch (error) {
+        console.error('Error fetching poems:', error);
+        res.status(500).send('Error fetching poem titles');
+    }
+});
 
 
 //// CREATE ACCOUNT
@@ -270,6 +297,20 @@ app.post('/submit-game', userAuthMiddleware, async (req, res) => {
 
     }
 })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
