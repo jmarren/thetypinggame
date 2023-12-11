@@ -26,7 +26,7 @@ const CreateAccount = ({toggleSignIn}) => {
         }
 
         try {
-        const response = await fetch('http://localhost:3004/create-account', {
+        const response = await fetch('http://localhost:3004/user/create-account', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',

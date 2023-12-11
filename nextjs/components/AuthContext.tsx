@@ -24,7 +24,7 @@ export const AuthProvider = ({ children }) => {
 
     const fetchUsername = useCallback(async () => {
         try {
-            const response = await fetch('http://localhost:3004/get-username-with-token', {
+            const response = await fetch('http://localhost:3004/user/get-username-with-token', {
                 method: 'GET',
                 credentials: 'include', // Necessary for cookies to be sent
                 headers: {
@@ -49,7 +49,7 @@ export const AuthProvider = ({ children }) => {
 
     const login = async (formData: FormDataType) => {
         try {
-            const response = await fetch('http://localhost:3004/login', {
+            const response = await fetch('http://localhost:3004/user/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -86,7 +86,7 @@ export const AuthProvider = ({ children }) => {
     // }
 
     const logout = () => {
-        fetch('http://localhost:3004/logout', {
+        fetch('http://localhost:3004/user/logout', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -113,7 +113,7 @@ export const AuthProvider = ({ children }) => {
     useEffect(() => {
         const verifySession = async () => {
             try {
-                const response = await fetch('http://localhost:3004/verify-session', {
+                const response = await fetch('http://localhost:3004/user/verify-session', {
                     method: 'GET',
                     credentials: 'include'
                 });
@@ -142,7 +142,7 @@ export const AuthProvider = ({ children }) => {
 
 
     // useEffect(() => {
-    //     fetch('http://localhost:3004/verify-session', {
+    //     fetch('http://localhost:3004/user/verify-session', {
     //         method: 'GET',
     //         credentials: 'include'
     //     })
