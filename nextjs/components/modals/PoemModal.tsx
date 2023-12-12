@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 
-interface ChooseTextProps {
+interface PoemModalProps {
   setText: (text: string) => void;
   toggleModal: () => void;
 }
 
-const ChooseText: React.FC<ChooseTextProps> = ({setText, toggleModal}) => {
-    const [poetChosen, setPoetChosen] = useState<string | null>(null);
+const PoemModal: React.FC<PoemModalProps> = ({setText, toggleModal}) => {
+    const [poetChosen, setPoetChosen] = useState<string | null>(null);  
     const [poems, setPoems] = useState<string[]>([]);
 
 
@@ -227,4 +227,4 @@ const famousPoets =  [
     );
 };
 
-export default ChooseText;
+export default PoemModal;

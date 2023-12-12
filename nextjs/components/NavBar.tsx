@@ -1,14 +1,15 @@
 'use client'
 
 import React, {useState, useEffect} from 'react';
-import CreateAccount from './CreateAccount';
-import MyProfile from './MyProfile';
-import Leaderboard from './Leaderboard';
-import SignIn from './SignIn';
+import CreateAccount from './modals/CreateAccount';
+import MyProfile from './modals/MyProfile';
+import Leaderboard from './modals/Leaderboard';
+import SignIn from './modals/SignIn';
 import { useAuth } from './AuthContext';
 import BurgerButton from './BurgerButton';
-import ModalCard from './ModalCard';
-import ChooseText from './ChooseText';
+import ModalCard from './modals/ModalCard';
+import PoemModal from './modals/PoemModal';
+import Practice from './modals/Practice';
 
 interface NavBarProps {
   openModal: () => void
@@ -24,7 +25,8 @@ const NavBar: React.FC<NavBarProps> = ({openModal, closeModal, setText}) => {
         MyProfile,
         Leaderboard,
         SignIn,
-        ChooseText
+        Poems,
+        Practice
       }
       const [activeModal, setActiveModal] = useState(ModalType.None);
 
@@ -70,7 +72,8 @@ const testServer = async () => {
           const toggleProfile = () => toggleModal(ModalType.MyProfile);
           const toggleLeaderboard = () => toggleModal(ModalType.Leaderboard);
           const toggleSignIn = () => toggleModal(ModalType.SignIn);
-          const toggleChooseText = () => toggleModal(ModalType.ChooseText);
+          const togglePoems = () => toggleModal(ModalType.Poems);
+          const togglePractice = () => toggleModal(ModalType.Practice);
 
 
 
@@ -106,7 +109,8 @@ useEffect(() => {
                 <button className={buttonClass} onClick={toggleProfile}><span className={activeModal === ModalType.MyProfile ? modalOpenClass : ''}>My Profile </span></button>
                 <button className={buttonClass} onClick={toggleLeaderboard}><span className={activeModal === ModalType.Leaderboard ? modalOpenClass : ''}> Leaderboard</span></button>
                 <button className={buttonClass} onClick={toggleSignIn}><span className={activeModal === ModalType.SignIn ? modalOpenClass : ''}>Sign In </span></button>
-                <button className={buttonClass} onClick={toggleChooseText}><span className={activeModal === ModalType.ChooseText ? modalOpenClass : ''}>Choose Text</span></button>
+                <button className={buttonClass} onClick={togglePoems}><span className={activeModal === ModalType.Poems ? modalOpenClass : ''}>Poems</span></button>
+                <button className={buttonClass} onClick={togglePractice}><span className={activeModal === ModalType.Practice ? modalOpenClass : ''}>Practice</span></button>                
                 <button className={buttonClass} onClick={testServer}>Test Server</button>
                 <button className={buttonClass} onClick={logout}>Log Out</button>
               </>
@@ -117,7 +121,8 @@ useEffect(() => {
         {activeModal === ModalType.Leaderboard && <div className='flex-grow w-full min-h-screen flex justify-center items-center z-[100] fixed'><ModalCard ><Leaderboard /></ModalCard> </div>}
         {activeModal === ModalType.MyProfile && <div className='flex-grow w-full min-h-screen flex justify-center items-center z-[100] fixed'><ModalCard><MyProfile /></ModalCard></div>}
         {activeModal === ModalType.SignIn && <div className='flex-grow w-full min-h-screen flex justify-center items-center z-[100] fixed'><SignIn /></div>}
-        {activeModal === ModalType.ChooseText && <div className='flex-grow w-full min-h-screen flex justify-center items-center z-[100] fixed'><ModalCard><ChooseText setText={setText} toggleModal={toggleChooseText} /></ModalCard></div>}
+        {activeModal === ModalType.Poems && <div className='flex-grow w-full min-h-screen flex justify-center items-center z-[100] fixed'><ModalCard><PoemModal setText={setText} toggleModal={togglePoems} /></ModalCard></div>}
+        {activeModal === ModalType.Practice && <div className='flex-grow w-full min-h-screen flex justify-center items-center z-[100] fixed'><ModalCard><Practice setText={setText} toggleModal={togglePractice} /></ModalCard></div>}
         </div>
       )
 

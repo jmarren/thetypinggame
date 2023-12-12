@@ -18,9 +18,11 @@ export const AuthContext = createContext<AuthContextType | null>(null)
 export const useAuth = () => useContext(AuthContext);
 
 
+
 export const AuthProvider = ({ children }) => {
     const [isLoggedIn, setIsLoggedIn] = useState(false)
     const [username, setUsername] = useState(null)
+    const [email, setEmail] = useState(null)
 
     const fetchUsername = useCallback(async () => {
         try {
@@ -38,6 +40,8 @@ export const AuthProvider = ({ children }) => {
 
             const data = await response.json();
             setUsername(data.username);
+            setEmail(data.email);
+            console.log('fetched get username with token')
             setIsLoggedIn(true)
         } catch (error) {
             console.error('Error fetching username:', error);
@@ -46,6 +50,11 @@ export const AuthProvider = ({ children }) => {
 
 
 
+
+
+    useEffect(() => {
+        console.log(email)
+    }, [email]);
 
     const login = async (formData: FormDataType) => {
         try {
@@ -68,6 +77,7 @@ export const AuthProvider = ({ children }) => {
                 // Set the username in your AuthContext
                 console.log('data.username: ', data.username);
                 setUsername(data.username);
+                setEmail(data.email)
                 setIsLoggedIn(true)
                 console.log('LOGIN SUCCEEDED');
                 } else {
@@ -106,7 +116,10 @@ export const AuthProvider = ({ children }) => {
 
 
     useEffect(() => {
-        if (isLoggedIn === false) setUsername(null)
+        if (!isLoggedIn) {
+            setEmail(null)
+            setUsername(null)
+        }
     }, [isLoggedIn]);
 
 
@@ -124,6 +137,8 @@ export const AuthProvider = ({ children }) => {
                     if (data && data.validSession) {
                         setIsLoggedIn(true);
                         setUsername(data.username);  // Set username here
+                        setEmail(data.email)
+
                     } else {
                         setIsLoggedIn(false);
                     }
@@ -173,7 +188,7 @@ export const AuthProvider = ({ children }) => {
 
 
 
-    const value = { isLoggedIn, login, logout, username, fetchUsername }
+    const value = { isLoggedIn, login, logout, username, fetchUsername, email }
 
 
     return (

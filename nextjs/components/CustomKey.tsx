@@ -1,9 +1,13 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import {useAuth } from './AuthContext';
 
-const CustomKey = ({ keyName, eventName }) => {
+const CustomKey = ({ keyName, eventName, keyColor }) => {
   const [isActive, setIsActive] = useState(false);
+
+
+
 
   useEffect(() => {
     const handleKeyDown = (event) => {
@@ -33,9 +37,11 @@ const CustomKey = ({ keyName, eventName }) => {
   };
 
   return (
-    <div className={isActive ? "customKeyActive" : "customKey"}>
+
+    <div className={isActive ? "customKeyActive" : "customKey"}  style={{ backgroundColor: keyColor }}>
       <div className="">{keyName}</div>
     </div>
+
   );
 };
 export default CustomKey;

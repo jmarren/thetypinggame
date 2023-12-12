@@ -1,7 +1,41 @@
+'use client'
+
+import { useAuth } from './AuthContext'
 // import Key from "./Key";
 import CustomKey from "@/components/CustomKey";
 
+import React, { useEffect, useState } from "react";
+
 const CustomKeyboard = () => {
+  const [accuracyData, setAccuracyData] = useState({});
+  const { username } = useAuth()
+
+
+  useEffect(() => {
+    if (username) {
+      console.log(username)
+      fetch(`http://localhost:3004/game-stats/user-accuracy/${username}`)
+        .then(response => response.json())
+        .then(data => {
+          setAccuracyData(data);
+        })
+        .catch(error => console.error('Error:', error));
+    }
+  }, [username]);
+
+  function getAccuracyColor(accuracy) {
+    // Ensure accuracy is between 0 and 1
+    accuracy = Math.max(0, Math.min(1, accuracy));
+
+    // Calculate the color components
+    const red = Math.round((1 - accuracy) * 255);
+    const green = Math.round(accuracy * 255);
+
+    // Return the color as a CSS RGB color
+    return `rgb(${red}, ${green}, 0)`;
+  }
+
+
   const keysRow1 = [
     "F1",
     "F2",
@@ -43,7 +77,6 @@ const CustomKeyboard = () => {
     { keyName: "opt", eventName: "Alt" },
     { keyName: "⌘", eventName: "Meta" },
 
-    // ... other keys
   ];
 
   const containerStyles = {
@@ -51,16 +84,14 @@ const CustomKeyboard = () => {
     gridTemplateColumns: "repeat(90, 1fr)" ,
     gridTemplateRows: "repeat(11, auto)" ,
     padding: "0.75rem 0.75rem 1rem 1rem",
-    width: "100%" /* Adjust the width as needed */,
+    width: "100%",
     height: "100%",
     boxSizing: "border-box",
     border: "1px solid rgb(140, 140, 140)",
     background: "rgb(220, 220, 220)",
     borderRadius: "5px",
     boxShadow:
-    '0px 0px 3px rgb(180, 180, 180) inset, -1.5px 3px 0px 0.5px rgb(210, 210, 210), -2px 4px 0px 2px rgb(140, 140, 140), -2px 4px 8px 3px lightgray',
-    // transform: 'rotate3d(10, 1, 1, 30deg)'
-    
+    '0px 0px 3px rgb(180, 180, 180) inset, -1.5px 3px 0px 0.5px rgb(210, 210, 210), -2px 4px 0px 2px rgb(140, 140, 140), -2px 4px 8px 3px lightgray',    
   };
 
   return (
@@ -99,7 +130,7 @@ const CustomKeyboard = () => {
             boxSizing: "border-box",
           }}
         >
-          <CustomKey keyName={key} eventName={key} />
+          <CustomKey keyName={key} eventName={key} keyColor={getAccuracyColor(accuracyData[key])} />
         </div>
       ))}
       <div
@@ -134,7 +165,7 @@ const CustomKeyboard = () => {
             boxSizing: "border-box",
           }}
         >
-          <CustomKey keyName={key} eventName={key} />
+          <CustomKey keyName={key} eventName={key} keyColor={getAccuracyColor(accuracyData[key])} />
         </div>
       ))}
       <div
@@ -181,7 +212,7 @@ const CustomKeyboard = () => {
             boxSizing: "border-box",
           }}
         >
-          <CustomKey keyName={key} eventName={key} />
+          <CustomKey keyName={key} eventName={key} keyColor={getAccuracyColor(accuracyData[key])} />
         </div>
       ))}
       <div
@@ -229,7 +260,7 @@ const CustomKeyboard = () => {
             boxSizing: "border-box",
           }}
         >
-          <CustomKey keyName={key} eventName={key} />
+          <CustomKey keyName={key} eventName={key} keyColor={getAccuracyColor(accuracyData[key])} />
         </div>
       ))}
       <div
@@ -277,7 +308,7 @@ const CustomKeyboard = () => {
             boxSizing: "border-box",
           }}
         >
-          <CustomKey keyName={key} eventName={key} />
+          <CustomKey keyName={key} eventName={key} keyColor={getAccuracyColor(accuracyData[key])} />
         </div>
       ))}
       <div
@@ -329,7 +360,7 @@ const CustomKeyboard = () => {
             boxSizing: "border-box",
           }}
         >
-          <CustomKey keyName={key} eventName={key}  />
+          <CustomKey keyName={key} eventName={key} keyColor={getAccuracyColor(accuracyData[key])}  />
         </div>
       ))} */}
       <div
@@ -344,7 +375,7 @@ const CustomKeyboard = () => {
           boxSizing: "border-box",
         }}
       >
-        <CustomKey keyName={" "} eventName={" "} />
+        <CustomKey keyName={" "} eventName={" "} keyColor={getAccuracyColor(accuracyData["-"])}/>
       </div>
       <div
         className="key"

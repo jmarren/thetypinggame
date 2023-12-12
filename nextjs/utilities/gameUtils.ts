@@ -3,6 +3,8 @@
 import type { Feedback, KeyStats } from '@/types.d.ts'
 
 export function initializeKeyStats(inputString: string): KeyStats {
+  console.log(inputString); 
+  console.log(inputString.split('-').length)
     const stats = {
         keyData: {},
         gameStats: {
@@ -26,10 +28,32 @@ export function initializeKeyStats(inputString: string): KeyStats {
       return stats;
   }
   //----------------------------------------------------------
-  export function calculateCharactersPerLine(container) {
-        const charWidth = 10; // Average width of a character in pixels
-        return Math.floor(container.offsetWidth / charWidth);
-  }
+  // export function calculateCharactersPerLine(container) {
+  //       const charWidth = 10; // Average width of a character in pixels
+  //       return Math.floor(container.offsetWidth / charWidth);
+  // }
+export function calculateCharactersPerLine(container) {
+  // Create a temporary element
+  const tempElement = document.createElement('span');
+  tempElement.innerText = 'a'; // Use a common character
+  tempElement.style.display = 'inline-block';
+  tempElement.style.visibility = 'hidden'; // Hide the element
+
+  // Append the element to the container
+  container.appendChild(tempElement);
+
+  // Measure the width of the element
+  const charWidth = tempElement.offsetWidth;
+
+  // Remove the element
+  container.removeChild(tempElement);
+
+  // Calculate and return the number of characters per line
+  return Math.floor(container.offsetWidth / charWidth);
+}
+
+
+
     //----------------------------------------------------------
 
   export function calculateLineHeight(container) {

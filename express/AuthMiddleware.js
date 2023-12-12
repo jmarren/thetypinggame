@@ -37,6 +37,7 @@ const userAuthMiddleware = async (req, res, next) => {
         req.user = {
             id: user.rows[0].user_id,
             username: user.rows[0].username,
+            email: user.rows[0].email,
             // Add other user details as needed
         };
         // console.log('req.user: ', req.user)

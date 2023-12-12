@@ -5,15 +5,15 @@ import { GameState } from './MainGame';
 import { calculateCharactersPerLine, calculateLineHeight } from '@/utilities/gameUtils';
 
 interface GameTextProps {
-    templateString: string;
-    gameState: GameState;
-    incrementBackspace: () => void;
-    updateStats: (newStats: any) => void;
-    endGame: () => void;
-    startGame: () => void;
-    addIncorrect: (char: string) => void;
-    addCorrect: (char: string) => void;
-  }
+  templateString: string;
+  gameState: GameState;
+  incrementBackspace: () => void;
+  updateStats: (newStats: any) => void;
+  endGame: () => void;
+  startGame: () => void;
+  addIncorrect: (char: string) => void;
+  addCorrect: (char: string) => void;
+}
 
 const GameText: React.FC<GameTextProps> = ({ templateString, gameState, incrementBackspace, endGame, startGame, addCorrect, addIncorrect }) => {
   const [userInput, setUserInput] = useState('');
@@ -21,22 +21,22 @@ const GameText: React.FC<GameTextProps> = ({ templateString, gameState, incremen
   const textContainerRef = useRef(null);
 
 
-useEffect(() => {
+  useEffect(() => {
 
-  if (textContainerRef.current) {
-    const container = textContainerRef.current;
-    const totalCharactersPerLine = calculateCharactersPerLine(container);
-    const currentLine = Math.floor(userInput.length / totalCharactersPerLine);
-    const lineHeight = calculateLineHeight(container);
+    if (textContainerRef.current) {
+      const container = textContainerRef.current;
+      const totalCharactersPerLine = calculateCharactersPerLine(container);
+      const currentLine = Math.floor(userInput.length / totalCharactersPerLine);
+      const lineHeight = calculateLineHeight(container);
 
-    // Scroll to the current line
-    container.scrollTop = currentLine * lineHeight;
-  }
+      // Scroll to the current line
+      container.scrollTop = currentLine * lineHeight;
+    }
 
-  if (userInput === inputString) {
-        endGame();
-  }
-}, [userInput]);
+    if (userInput === inputString) {
+      endGame();
+    }
+  }, [userInput]);
 
 
 
@@ -47,7 +47,7 @@ useEffect(() => {
     const handleKeydown = (event: React.KeyboardEvent) => {
       const key = event.key;
       let nextUserInput;
-  
+
       if (key === ' ') {
         event.preventDefault();
         nextUserInput = userInput + '-';
@@ -58,33 +58,33 @@ useEffect(() => {
       } else {
         return;
       }
-  
+
       if (key !== 'Backspace' && key !== inputString[nextUserInput.length - 1] && key !== ' ') {
         console.log('INCORRECT')
         console.log(inputString[nextUserInput.length - 1])
         addIncorrect(inputString[nextUserInput.length - 1]);
       }
-      else if(key === ' ' && '-' !== inputString[nextUserInput.length - 1]) {
+      else if (key === ' ' && '-' !== inputString[nextUserInput.length - 1]) {
         console.log('INCORRECT')
         console.log(inputString[nextUserInput.length - 1])
         addIncorrect(inputString[nextUserInput.length - 1]);
-      }  
+      }
       else if (key === inputString[nextUserInput.length - 1]) {
         addCorrect(inputString[nextUserInput.length - 1]);
         console.log('CORRECT')
       }
 
-      
-  
+
+
       setUserInput(nextUserInput);
-  
+
       if (key === 'Enter') {
         startGame();
       }
     };
-  
+
     window.addEventListener('keydown', handleKeydown);
-  
+
     return () => {
       window.removeEventListener('keydown', handleKeydown);
     };
@@ -111,7 +111,7 @@ useEffect(() => {
     return styledText;
   };
 
-  return  <div className='text-2xl leading-loose font-[courier] h-full overflow-y-scroll' ref={textContainerRef} dangerouslySetInnerHTML={{ __html: getStyledText() }} />;
+  return <div className='text-2xl leading-loose font-[courier] h-full overflow-y-scroll' ref={textContainerRef} dangerouslySetInnerHTML={{ __html: getStyledText() }} />;
 };
 
 export default GameText;

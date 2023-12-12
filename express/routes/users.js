@@ -63,7 +63,7 @@ router.post('/login', async (req, res) => {
         maxAge: 3600000 // 1 hour
       });
   
-      res.json({ message: 'Logged in successfully.', username: user.rows[0].username });
+      res.json({ message: 'Logged in successfully.', username: user.rows[0].username, email: user.rows[0].email });
     } catch (error) {
       console.error(error);
       res.status(500).json({ message: 'Server error.' });
@@ -81,7 +81,7 @@ router.get('/verify-session', userAuthMiddleware, async (req, res) => {
         try {
             jwt.verify(req.cookies.token, process.env.JWT_SECRET);
             console.log('yes');
-            res.status(200).json({validSession: true, username: req.user.username})
+            res.status(200).json({validSession: true, username: req.user.username, email: req.user.email})
         } catch (error) {
             res.status(401).send('Session is not valid');
         }
@@ -107,17 +107,43 @@ router.get('/get-username-with-token', async (req, res) => {
         console.log('userId: ', userId)
 
 
-        const query = 'SELECT username FROM users WHERE user_id = $1';
+        const query = 'SELECT username, email FROM users WHERE user_id = $1';
         const { rows } = await pool.query(query, [userId]);
 
         if (rows.length === 0) {
             return res.status(404).send({ error: 'User not found' });
         }
 
-        res.send({ username: rows[0].username });
+        res.send({ username: rows[0].username, email: rows[0].email });
     } catch (error) {
         res.status(401).send({ error: 'Invalid token' });
     }
 });
+
+
+
+
+
+
+router.get('/date-account-created/:username', async (req, res) => { 
+  const { username } = req.params;
+  const query = `
+      SELECT 
+          created_at
+      FROM 
+          users
+      WHERE 
+          username = $1;
+  `;
+
+  const result = await pool.query(query, [username]); 
+  res.json(result.rows[0]);
+  
+})
+
+
+
+
+
 
 module.exports = router;

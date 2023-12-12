@@ -12,6 +12,7 @@ const axios = require('axios');
 const gameStatsRoutes = require('./routes/gameStats');
 const userRoutes = require('./routes/users');
 const gameRoutes = require('./routes/games');
+const generateRoutes = require('./routes/generate');
 
 
 
@@ -46,6 +47,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/user', userRoutes);
 app.use('/game-stats', gameStatsRoutes);
 app.use('/games', gameRoutes);
+app.use('/generate', generateRoutes)
 
 app.post('/test', userAuthMiddleware, (req, res) => {
     console.log('test req.user: ', req.user);

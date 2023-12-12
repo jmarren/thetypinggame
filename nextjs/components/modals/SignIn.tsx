@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { useAuth } from './AuthContext';
+import { useAuth } from '../AuthContext';
 
 
 

@@ -6,7 +6,7 @@ import GameTimer from './GameTimer';
 import GameStats from './GameStats';
 import {incrementIncorrectCount, incrementCorrectCount, initializeKeyStats, finalizeStats, analyzeData, submitGame} from '@/utilities/gameUtils';
 import type { Feedback } from '@/types';
-import FeedbackCard from '../FeedbackCard';
+import FeedbackCard from '../modals/FeedbackCard';
 
 export enum GameState {
   NotStarted,
