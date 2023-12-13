@@ -1,7 +1,7 @@
 'use client'
 
 import { useAuth } from "../AuthContext"
-import {useEffect, useState} from 'react'
+import {useEffect, useState, Suspense} from 'react'
 import ModalCard from "./ModalCard"
 
 const MyProfile = () => {
@@ -91,7 +91,7 @@ useEffect(() => {
 }, [username]);
 
     return (
-        <>
+        <> <Suspense fallback={null} >
             <div className='text-3xl'>
                 My Profile
                 </div>
@@ -140,6 +140,7 @@ useEffect(() => {
                 <span className='flex justify-evenly'><button className=''>Change Password</button><button className=''>Log Out</button> </span>
             </div> 
             </div>
+            </Suspense>
         </> 
     
 

@@ -215,7 +215,7 @@ const famousPoets =  [
                   onClick={() => setPoetChosen(poet)}
                   className='p-6 bg-slate-100 rounded shadow cursor-pointer hover:bg-slate-300 flex items-center hover:scale-[1.065] hover:shadow-white hover:shadow-2xl'
                 >
-                <span className='w-full text-center'>
+                <span className='w-full text-center p-2'>
                   {poet}
                   </span>
                 </div>

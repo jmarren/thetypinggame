@@ -15,9 +15,11 @@ interface NavBarProps {
   openModal: () => void
   closeModal: () => void
   setText: (text: string) => void
+  navOpen: boolean
+  toggleNav: () => void
 }
 
-const NavBar: React.FC<NavBarProps> = ({openModal, closeModal, setText}) => {
+const NavBar: React.FC<NavBarProps> = ({openModal, closeModal, setText, navOpen, toggleNav}) => {
 
     enum ModalType {
         None,
@@ -31,7 +33,6 @@ const NavBar: React.FC<NavBarProps> = ({openModal, closeModal, setText}) => {
       const [activeModal, setActiveModal] = useState(ModalType.None);
 
 const { logout} = useAuth()
-const [navOpen, setNavOpen] = useState(false);
 
 
 const testServer = async () => {
@@ -77,9 +78,9 @@ const testServer = async () => {
 
 
 
-const toggleNav = () => {
-    setNavOpen(!navOpen)
-}
+// const toggleNav = () => {
+//     setNavOpen(!navOpen)
+// }
 
 useEffect(() => {
     if (activeModal !== ModalType.None) {
@@ -117,7 +118,8 @@ useEffect(() => {
             }
             <div className='flex-grow w-full bg-[#F2f7f7]'></div>
           </div>
-        {activeModal === ModalType.CreateAccount && <div className='flex-grow w-full min-h-screen flex justify-center items-center z-[100] fixed'><CreateAccount toggleSignIn={toggleSignIn}/></div>}
+        {activeModal === ModalType.CreateAccount && <div className='flex-grow w-full min-h-screen flex justify-center items-center z-[100] fixed'>
+<CreateAccount toggleSignIn={toggleSignIn}/></div>}
         {activeModal === ModalType.Leaderboard && <div className='flex-grow w-full min-h-screen flex justify-center items-center z-[100] fixed'><ModalCard ><Leaderboard /></ModalCard> </div>}
         {activeModal === ModalType.MyProfile && <div className='flex-grow w-full min-h-screen flex justify-center items-center z-[100] fixed'><ModalCard><MyProfile /></ModalCard></div>}
         {activeModal === ModalType.SignIn && <div className='flex-grow w-full min-h-screen flex justify-center items-center z-[100] fixed'><SignIn /></div>}
