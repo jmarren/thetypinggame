@@ -41,20 +41,12 @@ export const AuthProvider = ({ children }) => {
             const data = await response.json();
             setUsername(data.username);
             setEmail(data.email);
-            console.log('fetched get username with token')
             setIsLoggedIn(true)
         } catch (error) {
             console.error('Error fetching username:', error);
         }
     }, []);
 
-
-
-
-
-    useEffect(() => {
-        console.log(email)
-    }, [email]);
 
     const login = async (formData: FormDataType) => {
         try {
@@ -75,11 +67,9 @@ export const AuthProvider = ({ children }) => {
             const data = await response.json();
             if (response.ok) {
                 // Set the username in your AuthContext
-                console.log('data.username: ', data.username);
                 setUsername(data.username);
                 setEmail(data.email)
                 setIsLoggedIn(true)
-                console.log('LOGIN SUCCEEDED');
                 } else {
                 // Handle login failure
                 console.error('Login failed:', data.message);
@@ -105,7 +95,7 @@ export const AuthProvider = ({ children }) => {
         })
             .then(response => {
                 if (response.ok) {
-                    console.log('successfully logged out');
+                    // console.log('successfully logged out');
                 }
             })
             .catch(error => console.error('there was an error when logging out: ', error))
@@ -133,7 +123,6 @@ export const AuthProvider = ({ children }) => {
 
                 if (response.ok) {
                     const data = await response.json();
-                    console.log(data);
                     if (data && data.validSession) {
                         setIsLoggedIn(true);
                         setUsername(data.username);  // Set username here
@@ -154,36 +143,6 @@ export const AuthProvider = ({ children }) => {
 
         verifySession();
     }, []);
-
-
-    // useEffect(() => {
-    //     fetch('http://localhost:3004/user/verify-session', {
-    //         method: 'GET',
-    //         credentials: 'include'
-    //     })
-    //         .then(response => {
-    //             if (response.ok) {
-    //                 return response.json();
-    //             }
-    //             else {
-    //                 setIsLoggedIn(false);
-    //                 throw new Error('Session verification failed');
-    //             }
-    //         })
-    //         .then(data => {
-    //             console.log(data)
-    //             if (data && data.validSession) {
-    //                 setIsLoggedIn(true);
-    //                 setUsername(data.username);  // Set username here
-    //             } else {
-    //                 setIsLoggedIn(false);
-    //             }
-    //         })
-    //         .catch(error => {
-    //             console.error(error.message)
-    //             setIsLoggedIn(false)
-    //         })
-    // }, []);
 
 
 

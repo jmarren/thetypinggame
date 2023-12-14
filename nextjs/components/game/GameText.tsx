@@ -13,9 +13,10 @@ interface GameTextProps {
   startGame: () => void;
   addIncorrect: (char: string) => void;
   addCorrect: (char: string) => void;
+  modalOpen: boolean;
 }
 
-const GameText: React.FC<GameTextProps> = ({ templateString, gameState, incrementBackspace, endGame, startGame, addCorrect, addIncorrect }) => {
+const GameText: React.FC<GameTextProps> = ({ templateString, gameState, incrementBackspace, endGame, startGame, addCorrect, addIncorrect, modalOpen }) => {
   const [userInput, setUserInput] = useState('');
   const inputString = templateString.replaceAll(' ', '-');
   const textContainerRef = useRef(null);
@@ -41,10 +42,12 @@ const GameText: React.FC<GameTextProps> = ({ templateString, gameState, incremen
 
 
   useEffect(() => {
-    if (gameState === GameState.NotStarted || gameState === GameState.Ended) {
+    if (gameState === GameState.NotStarted || gameState === GameState.Ended || modalOpen) {
       return;
     }
     const handleKeydown = (event: React.KeyboardEvent) => {
+      console.log('ModalOpen? : ', modalOpen)
+      if (modalOpen) return;
       const key = event.key;
       let nextUserInput;
 
@@ -60,25 +63,20 @@ const GameText: React.FC<GameTextProps> = ({ templateString, gameState, incremen
       }
 
       if (key !== 'Backspace' && key !== inputString[nextUserInput.length - 1] && key !== ' ') {
-        console.log('INCORRECT')
-        console.log(inputString[nextUserInput.length - 1])
         addIncorrect(inputString[nextUserInput.length - 1]);
       }
       else if (key === ' ' && '-' !== inputString[nextUserInput.length - 1]) {
-        console.log('INCORRECT')
-        console.log(inputString[nextUserInput.length - 1])
         addIncorrect(inputString[nextUserInput.length - 1]);
       }
       else if (key === inputString[nextUserInput.length - 1]) {
         addCorrect(inputString[nextUserInput.length - 1]);
-        console.log('CORRECT')
       }
 
 
 
       setUserInput(nextUserInput);
 
-      if (key === 'Enter') {
+      if (key === 'Enter' && !modalOpen) {
         startGame();
       }
     };
@@ -88,7 +86,7 @@ const GameText: React.FC<GameTextProps> = ({ templateString, gameState, incremen
     return () => {
       window.removeEventListener('keydown', handleKeydown);
     };
-  }, [gameState, startGame, userInput, inputString, addIncorrect, addCorrect]);
+  }, [gameState, startGame, userInput, inputString, addIncorrect, addCorrect, modalOpen]);
 
 
 

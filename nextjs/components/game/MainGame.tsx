@@ -14,7 +14,7 @@ export enum GameState {
   Ended,
 }
 
-const MainGame: React.FC<{ templateString: string }> = ({ templateString }) => {
+const MainGame: React.FC<{ templateString: string, modalOpen: boolean }> = ({ templateString, modalOpen }) => {
   const inputString = templateString.replaceAll(' ', '-');
 
 
@@ -30,9 +30,6 @@ const MainGame: React.FC<{ templateString: string }> = ({ templateString }) => {
     setTotalSeconds(prevSeconds => prevSeconds + 1)
   }
 
-  useEffect(() => {
-    console.log('totalSeconds.current: ',  totalSeconds)
-  }, [totalSeconds]);
 
   const [feedback, setFeedback] = useState<Feedback>({
     totalMistakes: 0,
@@ -69,6 +66,8 @@ const MainGame: React.FC<{ templateString: string }> = ({ templateString }) => {
   }
 
   const startGame = () => {
+    console.log('modalOpen (startGame): ', modalOpen)
+    if (modalOpen) return;
     setGameState(GameState.InProgress);
   };
 
@@ -81,17 +80,14 @@ const MainGame: React.FC<{ templateString: string }> = ({ templateString }) => {
     setKeyStats(initializeKeyStats(inputString))
     setGameState(GameState.NotStarted);
     setTotalSeconds(0)
-
   };
 
 
-  useEffect(() => {
-    console.log('keyStats: ', keyStats)
-  }, [keyStats]);
-
 useEffect(() => {
+
   const handleKeyDown = (event: KeyboardEvent) => {
-    if (event.key === 'Enter' && gameState === GameState.NotStarted) {
+    if (modalOpen) return;
+    if (event.key === 'Enter' && gameState === GameState.NotStarted && !modalOpen) {
       startGame();
     }
   };
@@ -101,7 +97,7 @@ useEffect(() => {
   return () => {
     window.removeEventListener('keydown', handleKeyDown);
   };
-}, [gameState]);
+}, [gameState, modalOpen]);
 
 const SAMPLE_TEXT_SHORT = 'This is a test to see if my typing game is working properly.'
 const SAMPLE_TEXT_LONG = `This is a test to see if my typing game is working properly. Lets find out! Lorem ipsum dolor sit amet.This is a test to see if my typing game is working properly. Lets find out! Lorem ipsum dolor sit amet.This is a test to see if my typing game is working properly. Lets find out! Lorem ipsum dolor sit amet.This is a test to see if my typing game is working properly. Lets find out! Lorem ipsum dolor sit amet.`;
@@ -124,7 +120,7 @@ const SAMPLE_TEXT_XTRA_LONG=`This is a test to see if my typing game is working 
           <div className='absolute w-full h-full blur z-10 flex flex-col'>
               <GameTimer gameState={gameState} finalStats={finalStats} resetGame={resetGame} updateSeconds={updateSeconds}  /> 
               <div className='flex-grow overflow-hidden'>
-              <GameText  gameState={gameState} updateStats={updateStats} incrementBackspace={incrementBackspace} addIncorrect={addIncorrect} addCorrect={addCorrect} startGame={startGame} endGame={endGame} templateString={templateString} />
+              <GameText modalOpen={modalOpen}  gameState={gameState} updateStats={updateStats} incrementBackspace={incrementBackspace} addIncorrect={addIncorrect} addCorrect={addCorrect} startGame={startGame} endGame={endGame} templateString={templateString} />
               </div>
         </div> 
         </div>
@@ -136,7 +132,7 @@ const SAMPLE_TEXT_XTRA_LONG=`This is a test to see if my typing game is working 
         <div className='absolute w-full h-full z-10 flex flex-col'>
               <GameTimer gameState={gameState} finalStats={finalStats} resetGame={resetGame} updateSeconds={updateSeconds}  /> 
         <div className='flex-grow overflow-hidden'>
-              <GameText  gameState={gameState} updateStats={updateStats} incrementBackspace={incrementBackspace} addIncorrect={addIncorrect} addCorrect={addCorrect} startGame={startGame} endGame={endGame} templateString={templateString} />
+              <GameText modalOpen={modalOpen}  gameState={gameState} updateStats={updateStats} incrementBackspace={incrementBackspace} addIncorrect={addIncorrect} addCorrect={addCorrect} startGame={startGame} endGame={endGame} templateString={templateString} />
               </div>
         </div> 
         </div>
@@ -147,7 +143,7 @@ const SAMPLE_TEXT_XTRA_LONG=`This is a test to see if my typing game is working 
         <div className='w-full h-full relative'>
         <div className='blur absolute'>
               <GameTimer gameState={gameState} finalStats={finalStats} resetGame={resetGame} updateSeconds={updateSeconds}  /> 
-              <GameText  gameState={gameState} updateStats={updateStats} incrementBackspace={incrementBackspace} addIncorrect={addIncorrect} addCorrect={addCorrect} startGame={startGame} endGame={endGame} templateString={templateString} />
+              <GameText modalOpen={modalOpen}  gameState={gameState} updateStats={updateStats} incrementBackspace={incrementBackspace} addIncorrect={addIncorrect} addCorrect={addCorrect} startGame={startGame} endGame={endGame} templateString={templateString} />
           </div> 
         </div>
 

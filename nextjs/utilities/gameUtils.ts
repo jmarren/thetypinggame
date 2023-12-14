@@ -3,8 +3,8 @@
 import type { Feedback, KeyStats } from '@/types.d.ts'
 
 export function initializeKeyStats(inputString: string): KeyStats {
-  console.log(inputString); 
-  console.log(inputString.split('-').length)
+  // console.log(inputString); 
+  // console.log(inputString.split('-').length)
     const stats = {
         keyData: {},
         gameStats: {
@@ -196,7 +196,7 @@ export const submitGame = async (keyStats) => {
     }
 
     const message = await response.text();
-    console.log(message);
+    // console.log(message);
   } catch (error) {
     console.error('Error submitting game data', error);
   }

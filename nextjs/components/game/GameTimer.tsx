@@ -16,32 +16,6 @@ interface GameTimerProps {
 
 const GameTimer: React.FC<GameTimerProps> = ({ gameState, finalStats, resetGame, updateSeconds}) => {
   const [time, setTime] = useState(0);
-
-
-
-/*
-  useEffect(() => {
-    let interval: NodeJS.Timeout;
-
-    if (gameState === GameState.InProgress) {
-      interval = setInterval(() => {
-        setTime((prevTime) => prevTime + 1);
-      }, 1000);
-    }
-
-    return () => {
-      clearInterval(interval);
-    };
-  }, [gameState]);
-
-  useEffect(() => {
-    if (gameState === GameState.Ended) {
-      console.log('FINAL TIME (TIMER COMPONENT):  ', time);
-      finalStats(time);
-    }
-  }, [gameState, time]);
-
-  */
    
   useEffect(() => {
     let interval: NodeJS.Timeout;
@@ -55,13 +29,10 @@ const GameTimer: React.FC<GameTimerProps> = ({ gameState, finalStats, resetGame,
 
     if (gameState === GameState.Ended) {
       console.log('FINAL TIME (TIMER COMPONENT):  ', time) 
-      // finalStats();
     }
 
     return () => {
       if (gameState === GameState.InProgress) {
-        // console.log('FINAL TIME (TIMER COMPONENT):  ', time)
-        // finalStats(time);
       }
       clearInterval(interval);
     };

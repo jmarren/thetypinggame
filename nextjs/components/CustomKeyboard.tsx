@@ -13,7 +13,6 @@ const CustomKeyboard = () => {
 
   useEffect(() => {
     if (username) {
-      console.log(username)
       fetch(`http://localhost:3004/game-stats/user-accuracy/${username}`)
         .then(response => response.json())
         .then(data => {
