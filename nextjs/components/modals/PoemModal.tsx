@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
+import { AssessmentType } from '@/types';
+
 
 interface PoemModalProps {
   setText: (text: string) => void;
   toggleModal: () => void;
+  updateAssessmentType: (type: AssessmentType) => void;
 }
 
-const PoemModal: React.FC<PoemModalProps> = ({setText, toggleModal}) => {
+const PoemModal: React.FC<PoemModalProps> = ({setText, toggleModal, updateAssessmentType}) => {
     const [poetChosen, setPoetChosen] = useState<string | null>(null);  
     const [poems, setPoems] = useState<string[]>([]);
 
@@ -169,6 +172,7 @@ const famousPoets =  [
       const poemChosen = poemLines.join(' ');
       setText(poemChosen)
       toggleModal()
+      updateAssessmentType(AssessmentType.None)
     })
     .catch(error => console.error('Error:', error));
 

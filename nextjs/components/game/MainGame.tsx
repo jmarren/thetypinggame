@@ -5,8 +5,12 @@ import GameText from '@/components/game/GameText';
 import GameTimer from './GameTimer';
 import GameStats from './GameStats';
 import {incrementIncorrectCount, incrementCorrectCount, initializeKeyStats, finalizeStats, analyzeData, submitGame} from '@/utilities/gameUtils';
-import type { Feedback } from '@/types';
+import type { Feedback } from '../../types.d.ts';
 import FeedbackCard from '../modals/FeedbackCard';
+import { AssessmentType } from '../../types';
+
+
+
 
 export enum GameState {
   NotStarted,
@@ -14,14 +18,16 @@ export enum GameState {
   Ended,
 }
 
-const MainGame: React.FC<{ templateString: string, modalOpen: boolean }> = ({ templateString, modalOpen }) => {
+
+
+const MainGame: React.FC<{ templateString: string, modalOpen: boolean, isAssessment: boolean, assessmentType: AssessmentType }> = ({ templateString, modalOpen, isAssessment, assessmentType }) => {
+
+
   const inputString = templateString.replaceAll(' ', '-');
 
 
   const [gameState, setGameState] = useState(GameState.NotStarted);
   const [keyStats, setKeyStats] = useState(initializeKeyStats(inputString));
-
-
   const backspaceCount = useRef(0);
   const [totalSeconds, setTotalSeconds] = useState(0)
 
@@ -29,6 +35,9 @@ const MainGame: React.FC<{ templateString: string, modalOpen: boolean }> = ({ te
   const updateSeconds = () => {
     setTotalSeconds(prevSeconds => prevSeconds + 1)
   }
+
+
+
 
 
   const [feedback, setFeedback] = useState<Feedback>({
@@ -56,7 +65,7 @@ const MainGame: React.FC<{ templateString: string, modalOpen: boolean }> = ({ te
 
     const finalStats = finalizeStats(keyStats, totalSeconds, backspaceCount.current);
     const finalData = analyzeData(finalStats);
-    submitGame(finalStats)
+    submitGame(finalStats, isAssessment, assessmentType)
     setFeedback(finalData);
 }
 
@@ -81,6 +90,8 @@ const MainGame: React.FC<{ templateString: string, modalOpen: boolean }> = ({ te
     setGameState(GameState.NotStarted);
     setTotalSeconds(0)
   };
+
+
 
 
 useEffect(() => {

@@ -5,7 +5,7 @@ import { useAuth } from '../AuthContext';
 
 
 
-const SignIn = () => {
+const SignIn = ({openCreateAccount}) => {
     const {login, logout, username } = useAuth()
     const [successMessage, setSuccessMessage] = useState('');
     const [success, setSuccess] = useState(false)
@@ -28,15 +28,11 @@ const SignIn = () => {
         login(formData);
       }
 
-      useEffect(() => {
-        setSuccessMessage(`Welcome back, ${username}!`)
-      }, [username]);
-    
-      return (
-    <div className='w-[50%] min-w-[200px] bg-blue-400 text-white font-[Sora] rounded-md  absolute p-14 flex-col'>
 
-        {username ?  <div className='text-white text-3xl'>{successMessage}</div> :      
-        <>
+      return (
+    <div className='w-[50%] min-w-[500px] bg-blue-400 text-white font-[Sora] rounded-md p-14 flex-col '>
+
+
         <div className='text-3xl'>
         Sign In
         </div>
@@ -73,7 +69,13 @@ const SignIn = () => {
             {errorMessage && <div style={{ color: 'red' }}>{errorMessage}</div>}
             
         </form> 
-        </>}
+        
+        <div className='text-xs mt-2'>New Here? 
+          <button 
+          className='ml-2 underline hover:text-gray-200'
+        onClick={openCreateAccount}
+        >Create Account</button>
+          </div>
         </div>
       );
 

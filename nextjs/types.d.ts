@@ -43,3 +43,11 @@
     backspaceUsage: number;
   };
 
+
+  export enum ModalType {
+    None,
+    Leaderboard,
+    Poems,
+    Practice, 
+    Account
+}

@@ -26,7 +26,7 @@ const Slider: React.FC<SliderProps> = ({ options, updateLength }) => {
     return (
         <div className='w-full h-[4.5rem] flex items-end cursor-pointer'>
             <div className=' flex'>
-                <div className='text-2xl w-[8rem] text-left flex items-center'>Length</div>
+                <div className='text-xl w-[6rem] text-left flex items-center'>Length</div>
                 <div className='bg-slate-200 rounded-full flex-grow flex justify-between items-center text-slate-400 relative shadow-black shadow-inner ring-inset ring ring-slate-100'
                 >
                     <div className=' h-full flex justify-between text-slate-400 items-center z-[220] text-sm' ref={containerRef}>

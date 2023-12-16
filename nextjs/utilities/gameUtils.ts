@@ -1,6 +1,7 @@
 // gameUtils.ts    
 
 import type { Feedback, KeyStats } from '@/types.d.ts'
+import { AssessmentType } from '@/types';
 
 export function initializeKeyStats(inputString: string): KeyStats {
   // console.log(inputString); 
@@ -178,7 +179,10 @@ export function incrementCorrectCount(prevStats, char) {
 }
 
 
-export const submitGame = async (keyStats) => {
+export const submitGame = async (keyStats, isAssessment, assessmentType) => {
+console.log('submitGame function (frontend) ++++++++++++++++++++++++++++++++++++++++++++++++++++++++')
+  console.log('isAssessment', isAssessment);
+  console.log('assessmentType', assessmentType)
 
   const { keyData, gameStats } = keyStats;
   try {
@@ -188,7 +192,7 @@ export const submitGame = async (keyStats) => {
         'Content-Type': 'application/json',
       },
       credentials: 'include',
-      body: JSON.stringify({keyData, gameStats }),
+      body: JSON.stringify({keyData, gameStats, isAssessment, assessmentType }),
     });
 
     if (!response.ok) {
@@ -196,9 +200,12 @@ export const submitGame = async (keyStats) => {
     }
 
     const message = await response.text();
-    // console.log(message);
+    console.log(message);
+    console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++++++')
   } catch (error) {
     console.error('Error submitting game data', error);
+    console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++++++')
+
   }
 };
 

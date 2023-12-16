@@ -12,7 +12,7 @@ const axios = require('axios');
 const gameStatsRoutes = require('./routes/gameStats');
 const userRoutes = require('./routes/users');
 const gameRoutes = require('./routes/games');
-const generateRoutes = require('./routes/generate');
+const textRoutes = require('./routes/text');
 
 
 
@@ -47,7 +47,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/user', userRoutes);
 app.use('/game-stats', gameStatsRoutes);
 app.use('/games', gameRoutes);
-app.use('/generate', generateRoutes)
+app.use('/text', textRoutes)
+
 
 app.post('/test', userAuthMiddleware, (req, res) => {
     console.log('test req.user: ', req.user);

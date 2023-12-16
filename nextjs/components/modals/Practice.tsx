@@ -1,17 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import CardGrid from '../CardGrid';
 import Slider from '../Slider';
+import { AssessmentType } from '@/types';
 
 interface PracticeProps {
   setText: (text: string) => void;
   toggleModal: () => void;
+  updateAssessmentType: (type: AssessmentType) => void;
 }
 
-const Practice: React.FC<PracticeProps> = ({setText, toggleModal}) => {
+const Practice: React.FC<PracticeProps> = ({setText, toggleModal, updateAssessmentType}) => {
     const [charsSelected, setCharsSelected] = useState<string[]>([]);
     const [areCharsSelected, setAreCharsSelected] = useState(false);
     const [lengthSelected, setLengthSelected] = useState('10');
-    // const [isLengthSelected, setIsLengthSelected] = useState(false);
+
+
 
 
 const fetchText = () => {
@@ -21,13 +24,14 @@ const fetchText = () => {
     const chars = charsSelected.join('');
     const length = lengthSelected;
 
-    fetch(`http://localhost:3004/generate/text/${chars}/${length}`)
+    fetch(`http://localhost:3004/text/${chars}/${length}`)
     .then(response => response.json())
     .then(data => {
         console.log(data)
       console.log(data.text)
       setText(data.text)
       toggleModal()
+      updateAssessmentType(AssessmentType.None)
     })
     .catch(error => console.error('Error:', error));
   }

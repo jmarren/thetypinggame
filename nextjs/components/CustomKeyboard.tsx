@@ -1,18 +1,17 @@
 'use client'
 
 import { useAuth } from './AuthContext'
-// import Key from "./Key";
 import CustomKey from "@/components/CustomKey";
 
 import React, { useEffect, useState } from "react";
 
 const CustomKeyboard = () => {
   const [accuracyData, setAccuracyData] = useState({});
-  const { username } = useAuth()
+  const { username, isLoggedIn } = useAuth()
 
 
   useEffect(() => {
-    if (username) {
+    if (isLoggedIn) {
       fetch(`http://localhost:3004/game-stats/user-accuracy/${username}`)
         .then(response => response.json())
         .then(data => {

@@ -3,7 +3,7 @@
 import {useState} from 'react'
 
 
-const CreateAccount = ({toggleSignIn}) => {
+const CreateAccount = ({openSignIn}) => {
     const [successMessage, setSuccessMessage] = useState('');
     const [error, setError] = useState('');
     const [formData, setFormData] = useState({
@@ -50,7 +50,7 @@ const CreateAccount = ({toggleSignIn}) => {
           setError(''); // Clear any previous errors
 
           setTimeout(() => {
-            toggleSignIn();
+            openSignIn();
           }, 2000)
         } catch (err) {
           // Handle errors here, such as displaying a message to the user
@@ -70,7 +70,7 @@ const CreateAccount = ({toggleSignIn}) => {
     return (
 
 
-        <div className='w-[50%]  bg-blue-400 rounded-md absolute p-14 flex font-[Sora] text-white flex flex-col'>
+        <div className='w-[50%] min-w-[500px] bg-blue-400 rounded-md p-14 flex font-[Sora] text-white flex flex-col'>
             <div className='text-3xl'>Create Account</div> 
 
 <form onSubmit={handleSubmit} className="space-y-4 w-full mt-10">
@@ -131,6 +131,12 @@ const CreateAccount = ({toggleSignIn}) => {
                 {error && <div className='text-black text-center'>{error}</div>}
                 {successMessage && <div className='text-green-600 text-3xl'>{successMessage}</div>}
             </form>
+            <div className='text-xs mt-2'>Already have an account? 
+          <button 
+          className='ml-2 underline hover:text-gray-200'
+        onClick={openSignIn}
+        >Sign In</button>
+          </div>
 
         </div>
 
