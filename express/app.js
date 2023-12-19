@@ -13,7 +13,7 @@ const gameStatsRoutes = require('./routes/gameStats');
 const userRoutes = require('./routes/users');
 const gameRoutes = require('./routes/games');
 const textRoutes = require('./routes/text');
-
+const leaderboardRoutes = require('./routes/leaderboard');
 
 
 dotenv.config();
@@ -48,6 +48,7 @@ app.use('/user', userRoutes);
 app.use('/game-stats', gameStatsRoutes);
 app.use('/games', gameRoutes);
 app.use('/text', textRoutes)
+app.use('/leaderboard', leaderboardRoutes);
 
 
 app.post('/test', userAuthMiddleware, (req, res) => {

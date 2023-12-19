@@ -79,8 +79,8 @@ const CustomKeyboard = () => {
 
   const containerStyles = {
     display: "grid",
-    gridTemplateColumns: "repeat(90, 1fr)" ,
-    gridTemplateRows: "repeat(11, auto)" ,
+    gridTemplateColumns: "repeat(90, 1fr)",
+    gridTemplateRows: "repeat(11, auto)",
     padding: "0.75rem 0.75rem 1rem 1rem",
     width: "100%",
     height: "100%",
@@ -89,33 +89,50 @@ const CustomKeyboard = () => {
     background: "rgb(220, 220, 220)",
     borderRadius: "5px",
     boxShadow:
-    '0px 0px 3px rgb(180, 180, 180) inset, -1.5px 3px 0px 0.5px rgb(210, 210, 210), -2px 4px 0px 2px rgb(140, 140, 140), -2px 4px 8px 3px lightgray',    
+      '0px 0px 3px rgb(180, 180, 180) inset, -1.5px 3px 0px 0.5px rgb(210, 210, 210), -2px 4px 0px 2px rgb(140, 140, 140), -2px 4px 8px 3px lightgray',
   };
 
   return (
     <div className='w-full h-full'>
-    <div style={containerStyles} className='text-[0.4rem] min-[800px]:text-[0.6rem] min-[1000px]:text-[0.75rem] min-[1400px]:text-[1rem] gap-[0.25rem] min-[1000px]:gap-[0.5rem]'>
-      <div
-        className="key"
-        style={{
-          lineHeight: "100%",
-          textAlign: "center",
-          justifyContent: "center",
-          alignItems: "center",
-          gridRow: "span 1",
-          gridColumn: "span 6",
-          width: "100%",
-          height: "100%", 
-          margin: 0,
-          boxSizing: "border-box",
-        }}
-      >
-        <CustomKey keyName={"esc"} eventName={"Escape"} />
-      </div>
-      {keysRow1.map((key) => (
+      <div style={containerStyles} className='text-[0.4rem] min-[800px]:text-[0.6rem] min-[1000px]:text-[0.75rem] min-[1400px]:text-[1rem] gap-[0.25rem] min-[1000px]:gap-[0.5rem]'>
         <div
           className="key"
-          key={key}
+          style={{
+            lineHeight: "100%",
+            textAlign: "center",
+            justifyContent: "center",
+            alignItems: "center",
+            gridRow: "span 1",
+            gridColumn: "span 6",
+            width: "100%",
+            height: "100%",
+            margin: 0,
+            boxSizing: "border-box",
+          }}
+        >
+          <CustomKey keyName={"esc"} eventName={"Escape"} />
+        </div>
+        {keysRow1.map((key) => (
+          <div
+            className="key"
+            key={key}
+            style={{
+              lineHeight: "100%",
+              textAlign: "center",
+              justifyContent: "center",
+              alignItems: "center",
+              gridRow: "span 1",
+              gridColumn: "span 6",
+              width: "100%",
+              margin: 0,
+              boxSizing: "border-box",
+            }}
+          >
+            <CustomKey keyName={key} eventName={key} keyColor={getAccuracyColor(accuracyData[key])} />
+          </div>
+        ))}
+        <div
+          className="key"
           style={{
             lineHeight: "100%",
             textAlign: "center",
@@ -128,222 +145,205 @@ const CustomKeyboard = () => {
             boxSizing: "border-box",
           }}
         >
-          <CustomKey keyName={key} eventName={key} keyColor={getAccuracyColor(accuracyData[key])} />
+          <CustomKey keyName={"del"} eventName={"Delete"} />
         </div>
-      ))}
-      <div
-        className="key"
-        style={{
-          lineHeight: "100%",
-          textAlign: "center",
-          justifyContent: "center",
-          alignItems: "center",
-          gridRow: "span 1",
-          gridColumn: "span 6",
-          width: "100%",
-          margin: 0,
-          boxSizing: "border-box",
-        }}
-      >
-        <CustomKey keyName={"del"} eventName={"Delete"} />
-      </div>
-      {keysRow2.map((key) => (
+        {keysRow2.map((key) => (
+          <div
+            className="key"
+            key={key}
+            style={{
+              lineHeight: "100%",
+              textAlign: "center",
+              justifyContent: "center",
+              alignItems: "center",
+              gridRow: "span 2",
+              gridColumn: "span 6",
+              width: "100%",
+              margin: 0,
+              boxSizing: "border-box",
+            }}
+          >
+            <CustomKey keyName={key} eventName={key} keyColor={getAccuracyColor(accuracyData[key])} />
+          </div>
+        ))}
         <div
           className="key"
-          key={key} 
           style={{
+            gridRow: "span 2",
+            gridColumn: "span 12",
             lineHeight: "100%",
             textAlign: "center",
             justifyContent: "center",
             alignItems: "center",
-            gridRow: "span 2",
-            gridColumn: "span 6",
-            width: "100%",
-            margin: 0,
             boxSizing: "border-box",
           }}
         >
-          <CustomKey keyName={key} eventName={key} keyColor={getAccuracyColor(accuracyData[key])} />
+          <CustomKey keyName={"backspace"} eventName={"Backspace"} />
         </div>
-      ))}
-      <div
-        className="key"
-        style={{
-          gridRow: "span 2",
-          gridColumn: "span 12",
-          lineHeight: "100%",
-          textAlign: "center",
-          justifyContent: "center",
-          alignItems: "center",
-          boxSizing: "border-box",
-        }}
-      >
-        <CustomKey keyName={"backspace"} eventName={"Backspace"} />
-      </div>
-      <div
-        className="key"
-        style={{
-          gridRow: "span 2",
-          gridColumn: "span 9",
-          lineHeight: "100%",
-          textAlign: "center",
-          justifyContent: "center",
-          alignItems: "center",
-          boxSizing: "border-box",
-        }}
-      >
-        <CustomKey keyName={"tab"} eventName={"Tab"} />
-      </div>
-      {keysRow3.map((key) => (
         <div
-        key={key}
           className="key"
           style={{
+            gridRow: "span 2",
+            gridColumn: "span 9",
             lineHeight: "100%",
             textAlign: "center",
             justifyContent: "center",
             alignItems: "center",
-            gridRow: "span 2",
-            gridColumn: "span 6",
-            width: "100%",
-            margin: 0,
             boxSizing: "border-box",
           }}
         >
-          <CustomKey keyName={key} eventName={key} keyColor={getAccuracyColor(accuracyData[key])} />
+          <CustomKey keyName={"tab"} eventName={"Tab"} />
         </div>
-      ))}
-      <div
-        className="key"
-        style={{
-          gridRow: "span 2",
-          gridColumn: "span 9",
-          lineHeight: "100%",
-          textAlign: "center",
-          justifyContent: "center",
-          alignItems: "center",
-          boxSizing: "border-box",
-        }}
-      >
-        <CustomKey keyName={"/"} eventName={"/"} />
-      </div>
-      <div
-        className="key"
-        style={{
-          gridRow: "span 2",
-          gridColumn: "span 11",
-          lineHeight: "100%",
-          textAlign: "center",
-          justifyContent: "center",
-          alignItems: "center",
-          boxSizing: "border-box",
-        }}
-      >
-        <CustomKey keyName={"caps lock"} eventName={"CapsLock"} />
-      </div>
+        {keysRow3.map((key) => (
+          <div
+            key={key}
+            className="key"
+            style={{
+              lineHeight: "100%",
+              textAlign: "center",
+              justifyContent: "center",
+              alignItems: "center",
+              gridRow: "span 2",
+              gridColumn: "span 6",
+              width: "100%",
+              margin: 0,
+              boxSizing: "border-box",
+            }}
+          >
+            <CustomKey keyName={key} eventName={key} keyColor={getAccuracyColor(accuracyData[key])} />
+          </div>
+        ))}
+        <div
+          className="key"
+          style={{
+            gridRow: "span 2",
+            gridColumn: "span 9",
+            lineHeight: "100%",
+            textAlign: "center",
+            justifyContent: "center",
+            alignItems: "center",
+            boxSizing: "border-box",
+          }}
+        >
+          <CustomKey keyName={"/"} eventName={"/"} />
+        </div>
+        <div
+          className="key"
+          style={{
+            gridRow: "span 2",
+            gridColumn: "span 11",
+            lineHeight: "100%",
+            textAlign: "center",
+            justifyContent: "center",
+            alignItems: "center",
+            boxSizing: "border-box",
+          }}
+        >
+          <CustomKey keyName={"caps lock"} eventName={"CapsLock"} />
+        </div>
 
-      {keysRow4.map((key) => (
+        {keysRow4.map((key) => (
+          <div
+            key={key}
+            className="key"
+            style={{
+              lineHeight: "100%",
+              textAlign: "center",
+              justifyContent: "center",
+              alignItems: "center",
+              gridRow: "span 2",
+              gridColumn: "span 6",
+              width: "100%",
+              margin: 0,
+              boxSizing: "border-box",
+            }}
+          >
+            <CustomKey keyName={key} eventName={key} keyColor={getAccuracyColor(accuracyData[key])} />
+          </div>
+        ))}
         <div
-          key={key}
           className="key"
           style={{
+            gridRow: "span 2",
+            gridColumn: "span 13",
             lineHeight: "100%",
             textAlign: "center",
             justifyContent: "center",
             alignItems: "center",
-            gridRow: "span 2",
-            gridColumn: "span 6",
-            width: "100%",
-            margin: 0,
             boxSizing: "border-box",
           }}
         >
-          <CustomKey keyName={key} eventName={key} keyColor={getAccuracyColor(accuracyData[key])} />
+          <CustomKey keyName={"enter"} eventName={"Enter"} />
         </div>
-      ))}
-      <div
-        className="key"
-        style={{
-          gridRow: "span 2",
-          gridColumn: "span 13",
-          lineHeight: "100%",
-          textAlign: "center",
-          justifyContent: "center",
-          alignItems: "center",
-          boxSizing: "border-box",
-        }}
-      >
-        <CustomKey keyName={"enter"} eventName={"Enter"} />
-      </div>
-      <div
-        className="key"
-        style={{
-          gridRow: "span 2",
-          gridColumn: "span 13",
-          lineHeight: "100%",
-          textAlign: "center",
-          justifyContent: "center",
-          alignItems: "center",
-          boxSizing: "border-box",
-        }}
-      >
-        <CustomKey keyName={"shift"} eventName={"Shift"} />
-      </div>
+        <div
+          className="key"
+          style={{
+            gridRow: "span 2",
+            gridColumn: "span 13",
+            lineHeight: "100%",
+            textAlign: "center",
+            justifyContent: "center",
+            alignItems: "center",
+            boxSizing: "border-box",
+          }}
+        >
+          <CustomKey keyName={"shift"} eventName={"Shift"} />
+        </div>
 
-      {keysRow5.map((key) => (
+        {keysRow5.map((key) => (
+          <div
+            key={key}
+            className="key"
+            style={{
+              lineHeight: "100%",
+              textAlign: "center",
+              justifyContent: "center",
+              alignItems: "center",
+              gridRow: "span 2",
+              gridColumn: "span 6",
+              width: "100%",
+              margin: 0,
+              boxSizing: "border-box",
+            }}
+          >
+            <CustomKey keyName={key} eventName={key} keyColor={getAccuracyColor(accuracyData[key])} />
+          </div>
+        ))}
         <div
-          key={key}
           className="key"
           style={{
+            gridRow: "span 2",
+            gridColumn: "span 17",
             lineHeight: "100%",
             textAlign: "center",
             justifyContent: "center",
             alignItems: "center",
-            gridRow: "span 2",
-            gridColumn: "span 6",
-            width: "100%",
-            margin: 0,
             boxSizing: "border-box",
           }}
         >
-          <CustomKey keyName={key} eventName={key} keyColor={getAccuracyColor(accuracyData[key])} />
+          <CustomKey keyName={"shift"} eventName={"Shift"} />
         </div>
-      ))}
-      <div
-        className="key"
-        style={{
-          gridRow: "span 2",
-          gridColumn: "span 17",
-          lineHeight: "100%",
-          textAlign: "center",
-          justifyContent: "center",
-          alignItems: "center",
-          boxSizing: "border-box",
-        }}
-      >
-        <CustomKey keyName={"shift"} eventName={"Shift"} />
-      </div>
 
-      {keysRow6.map((keyObj, index) => (
-        <div
-          key={index} // Using index as a key; consider using a unique id if available
-          className="key"
-          style={{
-            lineHeight: "100%",
-            textAlign: "center",
-            justifyContent: "center",
-            alignItems: "center",
-            gridRow: "span 2",
-            gridColumn: "span 6",
-            width: "100%",
-            margin: 0,
-            boxSizing: "border-box",
-          }}
-        >
-          <CustomKey keyName={keyObj.keyName} eventName={keyObj.eventName} />
-        </div>
-      ))}
-      {/* {keysRow6.map((key) => (
+        {keysRow6.map((keyObj, index) => (
+          <div
+            key={index} // Using index as a key; consider using a unique id if available
+            className="key"
+            style={{
+              lineHeight: "100%",
+              textAlign: "center",
+              justifyContent: "center",
+              alignItems: "center",
+              gridRow: "span 2",
+              gridColumn: "span 6",
+              width: "100%",
+              margin: 0,
+              boxSizing: "border-box",
+            }}
+          >
+            <CustomKey keyName={keyObj.keyName} eventName={keyObj.eventName} />
+          </div>
+        ))}
+        {/* {keysRow6.map((key) => (
         <div
           className="key"
           style={{
@@ -361,146 +361,146 @@ const CustomKeyboard = () => {
           <CustomKey keyName={key} eventName={key} keyColor={getAccuracyColor(accuracyData[key])}  />
         </div>
       ))} */}
-      <div
-        className="key"
-        style={{
-          gridRow: "span 2",
-          gridColumn: "span 34",
-          lineHeight: "100%",
-          textAlign: "center",
-          justifyContent: "center",
-          alignItems: "center",
-          boxSizing: "border-box",
-        }}
-      >
-        <CustomKey keyName={" "} eventName={" "} keyColor={getAccuracyColor(accuracyData["-"])}/>
-      </div>
-      <div
-        className="key"
-        style={{
-          gridRow: "span 2",
-          gridColumn: "span 6",
-          lineHeight: "100%",
-          textAlign: "center",
-          justifyContent: "center",
-          alignItems: "center",
-          boxSizing: "border-box",
-        }}
-      >
-        <CustomKey keyName={"⌘"} eventName={"Meta"} />
-      </div>
-      <div
-        className="key"
-        style={{
-          gridRow: "span 2",
-          gridColumn: "span 9",
-          lineHeight: "100%",
-          textAlign: "center",
-          justifyContent: "center",
-          alignItems: "center",
-          boxSizing: "border-box",
-        }}
-      >
-        <CustomKey keyName={"opt"} eventName={"Alt"} />
-      </div>
-
-      <div
-        style={{
-          gridRow: "span 2",
-          gridColumn: "span 17",
-          justifyContent: "center",
-          alignItems: "center",
-          boxSizing: "border-box",
-        }}
-      >
         <div
-          style={{ display: "flex", flexDirection: "column", height: "100%" }}
+          className="key"
+          style={{
+            gridRow: "span 2",
+            gridColumn: "span 34",
+            lineHeight: "100%",
+            textAlign: "center",
+            justifyContent: "center",
+            alignItems: "center",
+            boxSizing: "border-box",
+          }}
         >
-          <div style={{ flex: "1", display: "flex" }}>
-            <div
-              style={{
-                flex: "1",
-                margin: "1px 2px",
-                boxSizing: "border-box",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                lineHeight: "45%",
-              }}
-            ></div>
-            <div
-              style={{
-                flex: "1",
-                margin: "1px 2px",
-                boxSizing: "border-box",
-                borderRadius: "5px",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                lineHeight: "45%",
-              }}
-            >
-              <CustomKey keyName={"↑"} eventName={"ArrowUp"} />
+          <CustomKey keyName={" "} eventName={" "} keyColor={getAccuracyColor(accuracyData["-"])} />
+        </div>
+        <div
+          className="key"
+          style={{
+            gridRow: "span 2",
+            gridColumn: "span 6",
+            lineHeight: "100%",
+            textAlign: "center",
+            justifyContent: "center",
+            alignItems: "center",
+            boxSizing: "border-box",
+          }}
+        >
+          <CustomKey keyName={"⌘"} eventName={"Meta"} />
+        </div>
+        <div
+          className="key"
+          style={{
+            gridRow: "span 2",
+            gridColumn: "span 9",
+            lineHeight: "100%",
+            textAlign: "center",
+            justifyContent: "center",
+            alignItems: "center",
+            boxSizing: "border-box",
+          }}
+        >
+          <CustomKey keyName={"opt"} eventName={"Alt"} />
+        </div>
+
+        <div
+          style={{
+            gridRow: "span 2",
+            gridColumn: "span 17",
+            justifyContent: "center",
+            alignItems: "center",
+            boxSizing: "border-box",
+          }}
+        >
+          <div
+            style={{ display: "flex", flexDirection: "column", height: "100%" }}
+          >
+            <div style={{ flex: "1", display: "flex" }}>
+              <div
+                style={{
+                  flex: "1",
+                  margin: "1px 2px",
+                  boxSizing: "border-box",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  lineHeight: "45%",
+                }}
+              ></div>
+              <div
+                style={{
+                  flex: "1",
+                  margin: "1px 2px",
+                  boxSizing: "border-box",
+                  borderRadius: "5px",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  lineHeight: "45%",
+                }}
+              >
+                <CustomKey keyName={"↑"} eventName={"ArrowUp"} />
+              </div>
+              <div
+                style={{
+                  flex: "1",
+                  margin: "1px 2px",
+                  boxSizing: "border-box",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  lineHeight: "45%",
+                }}
+              ></div>
             </div>
-            <div
-              style={{
-                flex: "1",
-                margin: "1px 2px",
-                boxSizing: "border-box",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                lineHeight: "45%",
-              }}
-            ></div>
-          </div>
-          <div style={{ flex: "1", display: "flex" }}>
-            <div
-              style={{
-                flex: "1",
-                margin: "1px 2px",
-                boxSizing: "border-box",
-                borderRadius: "5px",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                lineHeight: "45%",
-              }}
-            >
-              <CustomKey keyName={"←"} eventName={"ArrowLeft"} />
-            </div>
-            <div
-              style={{
-                flex: "1",
-                margin: "1px 2px",
-                boxSizing: "border-box",
-                borderRadius: "5px",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                lineHeight: "45%",
-              }}
-            >
-              <CustomKey keyName={"↓"} eventName={"ArrowDown"} />
-            </div>
-            <div
-              style={{
-                flex: "1",
-                margin: "1px 2px",
-                boxSizing: "border-box",
-                borderRadius: "5px",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                lineHeight: "45%",
-              }}
-            >
-              <CustomKey keyName={"→"} eventName={"ArrowRight"} />
+            <div style={{ flex: "1", display: "flex" }}>
+              <div
+                style={{
+                  flex: "1",
+                  margin: "1px 2px",
+                  boxSizing: "border-box",
+                  borderRadius: "5px",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  lineHeight: "45%",
+                }}
+              >
+                <CustomKey keyName={"←"} eventName={"ArrowLeft"} />
+              </div>
+              <div
+                style={{
+                  flex: "1",
+                  margin: "1px 2px",
+                  boxSizing: "border-box",
+                  borderRadius: "5px",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  lineHeight: "45%",
+                }}
+              >
+                <CustomKey keyName={"↓"} eventName={"ArrowDown"} />
+              </div>
+              <div
+                style={{
+                  flex: "1",
+                  margin: "1px 2px",
+                  boxSizing: "border-box",
+                  borderRadius: "5px",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  lineHeight: "45%",
+                }}
+              >
+                <CustomKey keyName={"→"} eventName={"ArrowRight"} />
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
 
       {/* <div style={{ gridRow: 'span 1', gridColumn: 'span 17',  boxSizing: 'border-box' }} > */}
       {/* <div style={{ display: 'flex', alignItems: 'center', padding: '0', height: '100%', boxSizing: 'border-box' }}>

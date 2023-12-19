@@ -24,7 +24,7 @@ function generateTypingText(chars, textLength) {
 
 function getRandomWordLength() {
     // Generate a random word length between 1 and 12
-    return Math.floor(Math.random() * 12) + 1;
+    return Math.floor(Math.random() * Math.random() * 12) + 1;
 }
 
 module.exports = {generateTypingText};

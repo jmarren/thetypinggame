@@ -9,28 +9,28 @@ router.get('/assessments/:testName', (req, res) => {
     let chars;
 
     switch (testName) {
-        case 'first-8': 
+        case 'First Eight': 
             chars = 'asdfjkl;'
             break;
-        case 'home-row':
+        case 'Home Row':
             chars = 'asdfjkl;gh'
             break;
-        case 'top-row':
+        case 'Top Row':
             chars = 'qwertyuiop'
             break;
-        case 'bottom-row':
+        case 'Bottom Row':
             chars = 'zxcvbnm,./'
             break;
-        case 'all-letters': 
+        case 'All Letters': 
             chars = 'abcdefghijklmnopqrstuvwxyz'
             break; 
-        case 'numbers':
+        case 'Numbers':
             chars = '1234567890'
             break;  
-        case 'symbols':
+        case 'Symbols':
             chars = '!@#$%^&*()_+'
             break;
-        case 'all':
+        case 'All':
             chars = 'abcdefghijklmnopqrstuvwxyz1234567890!@#$%^&*()_+'
             break;
         default:
@@ -38,7 +38,7 @@ router.get('/assessments/:testName', (req, res) => {
 }
 
 
-    const text = generateTypingText(chars, 250);
+    const text = generateTypingText(chars, 200);
     res.json({ text });
 
 })

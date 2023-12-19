@@ -18,7 +18,7 @@ exports.submitGame = async (req, res) => {
             gameStats.totalCharacters,
             gameStats.totalMistakes,
             gameStats.totalTime,
-            gameStats.wordsPerMinute,
+            parseFloat(gameStats.wordsPerMinute.toFixed(2)),
             gameStats.charactersPerSecond
         ];
 
@@ -39,8 +39,8 @@ exports.submitGame = async (req, res) => {
             await pool.query(insertKeyStatsText, keyStatsValues);
         }
 
-        // If the game is an assessment, insert a row into the assessments table
         if (isAssessment) {
+            console.log('inserting into ASSESSMENTS table')
             const insertAssessmentText = `
             INSERT INTO assessments(game_id, type)
             VALUES($1, $2)`;

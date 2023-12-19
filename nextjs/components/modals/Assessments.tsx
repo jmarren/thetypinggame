@@ -21,28 +21,28 @@ const fetchText = () => {
     console.log('fetching text')
 
     switch (testSelected) {
-      case 'first-8':
+      case 'First Eight':
         updateAssessmentType(AssessmentType.EightFingers);
         break;
-      case 'home-row':
+      case 'Home Row':
         updateAssessmentType(AssessmentType.HomeRow);
         break;
-      case 'top-row':
+      case 'Top Row':
         updateAssessmentType(AssessmentType.TopRow);
         break;
-      case 'bottom-row':
+      case 'Bottom Row':
         updateAssessmentType(AssessmentType.BottomRow);
         break;
-      case 'all-letters':
+      case 'All Letters':
         updateAssessmentType(AssessmentType.AllLetters);
         break;
-      case 'numbers':
+      case 'Numbers':
         updateAssessmentType(AssessmentType.Numbers);
         break;
-      case 'symbols':
+      case 'Symbols':
         updateAssessmentType(AssessmentType.Symbols);
         break;
-      case 'all':
+      case 'All':
         updateAssessmentType(AssessmentType.All);
         break;
       default:
@@ -66,7 +66,7 @@ const fetchText = () => {
 
 
 const tests = [
-    'first-8', 'home-row', 'top-row', 'bottom-row', 'all-letters', 'numbers', 'symbols', 'all'
+    'First Eight', 'Home Row', 'Top Row', 'Bottom Row', 'All Letters', 'Numbers', 'Symbols', 'All'
 ];
 
     return ( <>
