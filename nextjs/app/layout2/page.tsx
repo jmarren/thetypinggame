@@ -13,13 +13,14 @@ import Assessments from '@/components/modals/Assessments';
 import { useAuth } from '@/components/AuthContext';
 import { ModalType } from '@/types';
 import { AssessmentType } from '../../types';
+import { formatString } from '@/utilities/gameUtils';
 
 
 
 const Page: React.FC = () => {
   const [activeModal, setActiveModal] = useState(ModalType.None);
   const [modalOpen, setModalOpen] = useState(false)
-  const [textChosen, setTextChosen] = useState('Hello! Welcome to the wonderful world of typing! Using the menu to the left you can choose a poem by a famous poet to practice with. Or you can choose the characters that you want to work on and we\'ll generate some text for you. Create an account so you can track your progress and the keys of your keyboard will change color to show your accuracy!')
+  const [textChosen, setTextChosen] = useState(formatString('Hello!      Welcome to the wonderful world of typing! Using the menu to the left you can choose a poem by a famous poet to practice with. Or you can choose the characters that you want to work on and we\'ll generate some text for you. Create an account so you can track your progress and the keys of your keyboard will change color to show your accuracy!'))
   const [navOpen, setNavOpen] = useState(false);
   const [assessmentType, setAssessmentType] = useState<AssessmentType>(AssessmentType.None);
   const [isAssessment, setIsAssessment] = useState<boolean>(false);
@@ -54,7 +55,7 @@ const Page: React.FC = () => {
     setNavOpen(!navOpen);
   }
   const setText = (text: string) => {
-    setTextChosen(text);
+    setTextChosen(formatString(text));
   };
 
   const openModal = () => {

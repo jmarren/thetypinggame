@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { GameState } from './MainGame';
 import { calculateCharactersPerLine, calculateLineHeight } from '@/utilities/gameUtils';
+import next from 'next';
 
 interface GameTextProps {
   templateString: string;
@@ -18,7 +19,8 @@ interface GameTextProps {
 
 const GameText: React.FC<GameTextProps> = ({ templateString, gameState, incrementBackspace, endGame, startGame, addCorrect, addIncorrect, modalOpen }) => {
   const [userInput, setUserInput] = useState('');
-  const inputString = templateString.replaceAll(' ', '-');
+  // const inputString = templateString.replaceAll(' ', '-');
+  const inputString = templateString;
   const textContainerRef = useRef(null);
 
 
@@ -53,7 +55,12 @@ const GameText: React.FC<GameTextProps> = ({ templateString, gameState, incremen
 
       if (key === ' ') {
         event.preventDefault();
-        nextUserInput = userInput + '-';
+        if (inputString[userInput.length] === ' ') {
+        nextUserInput = userInput + ' ';
+        }
+        else {
+          nextUserInput = userInput + '-';
+        }
       } else if (key.length === 1 && key !== ' ') {
         nextUserInput = userInput + event.key;
       } else if (key === 'Backspace') {
@@ -65,7 +72,7 @@ const GameText: React.FC<GameTextProps> = ({ templateString, gameState, incremen
       if (key !== 'Backspace' && key !== inputString[nextUserInput.length - 1] && key !== ' ') {
         addIncorrect(inputString[nextUserInput.length - 1]);
       }
-      else if (key === ' ' && '-' !== inputString[nextUserInput.length - 1]) {
+      else if (key === ' ' && ' ' !== inputString[nextUserInput.length - 1]) {
         addIncorrect(inputString[nextUserInput.length - 1]);
       }
       else if (key === inputString[nextUserInput.length - 1]) {

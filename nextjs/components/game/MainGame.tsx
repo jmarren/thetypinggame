@@ -21,20 +21,28 @@ export enum GameState {
 
 
 const MainGame: React.FC<{ templateString: string, modalOpen: boolean, isAssessment: boolean, assessmentType: AssessmentType }> = ({ templateString, modalOpen, isAssessment, assessmentType }) => {
-  const inputString = templateString.replaceAll(' ', '-');
+  // const inputString = templateString.replaceAll(' ', '-');
+  // const inputString = templateString;
+
+
+// console.log('hello    hello')
+// console.log(formatString('hello    hello'))
+
+
+const inputString = (templateString);
   const [gameState, setGameState] = useState(GameState.NotStarted);
   const [keyStats, setKeyStats] = useState(initializeKeyStats(inputString));
   const backspaceCount = useRef(0);
   const [totalSeconds, setTotalSeconds] = useState(0)
 
 
+
+
+
+
   const updateSeconds = () => {
     setTotalSeconds(prevSeconds => prevSeconds + 1)
   }
-
-
-
-
 
   const [feedback, setFeedback] = useState<Feedback>({
     totalMistakes: 0,
@@ -59,18 +67,6 @@ const MainGame: React.FC<{ templateString: string, modalOpen: boolean, isAssessm
 
 
 
-
-//   export enum AssessmentType {
-//     None,
-//     EightFingers,
-//     HomeRow,
-//     TopRow,
-//     BottomRow,
-//     AllLetters,
-//     Numbers,
-//     Symbols,
-//     All,
-// }
 
 
 

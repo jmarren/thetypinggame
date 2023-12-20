@@ -12,7 +12,7 @@ export function initializeKeyStats(inputString: string): KeyStats {
           totalTime: 0,
           totalCharacters: inputString.length,
           charactersPerSecond: 0,
-          totalWords: inputString.split('-').length,
+          totalWords: inputString.split(' ').length,
           wordsPerMinute: 0,
           totalMistakes: 0,
           backspaceCount: 0
@@ -155,7 +155,7 @@ export function incrementCorrectCount(prevStats, char) {
     let mostMistyped = Object.entries(keyData)
       .filter(([key, value]) => value.incorrect > 0)
       .sort(([key1, value1], [key2, value2]) => value2.incorrect - value1.incorrect)
-      .map(([key,]) => key)
+      .map(([key,]) => key === ' ' ? 'space' : key)
       .slice(0, 3); // Top 3 mistyped characters
   
     // Typing Speed
@@ -167,7 +167,7 @@ export function incrementCorrectCount(prevStats, char) {
     const feedback: Feedback = {
       totalMistakes: totalMistakes,
       accuracy: accuracy.toFixed(2),
-      mistypedChars: mostMistyped.join(', ').replaceAll('-', 'space'),
+      mistypedChars: mostMistyped.join(', '),  //// How do I replace all spaces with 'space'?
       wordsPerMinute: wpm.toFixed(1),
       backspaceUsage: backspaceUsage
     };
@@ -208,6 +208,19 @@ console.log('submitGame function (frontend) ++++++++++++++++++++++++++++++++++++
 
   }
 };
+
+
+
+
+export function formatString(str: string) {
+  // Replace all '-' and Em dashes with a space
+  let formattedStr = str.replace(/[-—]/g, ' ');
+
+  // Replace all instances of consecutive spaces with a single space
+  formattedStr = formattedStr.replace(/\s+/g, ' ');
+
+  return formattedStr;
+}
 
 
 
