@@ -75,6 +75,8 @@ const Page: React.FC = () => {
       setIsAssessment(true);
     }
   }, [assessmentType]);
+              {/* {!navOpen && <div className=' h-screen left-0 w-full m-4'></div> } */}
+        // <div className={navOpen ? '' : 'ml-4' }>        {/* </div> */}
 
 
   return (
@@ -83,8 +85,10 @@ const Page: React.FC = () => {
       <div className='h-full min-h-screen'>
         <NavBar openModal={openModal} closeModal={closeModal} setText={setText} navOpen={navOpen} toggleNav={toggleNav} modalToggles={modalToggles} activeModal={activeModal} updateAssessmentType={updateAssessmentType} />
       </div>
+
       {/* <div className={modalOpen ? 'h-full min-h-screen flex-grow  flex flex-col' : 'h-full min-h-screen flex-grow ml-4 mt-4 flex flex-col' }> */}
-      <div className='h-full min-h-screen flex-grow flex flex-col justify-center relative'>
+      <div className='h-full min-h-screen flex-grow flex flex-col justify-center relative mt-4'>
+
 
         {activeModal === ModalType.Account && <div className='flex-grow w-full min-h-screen flex justify-center items-center z-[100] h-full absolute'><Account /></div>}
         {activeModal === ModalType.Leaderboard && <div className='flex-grow w-full min-h-screen flex justify-center items-center z-[100] absolute'><Leaderboard /> </div>}

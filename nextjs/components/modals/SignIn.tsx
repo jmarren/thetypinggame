@@ -24,6 +24,7 @@ const SignIn = ({openCreateAccount}) => {
     
       const handleSubmit = async (e) => {
         console.log('submitted');
+        console.log(formData)
         e.preventDefault();
         login(formData);
       }
