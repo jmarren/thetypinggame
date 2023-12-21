@@ -35,15 +35,7 @@
   }
 
 
-  export type Feedback = {
-    totalMistakes: number;
-    accuracy: string;
-    mistypedChars: string;
-    wordsPerMinute: string;
-    backspaceUsage: number;
-  };
-
-
+ 
   export enum ModalType {
     None,
     Leaderboard,

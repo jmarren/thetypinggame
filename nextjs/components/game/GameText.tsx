@@ -27,7 +27,7 @@ const GameText: React.FC<GameTextProps> = ({ templateString, gameState, incremen
   useEffect(() => {
 
     if (textContainerRef.current) {
-      const container = textContainerRef.current;
+      const container = textContainerRef.current as HTMLDivElement;
       const totalCharactersPerLine = calculateCharactersPerLine(container);
       const currentLine = Math.floor(userInput.length / totalCharactersPerLine);
       const lineHeight = calculateLineHeight(container);
@@ -39,7 +39,7 @@ const GameText: React.FC<GameTextProps> = ({ templateString, gameState, incremen
     if (userInput === inputString) {
       endGame();
     }
-  }, [userInput]);
+  }, [userInput, endGame, inputString]);
 
 
 
@@ -47,7 +47,7 @@ const GameText: React.FC<GameTextProps> = ({ templateString, gameState, incremen
     if (gameState === GameState.NotStarted || gameState === GameState.Ended || modalOpen) {
       return;
     }
-    const handleKeydown = (event: React.KeyboardEvent) => {
+    const handleKeydown = (event: KeyboardEvent) => {
       console.log('ModalOpen? : ', modalOpen)
       if (modalOpen) return;
       const key = event.key;

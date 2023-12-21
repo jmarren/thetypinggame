@@ -36,7 +36,7 @@ const GameTimer: React.FC<GameTimerProps> = ({ gameState, finalStats, resetGame,
       }
       clearInterval(interval);
     };
-  }, [gameState]);
+  }, [gameState, time, updateSeconds]);
 
   // */
 

@@ -21,7 +21,7 @@ dotenv.config();
 const app = express();
 const port = 3004;
 const saltRounds = 10;
-const whitelist = ['http://localhost:3000', 'http://localhost:3000/layout1', 'http://localhost:3000/', 'http://localhost:3000/layout1/', 'http://localhost:3000/computer', 'http://localhost:3000/layout2' ]
+const whitelist = ['http://localhost:3000', 'http://localhost:3000/layout1', 'http://localhost:3000/', 'http://localhost:3000/layout1/', 'http://localhost:3000/computer', 'http://localhost:3000/layout2', 'http://mechanicalturk.one', 'mechanicalturk.one' ]
 
 
 var corsOptions = {

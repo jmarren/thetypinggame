@@ -184,7 +184,7 @@ const famousPoets =  [
   
 
     return (
-        <>
+        <div className='min-w-[750px] bg-blue-400 p-10 rounded-lg font-[Sora] relative text-white w-[85%]'>
         {poetChosen ? (
           <>
           {/* <span className='w-full flex items-center '> */}
@@ -211,15 +211,15 @@ const famousPoets =  [
            </> 
         ) : (
           <>
-            <div className='text-3xl'> Choose a Poet</div>
+            <div className='text-3xl text-white'> Choose a Poet</div>
             <div className='grid grid-cols-3 gap-4 overflow-y-scroll max-h-64 text-sky-600  bg-blue-100 text-center mt-10 p-6'>
               {famousPoets.map((poet, index) => (
                 <div
                   key={index}
                   onClick={() => setPoetChosen(poet)}
-                  className='p-6 bg-slate-100 rounded shadow cursor-pointer hover:bg-slate-300 flex items-center hover:scale-[1.065] hover:shadow-white hover:shadow-2xl'
+                  className=' bg-slate-100 p-6 rounded shadow cursor-pointer hover:bg-slate-300 flex items-center hover:scale-[1.065] hover:shadow-white hover:shadow-2xl'
                 >
-                <span className='w-full text-center p-2'>
+                <span className='w-full text-center'>
                   {poet}
                   </span>
                 </div>
@@ -227,7 +227,7 @@ const famousPoets =  [
             </div>
           </>
         )}
-      </>
+      </div>
     );
 };
 

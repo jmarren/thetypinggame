@@ -1,32 +1,43 @@
 'use client'
 
-import React, { createContext, useState, useEffect, useCallback, useContext } from 'react';
+import React, { createContext, useState, useEffect, useContext } from 'react';
 
-export interface AuthContextType {
-    isLoggedIn: boolean;
-    login: () => void;
-    logout: () => void;
-}
+
 
 type FormDataType = {
     username: string;
     password: string;
-  };
+};
 
+type UserData = {
+    username: string;
+    email: string;
+};
+
+export interface AuthContextType {
+    isLoggedIn: boolean;
+    login: (formData: FormDataType) => void;
+    logout: () => void;
+    username: string | null;
+    fetchUsername: () => void;
+    email: string | null;
+}
 export const AuthContext = createContext<AuthContextType | null>(null)
 
-export const useAuth = () => useContext(AuthContext);
+export const useAuth = () => useContext<AuthContextType | null>(AuthContext);
 
+interface AuthProviderProps {
+    children: React.ReactNode
+}
 
-
-export const AuthProvider = ({ children }) => {
+export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     const [isLoggedIn, setIsLoggedIn] = useState(false)
-    const [username, setUsername] = useState(null)
-    const [email, setEmail] = useState(null)
+    const [username, setUsername] = useState<string | null>(null)
+    const [email, setEmail] = useState<string | null>(null)
 
-    const fetchUsername = useCallback(async () => {
+    const fetchUsername = async () => {
         try {
-            const response = await fetch('http://localhost:3004/user/get-username-with-token', {
+            const response = await fetch('http://mechanicalturk.one/api/user/get-username-with-token', {
                 method: 'GET',
                 credentials: 'include', // Necessary for cookies to be sent
                 headers: {
@@ -45,12 +56,12 @@ export const AuthProvider = ({ children }) => {
         } catch (error) {
             console.error('Error fetching username:', error);
         }
-    }, []);
+    }
 
 
     const login = async (formData: FormDataType) => {
         try {
-            const response = await fetch('http://localhost:3004/user/login', {
+            const response = await fetch('http://mechanicalturk.one/api/user/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -58,21 +69,21 @@ export const AuthProvider = ({ children }) => {
                 credentials: 'include',
                 body: JSON.stringify(formData)
             });
-    
+
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
-    
 
-            const data = await response.json();
+
+            const data: UserData = await response.json();
             if (response.ok) {
                 // Set the username in your AuthContext
                 setUsername(data.username);
                 setEmail(data.email)
                 setIsLoggedIn(true)
-                } else {
+            } else {
                 // Handle login failure
-                console.error('Login failed:', data.message);
+                console.error('Login failed:', data);
             }
         } catch (error) {
             console.error('Error during login:', error);
@@ -86,7 +97,7 @@ export const AuthProvider = ({ children }) => {
     // }
 
     const logout = () => {
-        fetch('http://localhost:3004/user/logout', {
+        fetch('http://mechanicalturk.one/api/user/logout', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -116,14 +127,14 @@ export const AuthProvider = ({ children }) => {
     useEffect(() => {
         const verifySession = async () => {
             try {
-                const response = await fetch('http://localhost:3004/user/verify-session', {
+                const response = await fetch('http://mechanicalturk.one/api/user/verify-session', {
                     method: 'GET',
                     credentials: 'include'
                 });
 
                 if (response.ok) {
-                    const data = await response.json();
-                    if (data && data.validSession) {
+                    const data: UserData = await response.json();
+                    if (data) {
                         setIsLoggedIn(true);
                         setUsername(data.username);  // Set username here
                         setEmail(data.email)
@@ -136,7 +147,7 @@ export const AuthProvider = ({ children }) => {
                     throw new Error('Session verification failed');
                 }
             } catch (error) {
-                console.error(error.message);
+                console.error(error);
                 setIsLoggedIn(false);
             }
         };

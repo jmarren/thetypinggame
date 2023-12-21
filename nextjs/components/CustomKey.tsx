@@ -3,21 +3,27 @@
 import React, { useState, useEffect } from "react";
 import {useAuth } from './AuthContext';
 
-const CustomKey = ({ keyName, eventName, keyColor }) => {
+interface CustomKeyProps {
+  keyName: string;
+  eventName: string;
+  keyColor?: string;
+}
+
+const CustomKey: React.FC<CustomKeyProps> = ({ keyName, eventName, keyColor }) => {
   const [isActive, setIsActive] = useState(false);
 
 
 
 
   useEffect(() => {
-    const handleKeyDown = (event) => {
-      if (event.key === eventName || event.key.toUpperCase() === eventName) {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key && (event.key === eventName || event.key.toUpperCase() === eventName)) {
         setIsActive(true);
       }
     };
 
-    const handleKeyUp = (event) => {
-      if (event.key === eventName || event.key.toUpperCase() === eventName) {
+    const handleKeyUp = (event: KeyboardEvent) => {
+      if (event.key && (event.key === eventName || event.key.toUpperCase() === eventName)) {
         setIsActive(false);
       }
     };
@@ -30,7 +36,7 @@ const CustomKey = ({ keyName, eventName, keyColor }) => {
       window.removeEventListener("keydown", handleKeyDown);
       window.removeEventListener("keyup", handleKeyUp);
     };
-  }, []);
+  }, [eventName]);
 
   const toggleActive = () => {
     setIsActive((current) => !current);

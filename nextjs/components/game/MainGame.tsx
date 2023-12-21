@@ -1,13 +1,15 @@
 "use client"
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import GameText from '@/components/game/GameText';
 import GameTimer from './GameTimer';
 import GameStats from './GameStats';
 import { incrementIncorrectCount, incrementCorrectCount, initializeKeyStats, finalizeStats, analyzeData, submitGame } from '@/utilities/gameUtils';
-import type { Feedback } from '../../types.d.ts';
+import { Feedback, AssessmentType, KeyStats } from '../../types';
+// import {KeyStats} from '@/types';
+
 import FeedbackCard from '../modals/FeedbackCard';
-import { AssessmentType } from '../../types';
+// import { AssessmentType } from '../../types';
 
 
 
@@ -21,12 +23,6 @@ export enum GameState {
 
 
 const MainGame: React.FC<{ templateString: string, modalOpen: boolean, isAssessment: boolean, assessmentType: AssessmentType }> = ({ templateString, modalOpen, isAssessment, assessmentType }) => {
-  // const inputString = templateString.replaceAll(' ', '-');
-  // const inputString = templateString;
-
-
-// console.log('hello    hello')
-// console.log(formatString('hello    hello'))
 
 
 const inputString = (templateString);
@@ -53,16 +49,16 @@ const inputString = (templateString);
   });
 
 
-  const updateStats = (newStats) => {
-    setKeyStats(prevStats => ({ ...prevStats, ...newStats }));
+  const updateStats = (newStats: KeyStats) => {
+    setKeyStats((prevStats: KeyStats) => ({ ...prevStats, ...newStats }));
   };
 
   const addIncorrect = (char: string) => {
-    setKeyStats((prevStats) => incrementIncorrectCount(prevStats, char));
+    setKeyStats((prevStats: KeyStats) => incrementIncorrectCount(prevStats, char));
   }
 
   const addCorrect = (char: string) => {
-    setKeyStats((prevStats) => incrementCorrectCount(prevStats, char))
+    setKeyStats((prevStats: KeyStats) => incrementCorrectCount(prevStats, char))
   }
 
 
@@ -100,11 +96,6 @@ const inputString = (templateString);
     backspaceCount.current++;
   }
 
-  const startGame = () => {
-    console.log('modalOpen (startGame): ', modalOpen)
-    if (modalOpen) return;
-    setGameState(GameState.InProgress);
-  };
 
   const endGame = () => {
     finalStats();
@@ -117,10 +108,14 @@ const inputString = (templateString);
     setTotalSeconds(0)
   };
 
-
+  const startGame = useCallback(() => {
+    if (modalOpen) return;
+    setGameState(GameState.InProgress);
+  },[modalOpen]);
 
 
   useEffect(() => {
+
 
     const handleKeyDown = (event: KeyboardEvent) => {
       if (modalOpen) return;
@@ -134,7 +129,7 @@ const inputString = (templateString);
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [gameState, modalOpen]);
+  }, [gameState, modalOpen, startGame]);
 
   const SAMPLE_TEXT_SHORT = 'This is a test to see if my typing game is working properly.'
   const SAMPLE_TEXT_LONG = `This is a test to see if my typing game is working properly. Lets find out! Lorem ipsum dolor sit amet.This is a test to see if my typing game is working properly. Lets find out! Lorem ipsum dolor sit amet.This is a test to see if my typing game is working properly. Lets find out! Lorem ipsum dolor sit amet.This is a test to see if my typing game is working properly. Lets find out! Lorem ipsum dolor sit amet.`;

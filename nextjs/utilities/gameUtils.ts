@@ -6,33 +6,33 @@ import { AssessmentType } from '@/types';
 export function initializeKeyStats(inputString: string): KeyStats {
   // console.log(inputString); 
   // console.log(inputString.split('-').length)
-    const stats = {
-        keyData: {},
-        gameStats: {
-          totalTime: 0,
-          totalCharacters: inputString.length,
-          charactersPerSecond: 0,
-          totalWords: inputString.split(' ').length,
-          wordsPerMinute: 0,
-          totalMistakes: 0,
-          backspaceCount: 0
-        }
-      };
-    
-      for (let char of inputString) {
-        if (!stats.keyData[char]) {
-          stats.keyData[char] = { correct: 0, incorrect: 0, total: 0 };
-        }
-        stats.keyData[char].total += 1;
-      }
-    
-      return stats;
+  const stats = {
+    keyData: {},
+    gameStats: {
+      totalTime: 0,
+      totalCharacters: inputString.length,
+      charactersPerSecond: 0,
+      totalWords: inputString.split(' ').length,
+      wordsPerMinute: 0,
+      totalMistakes: 0,
+      backspaceCount: 0
+    }
+  };
+
+  for (let char of inputString) {
+    if (!stats.keyData[char]) {
+      stats.keyData[char] = { correct: 0, incorrect: 0, total: 0 };
+    }
+    stats.keyData[char].total += 1;
   }
-  //----------------------------------------------------------
-  // export function calculateCharactersPerLine(container) {
-  //       const charWidth = 10; // Average width of a character in pixels
-  //       return Math.floor(container.offsetWidth / charWidth);
-  // }
+
+  return stats;
+}
+//----------------------------------------------------------
+// export function calculateCharactersPerLine(container) {
+//       const charWidth = 10; // Average width of a character in pixels
+//       return Math.floor(container.offsetWidth / charWidth);
+// }
 export function calculateCharactersPerLine(container) {
   // Create a temporary element
   const tempElement = document.createElement('span');
@@ -55,15 +55,15 @@ export function calculateCharactersPerLine(container) {
 
 
 
-    //----------------------------------------------------------
+//----------------------------------------------------------
 
-  export function calculateLineHeight(container) {
-    return parseFloat(getComputedStyle(container).lineHeight);
-  }
-    //----------------------------------------------------------
+export function calculateLineHeight(container) {
+  return parseFloat(getComputedStyle(container).lineHeight);
+}
+//----------------------------------------------------------
 
-  export function incrementIncorrectCount(prevStats, char) {
-      // Check if the character exists in the keyData stats
+export function incrementIncorrectCount(prevStats, char) {
+  // Check if the character exists in the keyData stats
   if (prevStats.keyData[char]) {
     return {
       ...prevStats,
@@ -106,10 +106,10 @@ export function incrementCorrectCount(prevStats, char) {
   // If the character doesn't exist in keyData, return the previous state
   return prevStats;
 }
-    //----------------------------------------------------------
+//----------------------------------------------------------
 
-  export function finalizeStats(prevStats, totalTime, backspaceCount) {
-     // Clone the previous state to avoid direct mutation
+export function finalizeStats(prevStats, totalTime, backspaceCount) {
+  // Clone the previous state to avoid direct mutation
   const updatedStats = {
     ...prevStats,
     gameStats: {
@@ -140,59 +140,59 @@ export function incrementCorrectCount(prevStats, char) {
 
   return updatedStats;
 }
-    //----------------------------------------------------------
+//----------------------------------------------------------
 
-  export function analyzeData(keyStats) {
-    const { keyData, gameStats } = keyStats;
-
-
-    // Overall Accuracy
-    const totalMistakes = gameStats.totalMistakes;
-    const totalTyped = gameStats.totalCharacters;
-    const accuracy = ((totalTyped - totalMistakes) / totalTyped) * 100;
-  
-    // Most Mistyped Characters
-    let mostMistyped = Object.entries(keyData)
-      .filter(([key, value]) => value.incorrect > 0)
-      .sort(([key1, value1], [key2, value2]) => value2.incorrect - value1.incorrect)
-      .map(([key,]) => key === ' ' ? 'space' : key)
-      .slice(0, 3); // Top 3 mistyped characters
-  
-    // Typing Speed
-    const wpm = gameStats.wordsPerMinute;
-  
-    // Backspace Usage
-    const backspaceUsage = gameStats.backspaceCount;
-  
-    const feedback: Feedback = {
-      totalMistakes: totalMistakes,
-      accuracy: accuracy.toFixed(2),
-      mistypedChars: mostMistyped.join(', '),  //// How do I replace all spaces with 'space'?
-      wordsPerMinute: wpm.toFixed(1),
-      backspaceUsage: backspaceUsage
-    };
-
-  
+export function analyzeData(keyStats) {
+  const { keyData, gameStats } = keyStats;
 
 
-    return feedback;
+  // Overall Accuracy
+  const totalMistakes = gameStats.totalMistakes;
+  const totalTyped = gameStats.totalCharacters;
+  const accuracy = ((totalTyped - totalMistakes) / totalTyped) * 100;
+
+  // Most Mistyped Characters
+  let mostMistyped = Object.entries(keyData)
+    .filter(([key, value]) => value.incorrect > 0)
+    .sort(([key1, value1], [key2, value2]) => value2.incorrect - value1.incorrect)
+    .map(([key,]) => key === ' ' ? 'space' : key)
+    .slice(0, 3); // Top 3 mistyped characters
+
+  // Typing Speed
+  const wpm = gameStats.wordsPerMinute;
+
+  // Backspace Usage
+  const backspaceUsage = gameStats.backspaceCount;
+
+  const feedback: Feedback = {
+    totalMistakes: totalMistakes,
+    accuracy: accuracy.toFixed(2),
+    mistypedChars: mostMistyped.join(', '),
+    wordsPerMinute: wpm.toFixed(1),
+    backspaceUsage: backspaceUsage
+  };
+
+
+
+
+  return feedback;
 }
 
 
 export const submitGame = async (keyStats, isAssessment, assessmentType) => {
-console.log('submitGame function (frontend) ++++++++++++++++++++++++++++++++++++++++++++++++++++++++')
+  console.log('submitGame function (frontend) ++++++++++++++++++++++++++++++++++++++++++++++++++++++++')
   console.log('isAssessment', isAssessment);
   console.log('assessmentType', assessmentType)
 
   const { keyData, gameStats } = keyStats;
   try {
-    const response = await fetch('http://localhost:3004/games/submit-game', {
+    const response = await fetch('http://mechanicalturk.one/api/games/submit-game', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       credentials: 'include',
-      body: JSON.stringify({keyData, gameStats, isAssessment, assessmentType }),
+      body: JSON.stringify({ keyData, gameStats, isAssessment, assessmentType }),
     });
 
     if (!response.ok) {

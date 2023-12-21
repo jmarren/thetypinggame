@@ -8,8 +8,9 @@ import ModalCard from './ModalCard';
 
 
 const Account: React.FC = () => {
+    const auth = useAuth();
+    const isLoggedIn = auth?.isLoggedIn ?? false;
 
-    const { isLoggedIn } = useAuth();
     const [showCreateAccount, setShowCreateAccount] = useState(false);
 
 
