@@ -75,7 +75,7 @@ const Practice: React.FC<PracticeProps> = ({ setText, toggleModal, updateAssessm
     return (<>
         <div className='text-3xl w-full text-left'>
 
-            <>Choose the Letters You&apos;d like to Practice</>
+            <>Choose the Characters You&apos;d like to Practice</>
             <CardGrid items={characters} toggleSelect={toggleSelectChars} selected={charsSelected} />
         </div>
 

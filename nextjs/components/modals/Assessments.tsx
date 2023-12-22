@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import CardGrid from '../CardGrid';
-import Slider from '../Slider';
+import React, { useState } from 'react';
+// import CardGrid from '../CardGrid';
+// import Slider from '../Slider';
 import { AssessmentType } from '@/types';
 
 interface AssessmentsProps {
@@ -11,9 +11,8 @@ interface AssessmentsProps {
 
 const Assessments: React.FC<AssessmentsProps> = ({ setText, toggleModal, updateAssessmentType }) => {
   const [testSelected, setTestSelected] = useState<string | null>(null);
-  const [isTestSelected, setIsTestSelected] = useState<boolean>(false);
-  // const [lengthSelected, setLengthSelected] = useState('10');
-  // const [isLengthSelected, setIsLengthSelected] = useState(false);
+  // const [isTestSelected, setIsTestSelected] = useState<boolean>(false);
+
 
 
   const fetchText = () => {
@@ -77,7 +76,7 @@ const Assessments: React.FC<AssessmentsProps> = ({ setText, toggleModal, updateA
       <div className='flex flex-col mt-4 justify-center items-center'>
         {tests.map((test, i) => {
           return (
-            <div key={i} className={test === testSelected ? 'text-lg font-[courier] bg-slate-200 w-full text-slate-400 border bg-yellow-200' : 'w-full text-lg font-[courier] bg-slate-200 text-slate-400 border border-slate-300'}><button className='w-full' onClick={() => setTestSelected(test)}>{test}</button></div>
+            <div key={i} className={test === testSelected ? 'text-lg font-[courier] bg-slate-200 w-full text-slate-400 border bg-yellow-200' : 'w-full text-lg font-[courier] bg-slate-200 text-slate-400 border border-slate-300 hover:bg-yellow-100'}><button className='w-full' onClick={() => setTestSelected(test)}>{test}</button></div>
           )
         })}
       </div>
