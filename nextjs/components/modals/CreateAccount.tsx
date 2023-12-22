@@ -31,7 +31,7 @@ const CreateAccount: React.FC<CreateAccountProps> = ({ openSignIn }) => {
     }
 
     try {
-      const response = await fetch('http://mechanicalturk.one/api/user/create-account', {
+      const response = await fetch('https://mechanicalturk.one/api/user/create-account', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

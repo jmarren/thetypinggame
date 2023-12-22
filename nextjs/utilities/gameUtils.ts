@@ -3,11 +3,17 @@
 import type { Feedback, KeyStats } from '@/types.d.ts'
 import { AssessmentType } from '@/types';
 
+type KeyData = {
+  [key: string]: {
+    correct: number;
+    incorrect: number;
+    total: number;
+  };
+};
+
 export function initializeKeyStats(inputString: string): KeyStats {
-  // console.log(inputString); 
-  // console.log(inputString.split('-').length)
   const stats = {
-    keyData: {},
+    keyData: {} as KeyData,
     gameStats: {
       totalTime: 0,
       totalCharacters: inputString.length,
@@ -33,7 +39,7 @@ export function initializeKeyStats(inputString: string): KeyStats {
 //       const charWidth = 10; // Average width of a character in pixels
 //       return Math.floor(container.offsetWidth / charWidth);
 // }
-export function calculateCharactersPerLine(container) {
+export function calculateCharactersPerLine(container: HTMLDivElement) {
   // Create a temporary element
   const tempElement = document.createElement('span');
   tempElement.innerText = 'a'; // Use a common character
@@ -57,12 +63,12 @@ export function calculateCharactersPerLine(container) {
 
 //----------------------------------------------------------
 
-export function calculateLineHeight(container) {
+export function calculateLineHeight(container: HTMLDivElement) {
   return parseFloat(getComputedStyle(container).lineHeight);
 }
 //----------------------------------------------------------
 
-export function incrementIncorrectCount(prevStats, char) {
+export function incrementIncorrectCount(prevStats: KeyStats, char: string) {
   // Check if the character exists in the keyData stats
   if (prevStats.keyData[char]) {
     return {
@@ -87,7 +93,7 @@ export function incrementIncorrectCount(prevStats, char) {
 }
 
 
-export function incrementCorrectCount(prevStats, char) {
+export function incrementCorrectCount(prevStats: KeyStats, char: string) {
   // Check if the character exists in the keyData stats
   if (prevStats.keyData[char]) {
     return {
@@ -108,7 +114,7 @@ export function incrementCorrectCount(prevStats, char) {
 }
 //----------------------------------------------------------
 
-export function finalizeStats(prevStats, totalTime, backspaceCount) {
+export function finalizeStats(prevStats: KeyStats, totalTime: number, backspaceCount: number) {
   // Clone the previous state to avoid direct mutation
   const updatedStats = {
     ...prevStats,
@@ -142,7 +148,7 @@ export function finalizeStats(prevStats, totalTime, backspaceCount) {
 }
 //----------------------------------------------------------
 
-export function analyzeData(keyStats) {
+export function analyzeData(keyStats: KeyStats) {
   const { keyData, gameStats } = keyStats;
 
 
@@ -179,14 +185,14 @@ export function analyzeData(keyStats) {
 }
 
 
-export const submitGame = async (keyStats, isAssessment, assessmentType) => {
+export const submitGame = async (keyStats: KeyStats, isAssessment: Boolean, assessmentType: string) => {
   console.log('submitGame function (frontend) ++++++++++++++++++++++++++++++++++++++++++++++++++++++++')
   console.log('isAssessment', isAssessment);
   console.log('assessmentType', assessmentType)
 
   const { keyData, gameStats } = keyStats;
   try {
-    const response = await fetch('http://mechanicalturk.one/api/games/submit-game', {
+    const response = await fetch('https://mechanicalturk.one/api/games/submit-game', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

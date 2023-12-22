@@ -41,7 +41,7 @@ const MyProfile = () => {
 
         const fetchDateCreated = async () => {
             try {
-                const response = await fetch(`http://mechanicalturk.one/api/user/date-account-created/${username}`, {
+                const response = await fetch(`https://mechanicalturk.one/api/user/date-account-created/${username}`, {
                     method: 'GET',
                     credentials: 'include', // Necessary for cookies to be sent
                     headers: {
@@ -69,7 +69,7 @@ const MyProfile = () => {
     useEffect(() => {
         const fetchTotalGames = async () => {
             try {
-                const response = await fetch(`http://mechanicalturk.one/api/game-stats/total-games/${username}`, {
+                const response = await fetch(`https://mechanicalturk.one/api/game-stats/total-games/${username}`, {
                     method: 'GET',
                     credentials: 'include', // Necessary for cookies to be sent
                     headers: {
@@ -140,7 +140,7 @@ const MyProfile = () => {
                 <hr className='mt-6' />
 
                 <div className='mt-6'>
-                    <span className='flex justify-evenly'><button className=''>Change Password</button><button onClick={logout}>Log Out</button> </span>
+                    <span className='flex justify-evenly'><button className=''>Change Password</button><button onClick={() => logout}>Log Out</button> </span>
                 </div>
             </div>
         </Suspense>

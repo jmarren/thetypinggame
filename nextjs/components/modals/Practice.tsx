@@ -24,7 +24,7 @@ const Practice: React.FC<PracticeProps> = ({ setText, toggleModal, updateAssessm
         const chars = charsSelected.join('');
         const length = lengthSelected;
 
-        fetch(`http://mechanicalturk.one/api/text/${chars}/${length}`)
+        fetch(`https://mechanicalturk.one/api/text/${chars}/${length}`)
             .then(response => response.json())
             .then(data => {
                 console.log(data)

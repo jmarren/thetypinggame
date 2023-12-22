@@ -1,12 +1,15 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import React, { useState, useEffect, FormEvent } from 'react'
 import { useAuth } from '../AuthContext';
 
 
 
-const SignIn = ({openCreateAccount}) => {
-    const {login, logout, username } = useAuth()
+const SignIn: React.FC<{openCreateAccount: () => void}> = ({openCreateAccount}) => {
+    const auth = useAuth();
+    const login = auth?.login ?? null;
+    const logout = auth?.logout ?? null;
+    const username = auth?.username ?? '';
     const [successMessage, setSuccessMessage] = useState('');
     const [success, setSuccess] = useState(false)
     const [formData, setFormData] = useState({
@@ -14,20 +17,22 @@ const SignIn = ({openCreateAccount}) => {
         password: ''
       });
       const [errorMessage, setErrorMessage] = useState('');
-    
-      const handleChange = (e) => {
+
+      const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setFormData({
           ...formData,
           [e.target.name]: e.target.value
         });
       };
-    
-      const handleSubmit = async (e) => {
+
+      const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         console.log('submitted');
-        console.log(formData)
+        console.log(formData);
         e.preventDefault();
-        login(formData);
-      }
+        if (login) {
+          login(formData);
+        }
+      };
 
 
       return (

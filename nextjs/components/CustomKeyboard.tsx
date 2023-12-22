@@ -17,7 +17,7 @@ const CustomKeyboard = () => {
 
   useEffect(() => {
     if (isLoggedIn) {
-      fetch(`http://mechanicalturk.one/api/game-stats/user-accuracy/${username}`)
+      fetch(`https://mechanicalturk.one/api/game-stats/user-accuracy/${username}`)
         .then(response => response.json())
         .then(data => {
           setAccuracyData(data);
@@ -149,7 +149,7 @@ const CustomKeyboard = () => {
             boxSizing: "border-box",
           }}
         >
-          <CustomKey keyName={"del"} eventName={"Delete"} keyColor='white'/>
+          <CustomKey keyName={"del"} eventName={"Delete"} keyColor='white' />
         </div>
         {keysRow2.map((key) => (
           <div

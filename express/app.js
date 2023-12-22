@@ -21,7 +21,8 @@ dotenv.config();
 const app = express();
 const port = 3004;
 const saltRounds = 10;
-const whitelist = ['http://localhost:3000', 'http://localhost:3000/layout1', 'http://localhost:3000/', 'http://localhost:3000/layout1/', 'http://localhost:3000/computer', 'http://localhost:3000/layout2', 'http://mechanicalturk.one', 'mechanicalturk.one' ]
+const whitelist = ['http://localhost:3000', 'http://localhost:3000/layout1', 'http://localhost:3000/', 'http://localhost:3000/layout1/', 'http://localhost:3000/computer', 'http://localhost:3000/layout2', 'http://mechanicalturk.one', 'mechanicalturk.one', 'https://mechanicalturk.one','https://mechanicalturk.one/layout2'
+ , '207.181.194.238']
 
 
 var corsOptions = {
@@ -43,6 +44,10 @@ app.use(express.json());
 app.use(cookieParser());
 
 app.use(express.urlencoded({ extended: true }));
+
+app.get('/', (req, res) => {
+    res.send('Typing Game Server');
+})
 
 app.use('/user', userRoutes);
 app.use('/game-stats', gameStatsRoutes);

@@ -1,19 +1,25 @@
 'use client'
 
-
-
 import React, { useState, useEffect } from 'react';
+type LeaderboardData = {
+    [key: string]: {
+        score: number | null;
+        username: string;
+        game_date: string;
+    }[];
+} | null;
 
 const Leaderboard = () => {
-    const [data, setData] = useState([]);
-    const [selected, setSelected] = useState<number | null>(null);
+    const [data, setData] = useState<LeaderboardData>({});
+
+    const [selected, setSelected] = useState<number | null>();
 
     useEffect(() => {
-        fetch('http://mechanicalturk.one/api/leaderboard')
+        fetch('https://mechanicalturk.one/api/leaderboard')
             .then((response) => response.json())
             .then((data) => {
                 setData(data);
-                console.log(data);
+                console.log('Leaderboard Data: ', data);
             });
     }, []);
 
@@ -38,20 +44,100 @@ const Leaderboard = () => {
         return date.toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' });
     }
 
+    const selectListItem = (index: number) => {
+        if (selected === index) setSelected(null);
+        setSelected(index);
+    };
+
     console.log(formatDate('2023-12-19T20:04:59.480Z')); // Outputs: "December 19, 2023"
 
     return (
-        <div className='bg-[#203b75]  p-10 min-w-[500px] w-[90%] rounded-lg font-[Sora] '>
+        <div className='bg-[#203b75]  p-10 min-w-[500px] w-[90%] rounded-lg font-[Sora]'>
             <div className='text-3xl mb-2 text-yellow-500  '>Leaderboards</div>
             <ol className=' bg-[#203b75] text-yellow-500'>
-                {assessmentTypes.map((type, index) => (
+                {Object.keys(data || {}).map((type, index) => (
+                    // Your code here
                     <li
                         key={index}
                         className={selected === index ? selectedItemClass : listItemClass}
-                        onClick={() => setSelected(selected === index ? null : index)}
+                        onClick={() => selectListItem(index)}
                     >
                         {type}
-                        {(selected !== null && selected === index && data[assessmentTypes[selected]]) &&
+                        {(selected !== null && selected === index) && (
+                            <ol className='pl-4 '>
+                                <div className='grid grid-cols-6 text-white'>
+                                    <div className='col-span-2'>Username</div>
+                                    <div className='col-span-1'>WPM</div>
+                                    <div className='col-span-3 text-right'>Date</div>
+                                </div>
+                                <hr />
+                                {(data?.[type as keyof typeof data] || []).map((game: any, index: number) => (
+                                    <li className='text-[#7a97d6]' key={index}>
+                                        <div className='grid grid-cols-6'>
+                                            <div className='col-span-2'>{game.username}</div>
+                                            <div className='col-span-1'>{game.score}</div>
+                                            <div className='col-span-3 text-right'>{formatDate(game.game_date)}</div>
+                                        </div>
+                                        <hr className='bg-slate-800' />
+                                    </li>
+                                ))}
+                            </ol>
+                        )}
+                    </li>
+                ))}
+            </ol>
+        </div>
+    );
+    //                <li
+    //                key={index}
+    //                className={selected === index ? selectedItemClass : listItemClass}
+    //                onClick={() => selectListItem(index)}
+    //            >
+    //                {type}
+    //                {(selected !== null && selected ===index) &&
+    //                    <ol className='pl-4 '>
+    //                        <div className='grid grid-cols-6 text-white'>
+    //                            <div className='col-span-2'>Username</div>
+    //                            <div className='col-span-1'>WPM</div>
+    //                            <div className='col-span-3 text-right'>Date</div>
+    //                        </div>
+    //                        <hr />
+
+    //                     {(data?.[type as keyof typeof data] || []).map((game: any, index: number) => (
+    //                            <li className='text-[#7a97d6]' key={index}>
+    //                                <div className='grid grid-cols-6'>
+    //                                    <div className='col-span-2'>{game.username}</div>
+    //                                    <div className='col-span-1'>{game.score}</div>
+    //                                    <div className='col-span-3 text-right'>{formatDate(game.game_date)}</div>
+    //                                </div><hr className='bg-slate-800' />
+    //                            </li>
+
+    //                        ))}
+    //                    </ol>
+    //                }
+    //            </li>
+    //             ))}
+
+
+    //         </ol>
+    //     </div>
+    // );
+
+
+};
+
+export default Leaderboard;
+
+
+
+{/* {data.keys.forEach((type, index) => (
+                    <li
+                        key={index}
+                        className={selected === index ? selectedItemClass : listItemClass}
+                        onClick={() => selectListItem(index)}
+                    >
+                        {type}
+                        {(selected !== null && data[assessmentTypes[selected]]) &&
                             <ol className='pl-4 '>
                                 <div className='grid grid-cols-6 text-white'>
                                     <div className='col-span-2'>Username</div>
@@ -60,7 +146,7 @@ const Leaderboard = () => {
                                 </div>
                                 <hr />
 
-                                {data[assessmentTypes.selected].map((game: any, index: number) => (
+                                {data[index] !== null && data[assessmentTypes[selected]].map((game: any, index: number) => (
                                     <li className='text-[#7a97d6]' key={index}>
                                         <div className='grid grid-cols-6'>
                                             <div className='col-span-2'>{game.username}</div>
@@ -73,11 +159,32 @@ const Leaderboard = () => {
                             </ol>
                         }
                     </li>
-                ))}
-            </ol>
-        </div>
-    );
+                ))} */}
 
-};
+//                 {type}
+//                 {(selected !== null && selected === index && data[assessmentTypes[selected as string]]) &&
+//                     <ol className='pl-4 '>
+//                         <div className='grid grid-cols-6 text-white'>
+//                             <div className='col-span-2'>Username</div>
+//                             <div className='col-span-1'>WPM</div>
+//                             <div className='col-span-3 text-right'>Date</div>
+//                         </div>
+//                         <hr />
 
-export default Leaderboard;
+//                         {data[assessmentTypes.selected].map((game: any, index: number) => (
+//                             <li className='text-[#7a97d6]' key={index}>
+//                                 <div className='grid grid-cols-6'>
+//                                     <div className='col-span-2'>{game.username}</div>
+//                                     <div className='col-span-1'>{game.score}</div>
+//                                     <div className='col-span-3 text-right'>{formatDate(game.game_date)}</div>
+//                                 </div><hr className='bg-slate-800' />
+//                             </li>
+
+//                         ))}
+//                     </ol>
+//                 }
+//             </li>
+//         ))}
+//     </ol>
+// </div>
+// );

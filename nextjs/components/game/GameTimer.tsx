@@ -27,16 +27,16 @@ const GameTimer: React.FC<GameTimerProps> = ({ gameState, finalStats, resetGame,
       }, 1000);
     }
 
-    if (gameState === GameState.Ended) {
-      console.log('FINAL TIME (TIMER COMPONENT):  ', time) 
-    }
+    // if (gameState === GameState.Ended) {
+    //   console.log('FINAL TIME (TIMER COMPONENT):  ', time) 
+    // }
 
-    return () => {
-      if (gameState === GameState.InProgress) {
-      }
-      clearInterval(interval);
-    };
-  }, [gameState, time, updateSeconds]);
+    // return () => {
+    //   if (gameState === GameState.InProgress) {
+    //   }
+    //   clearInterval(interval);
+    // };
+  }, [gameState]);
 
   // */
 
