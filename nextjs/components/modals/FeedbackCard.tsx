@@ -7,11 +7,12 @@ import ModalCard from './ModalCard';
 type FeedbackCardProps = {
     feedback: Feedback;
     resetGame: () => void;
+    toggleModal: () => void;
     };
 
-const FeedbackCard: React.FC<FeedbackCardProps> = ({ feedback, resetGame }) => {
+const FeedbackCard: React.FC<FeedbackCardProps> = ({ feedback, resetGame, toggleModal }) => {
     return (
-        <ModalCard >
+        <ModalCard toggleModal={toggleModal} >
             <div  className='text-white font-[Sora] text-sm text-shadow-black '>
             <div className=' text-center text-2xl text-shadow-black'>Great Job!</div>
             <div className='  font-[Sora] text-xs flex  flex-col items-left justify-between  '>

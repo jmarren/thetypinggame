@@ -3,13 +3,9 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import GameText from '@/components/game/GameText';
 import GameTimer from './GameTimer';
-import GameStats from './GameStats';
 import { incrementIncorrectCount, incrementCorrectCount, initializeKeyStats, finalizeStats, analyzeData, submitGame } from '@/utilities/gameUtils';
 import { Feedback, AssessmentType, KeyStats } from '../../types';
-// import {KeyStats} from '@/types';
-
 import FeedbackCard from '../modals/FeedbackCard';
-// import { AssessmentType } from '../../types';
 
 
 
@@ -30,11 +26,14 @@ const inputString = (templateString);
   const [keyStats, setKeyStats] = useState(initializeKeyStats(inputString));
   const backspaceCount = useRef(0);
   const [totalSeconds, setTotalSeconds] = useState(0)
+  const [feedbackOpen, setFeedbackOpen] = useState(false);
 
 
 
 
-
+const toggleFeedback = () => {
+  setFeedbackOpen(!feedbackOpen)
+}
 
   const updateSeconds = () => {
     setTotalSeconds(prevSeconds => prevSeconds + 1)
@@ -88,6 +87,7 @@ const inputString = (templateString);
     const finalData = analyzeData(finalStats);
     submitGame(finalStats, isAssessment, assessmentTypeString)
     setFeedback(finalData);
+    setFeedbackOpen(true);
     console.log('====================================')
   }
 
@@ -113,10 +113,8 @@ const inputString = (templateString);
     setGameState(GameState.InProgress);
   },[modalOpen]);
 
-
+  
   useEffect(() => {
-
-
     const handleKeyDown = (event: KeyboardEvent) => {
       if (modalOpen) return;
       if (event.key === 'Enter' && gameState === GameState.NotStarted && !modalOpen) {
@@ -184,7 +182,7 @@ const inputString = (templateString);
       </div>
       {gameState === GameState.Ended && (
         <div className=' absolute w-full h-full top-0 left-0 flex items-center justify-center z-50' >
-          <FeedbackCard feedback={feedback} resetGame={resetGame} />
+          {feedbackOpen && <FeedbackCard feedback={feedback} resetGame={resetGame} toggleModal={toggleFeedback}/>}
         </div>
 
       )}
