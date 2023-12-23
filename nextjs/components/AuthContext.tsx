@@ -37,7 +37,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
     const fetchUsername = async () => {
         try {
-            const response = await fetch('https://mechanicalturk.one/api/user/get-username-with-token', {
+            const response = await fetch(`https://mechanicalturk.one/api/user/get-username-with-token`, {
                 method: 'GET',
                 credentials: 'include', // Necessary for cookies to be sent
                 headers: {
@@ -61,7 +61,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
     const login = async (formData: FormDataType) => {
         try {
-            const response = await fetch('https://mechanicalturk.one/api/user/login', {
+            const response = await fetch(`https://mechanicalturk.one/api/user/login`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -97,7 +97,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     // }
 
     const logout = () => {
-        fetch('https://mechanicalturk.one/api/user/logout', {
+        fetch(`https://mechanicalturk.one/api/user/logout`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -127,7 +127,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     useEffect(() => {
         const verifySession = async () => {
             try {
-                const response = await fetch('https://mechanicalturk.one/api/user/verify-session', {
+                const response = await fetch(`https://mechanicalturk.one/api/user/verify-session`, {
                     method: 'GET',
                     credentials: 'include'
                 });

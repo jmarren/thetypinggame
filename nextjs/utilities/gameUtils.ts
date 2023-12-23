@@ -192,7 +192,7 @@ export const submitGame = async (keyStats: KeyStats, isAssessment: Boolean, asse
 
   const { keyData, gameStats } = keyStats;
   try {
-    const response = await fetch('https://mechanicalturk.one/api/games/submit-game', {
+    const response = await fetch(`https://mechanicalturk.one/api/games/submit-game`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

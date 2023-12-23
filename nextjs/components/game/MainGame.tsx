@@ -32,7 +32,9 @@ const inputString = (templateString);
 
 
 const toggleFeedback = () => {
+  if (feedbackOpen) setGameState(GameState.NotStarted);
   setFeedbackOpen(!feedbackOpen)
+
 }
 
   const updateSeconds = () => {
@@ -112,6 +114,12 @@ const toggleFeedback = () => {
     if (modalOpen) return;
     setGameState(GameState.InProgress);
   },[modalOpen]);
+
+
+  useEffect(() => {
+    setGameState(GameState.NotStarted);
+  }, [templateString]);
+
 
   
   useEffect(() => {

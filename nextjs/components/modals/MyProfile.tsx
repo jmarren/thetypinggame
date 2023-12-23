@@ -12,9 +12,9 @@ const MyProfile = () => {
     const [dateCreated, setDateCreated] = useState<string | null>(null)
     const [totalGames, setTotalGames] = useState<number | null>(null)
 
-    useEffect(() => {
-        console.log(username)
-    }, [username]);
+    // useEffect(() => {
+    //     console.log(username)
+    // }, [username]);
 
 
 
@@ -43,7 +43,7 @@ const MyProfile = () => {
             try {
                 const response = await fetch(`https://mechanicalturk.one/api/user/date-account-created/${username}`, {
                     method: 'GET',
-                    credentials: 'include', // Necessary for cookies to be sent
+                    credentials: 'include', 
                     headers: {
                         'Content-Type': 'application/json',
                     },

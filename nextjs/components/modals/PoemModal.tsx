@@ -185,7 +185,7 @@ const famousPoets =  [
   
 
     return (
-        <div className='min-w-[750px] bg-blue-400 p-10 rounded-lg font-[Sora] relative text-white w-[85%]' onClick={(e) => e.stopPropagation()}>
+        <div className='min-w-[750px] bg-blue-400 p-10 rounded-lg font-[Sora] relative text-white w-[85%] h-[85vh] flex flex-col' onClick={(e) => e.stopPropagation()}>
         <div className='absolute top-4 right-4 '> 
         <XButton toggleModal={toggleModal} />
         </div>
@@ -199,12 +199,12 @@ const famousPoets =  [
                 {poetChosen}
                 </div>
                 {/* </span> */}
-          <div className='grid grid-cols-3 gap-4 overflow-y-scroll max-h-64 text-sky-600  bg-blue-100 text-center mt-10 p-6'>
+          <div className='grid grid-cols-3 gap-4 overflow-y-scroll text-sky-600  bg-blue-100 text-center mt-10 p-6 relative'>
            {poems.map((poem, index) => (
              <div
                onClick={() => selectPoem(poem)}
                key={index}
-               className='p-6 bg-slate-100 rounded shadow cursor-pointer hover:bg-slate-300 flex items-center'
+               className='p-6 bg-slate-100 rounded shadow cursor-pointer hover:bg-slate-300'
              >
                 <span className='w-full text-center'>
                {poem}
@@ -216,7 +216,7 @@ const famousPoets =  [
         ) : (
           <>
             <div className='text-3xl text-white'> Choose a Poet</div>
-            <div className='grid grid-cols-3 gap-4 overflow-y-scroll max-h-64 text-sky-600  bg-blue-100 text-center mt-10 p-6'>
+            <div className='grid grid-cols-3 gap-4 overflow-y-scroll text-sky-600  bg-blue-100 text-center mt-10 p-6 relative'>
               {famousPoets.map((poet, index) => (
                 <div
                   key={index}

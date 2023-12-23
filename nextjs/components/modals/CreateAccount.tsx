@@ -33,7 +33,7 @@ const CreateAccount: React.FC<CreateAccountProps> = ({ openSignIn, toggleModal }
     }
 
     try {
-      const response = await fetch('https://mechanicalturk.one/api/user/create-account', {
+      const response = await fetch(`https://mechanicalturk.one/api/user/create-account`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -78,9 +78,9 @@ const CreateAccount: React.FC<CreateAccountProps> = ({ openSignIn, toggleModal }
 
 
     <div className='w-[50%] min-w-[500px] bg-blue-400 rounded-md p-14 flex font-[Sora] text-white flex flex-col relative' onClick={(e) => e.stopPropagation()}>
-            <div className='absolute top-4 right-4 '> 
+      <div className='absolute top-4 right-4 '>
         <XButton toggleModal={toggleModal} />
-        </div>
+      </div>
       <div className='text-3xl'>Create Account</div>
 
       <form onSubmit={handleSubmit} className="space-y-4 w-full mt-10">

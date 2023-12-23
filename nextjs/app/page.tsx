@@ -10,7 +10,6 @@ import Practice from '@/components/modals/Practice'
 import Account from '@/components/modals/Account'
 import Leaderboard from '@/components/modals/Leaderboard';
 import Assessments from '@/components/modals/Assessments';
-import { useAuth } from '@/components/AuthContext';
 import { ModalType } from '@/types';
 import { AssessmentType } from '../types';
 import { formatString } from '@/utilities/gameUtils';
@@ -21,8 +20,6 @@ const Page: React.FC = () => {
   const [activeModal, setActiveModal] = useState(ModalType.None);
   const [modalOpen, setModalOpen] = useState(false)
   const [textChosen, setTextChosen] = useState(formatString('Hello! Welcome to the wonderful world of typing! Using the menu to the left you can choose a poem by a famous poet to practice with. Or you can choose the characters that you want to work on and we\'ll generate some text for you. Create an account so you can track your progress and the keys of your keyboard will change color to show your accuracy!'))
-  // const [textChosen, setTextChosen] = useState(formatString('Hello'))
-
   const [navOpen, setNavOpen] = useState(false);
   const [assessmentType, setAssessmentType] = useState<AssessmentType>(AssessmentType.None);
   const [isAssessment, setIsAssessment] = useState<boolean>(false);
@@ -71,7 +68,6 @@ const Page: React.FC = () => {
   }
 
   useEffect(() => {
-    console.log('ASSESSMENT TYPE: ', assessmentType)
     if (assessmentType === AssessmentType.None) {
       setIsAssessment(false);
     } else {
@@ -84,13 +80,12 @@ const Page: React.FC = () => {
   }
 
 
-
   return (
     <div className='w-full h-full min-h-screen flex flex-grow' >
-      <div className='absolute top-0 left-0 p-4 z-[210]'>
+      <div className='fixed top-0 left-0 p-4 z-[210]'>
         <BurgerButton toggleNav={toggleNav} navOpen={navOpen} />
       </div>
-      <div className={navOpen ? 'absolute top-0 left-0 h-full min-h-full flex flex-col transition-all duration-[0.75s]' : 'absolute top-0 left-0 transform -translate-x-full transition-all duration-[0.75s] opacity-0'}>
+      <div className={navOpen ? 'fixed top-0 left-0 h-full min-h-full flex flex-col transition-all duration-[0.75s]' : 'absolute top-0 left-0 transform -translate-x-full transition-all duration-[0.75s] opacity-0'}>
         <NavBar openModal={openModal} closeModal={closeModal} setText={setText} navOpen={navOpen} toggleNav={toggleNav} modalToggles={modalToggles} activeModal={activeModal} updateAssessmentType={updateAssessmentType} />
       </div>
       <div className={navOpen ? `ml-36 transition-all duration-[0.75s] flex-grow` : `transition-all duration-[0.75s] flex-grow `}>
@@ -108,7 +103,7 @@ const Page: React.FC = () => {
 
 
           <div className={activeModal === ModalType.None ? '' : 'blur'}>
-            <div className='w-full'>
+            <div className='w-full mx-8'>
               <MainGame templateString={textChosen} modalOpen={modalOpen} isAssessment={isAssessment} assessmentType={assessmentType} />
             </div>
             <div className='w-full h-[200px]  min-[750px]:h-[300px] min-[1000px]:h-[375px] px-6'>
@@ -122,7 +117,6 @@ const Page: React.FC = () => {
       </div>
     </div>
 
-    // </div>
   );
 };
 

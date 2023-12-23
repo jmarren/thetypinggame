@@ -9,7 +9,6 @@ const userAuthMiddleware = require('../AuthMiddleware');
 router.post('/create-account', async (req, res) => {
 	console.log(req.body)
 	const { username, email, password } = req.body;
-	// const hashedPassword = await bcrypt.hash(password, 10);
 	const hashedPassword = await bcrypt.hash(password, saltRounds);
 
 	if (typeof hashedPassword !== 'string') {
@@ -111,7 +110,7 @@ router.get('/get-username-with-token', async (req, res) => {
         const { rows } = await pool.query(query, [userId]);
 
         if (rows.length === 0) {
-            return res.status(404).send({ error: 'User not found' });
+            return res.status(404).send({ error: 'Invalid token ' });
         }
 
         res.send({ username: rows[0].username, email: rows[0].email });
