@@ -1,6 +1,4 @@
 import React, { useState } from 'react';
-// import CardGrid from '../CardGrid';
-// import Slider from '../Slider';
 import { AssessmentType } from '@/types';
 
 interface AssessmentsProps {

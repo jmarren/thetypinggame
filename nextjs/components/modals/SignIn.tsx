@@ -2,10 +2,11 @@
 
 import React, { useState, useEffect, FormEvent } from 'react'
 import { useAuth } from '../AuthContext';
+import XButton from '../XButton';
 
 
 
-const SignIn: React.FC<{openCreateAccount: () => void}> = ({openCreateAccount}) => {
+const SignIn: React.FC<{openCreateAccount: () => void, toggleModal: () => void}> = ({openCreateAccount, toggleModal}) => {
     const auth = useAuth();
     const login = auth?.login ?? null;
     const logout = auth?.logout ?? null;
@@ -36,7 +37,10 @@ const SignIn: React.FC<{openCreateAccount: () => void}> = ({openCreateAccount}) 
 
 
       return (
-    <div className='w-[50%] min-w-[500px] bg-blue-400 text-white font-[Sora] rounded-md p-14 flex-col '>
+    <div className='w-[50%] min-w-[500px] bg-blue-400 text-white font-[Sora] rounded-md p-14 flex-col relative' onClick={(e) => e.stopPropagation()}>
+      <div className='absolute top-4 right-4 '> 
+        <XButton toggleModal={toggleModal} />
+        </div>
 
 
         <div className='text-3xl'>

@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useState, useEffect } from 'react';
+import XButton from '../XButton';
 type LeaderboardData = {
     [key: string]: {
         score: number | null;
@@ -9,7 +10,7 @@ type LeaderboardData = {
     }[];
 } | null;
 
-const Leaderboard = () => {
+const Leaderboard: React.FC<{toggleModal: () => void}> = ({toggleModal}) => {
     const [data, setData] = useState<LeaderboardData>({});
 
     const [selected, setSelected] = useState<number | null>();
@@ -49,11 +50,14 @@ const Leaderboard = () => {
         setSelected(index);
     };
 
-    console.log(formatDate('2023-12-19T20:04:59.480Z')); // Outputs: "December 19, 2023"
+    // console.log(formatDate('2023-12-19T20:04:59.480Z')); // Outputs: "December 19, 2023"
 
     return (
-        <div className='bg-[#203b75]  p-10 min-w-[500px] w-[90%] rounded-lg font-[Sora]'>
-            <div className='text-3xl mb-2 text-yellow-500  '>Leaderboards</div>
+        <div className='bg-[#203b75] min-h-[90%]  p-10 min-w-[500px] w-[90%] rounded-lg font-[Sora] relative' onClick={(e) => e.stopPropagation()}>
+        <div className='absolute top-4 right-4 '> 
+        <XButton toggleModal={toggleModal} />
+        </div>
+            <div className='text-3xl mb-2 text-yellow-500'>Leaderboards</div>
             <ol className=' bg-[#203b75] text-yellow-500'>
                 {Object.keys(data || {}).map((type, index) => (
                     // Your code here

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { AssessmentType } from '@/types';
+import XButton from '../XButton';
 
 
 interface PoemModalProps {
@@ -184,7 +185,10 @@ const famousPoets =  [
   
 
     return (
-        <div className='min-w-[750px] bg-blue-400 p-10 rounded-lg font-[Sora] relative text-white w-[85%]'>
+        <div className='min-w-[750px] bg-blue-400 p-10 rounded-lg font-[Sora] relative text-white w-[85%]' onClick={(e) => e.stopPropagation()}>
+        <div className='absolute top-4 right-4 '> 
+        <XButton toggleModal={toggleModal} />
+        </div>
         {poetChosen ? (
           <>
           {/* <span className='w-full flex items-center '> */}

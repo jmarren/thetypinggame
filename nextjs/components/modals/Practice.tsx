@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import CardGrid from '../CardGrid';
 import Slider from '../Slider';
 import { AssessmentType } from '@/types';
+import XButton from '../XButton';
 
 interface PracticeProps {
     setText: (text: string) => void;

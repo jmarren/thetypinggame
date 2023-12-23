@@ -1,13 +1,15 @@
 'use client'
 
 import { useState } from 'react'
+import XButton from '../XButton'
 
 
 interface CreateAccountProps {
   openSignIn: () => void
+  toggleModal: () => void
 }
 
-const CreateAccount: React.FC<CreateAccountProps> = ({ openSignIn }) => {
+const CreateAccount: React.FC<CreateAccountProps> = ({ openSignIn, toggleModal }) => {
   const [successMessage, setSuccessMessage] = useState('');
   const [error, setError] = useState('');
   const [formData, setFormData] = useState({
@@ -75,7 +77,10 @@ const CreateAccount: React.FC<CreateAccountProps> = ({ openSignIn }) => {
   return (
 
 
-    <div className='w-[50%] min-w-[500px] bg-blue-400 rounded-md p-14 flex font-[Sora] text-white flex flex-col'>
+    <div className='w-[50%] min-w-[500px] bg-blue-400 rounded-md p-14 flex font-[Sora] text-white flex flex-col relative' onClick={(e) => e.stopPropagation()}>
+            <div className='absolute top-4 right-4 '> 
+        <XButton toggleModal={toggleModal} />
+        </div>
       <div className='text-3xl'>Create Account</div>
 
       <form onSubmit={handleSubmit} className="space-y-4 w-full mt-10">

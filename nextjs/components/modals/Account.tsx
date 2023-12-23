@@ -7,7 +7,7 @@ import { useAuth } from '../AuthContext';
 import ModalCard from './ModalCard';
 
 
-const Account: React.FC = () => {
+const Account: React.FC<{toggleModal: () => void}> = ({toggleModal}) => {
     const auth = useAuth();
     const isLoggedIn = auth?.isLoggedIn ?? false;
 
@@ -25,7 +25,7 @@ const Account: React.FC = () => {
 
   return (
     <div >
-        {isLoggedIn ? <ModalCard><MyProfile /></ModalCard> : (showCreateAccount ? <CreateAccount openSignIn={openSignIn} /> : <SignIn openCreateAccount={() => setShowCreateAccount(true)} />)}
+        {isLoggedIn ? <ModalCard toggleModal={toggleModal} ><MyProfile /></ModalCard> : (showCreateAccount ? <CreateAccount openSignIn={openSignIn} toggleModal={toggleModal} /> : <SignIn openCreateAccount={() => setShowCreateAccount(true)}  toggleModal={toggleModal} />)}
     </div>
   );
 };
