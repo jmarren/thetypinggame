@@ -84,9 +84,7 @@ const NavBar: React.FC<NavBarProps> = ({ openModal, closeModal, setText, navOpen
         <button className={buttonClass} onClick={togglePoems}><span className={activeModal === ModalType.Poems ? modalOpenClass : ''}>Poems</span></button>
         <button className={buttonClass} onClick={togglePractice}><span className={activeModal === ModalType.Practice ? modalOpenClass : ''}>Practice</span></button>
         <button className={buttonClass} onClick={toggleAssessments}><span className={activeModal === ModalType.Assessments ? modalOpenClass : ''}>Assessments</span></button>
-        <button className={buttonClass} onClick={testServer}>Test Server</button>
-        {/* </> */}
-        {/* } */}
+        {/* <button className={buttonClass} onClick={testServer}>Test Server</button> */}
         <div className='flex-grow w-full bg-[#F2f7f7]'></div>
       </div>
     </div>
