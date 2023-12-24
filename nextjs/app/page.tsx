@@ -81,7 +81,7 @@ const Page: React.FC = () => {
 
 
   return (
-    <div className='w-full h-full min-h-screen flex flex-grow' >
+    <div className='w-full h-full h-screen relative' >
       <div className='fixed top-0 left-0 p-4 z-[210]'>
         <BurgerButton toggleNav={toggleNav} navOpen={navOpen} />
       </div>
@@ -91,7 +91,7 @@ const Page: React.FC = () => {
       <div className={navOpen ? `ml-36 transition-all duration-[0.75s] flex-grow` : `transition-all duration-[0.75s] flex-grow `}>
 
         {/* <div className={navOpen ? `transition-all duration-[0.75s]`: `transform -translate-x-[10rem] transition-all duration-[0.75s] w-screen`}>  */}
-        <div className={'h-full min-h-screen flex-grow flex flex-col justify-center relative pt-6 '} onClick={closeAnyModal}>
+        <div className={'h-screen justify-between flex-grow flex flex-col items-stretch relative'} onClick={closeAnyModal}>
 
           {/* <div className='flex-grow w-full min-h-screen flex justify-center items-center z-[100] h-full absolute' onClick={(e) => e.stopPropagation()}> */}
           {activeModal === ModalType.Account && <div className='flex-grow w-full min-h-screen flex justify-center items-center z-[100] h-full absolute'><Account toggleModal={toggleAccount} /></div>}
@@ -102,15 +102,17 @@ const Page: React.FC = () => {
           {/* </div> */}
 
 
-          <div className={activeModal === ModalType.None ? '' : 'blur'}>
-            <div className='w-full mx-8'>
+          <div className={activeModal === ModalType.None ? 'h-full' : 'h-full blur'}>
+            <div className='h-full flex flex-col justify-between '>
+            <div className='flex-grow  self-stretch'>
               <MainGame templateString={textChosen} modalOpen={modalOpen} isAssessment={isAssessment} assessmentType={assessmentType} />
             </div>
-            <div className='w-full h-[200px]  min-[750px]:h-[300px] min-[1000px]:h-[375px] px-6'>
+            <div className='self-end w-full h-[200px]  min-[750px]:h-[300px] min-[1000px]:h-[375px] px-6 '>
               <Suspense>
                 <CustomKeyboard />
               </Suspense >
             </div>
+          </div>
           </div>
         </div>
 

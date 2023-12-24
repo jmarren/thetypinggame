@@ -146,7 +146,7 @@ const toggleFeedback = () => {
 
 
     <>
-      <div className='h-[400px]  px-10 pt-10 pb-6 overflow-hidden'>
+      <div className='h-full pr-10 pl-16 pt-10 pb-6 overflow-hidden'>
         {gameState === GameState.NotStarted && (
           <>
             <div className='w-full h-full relative'>

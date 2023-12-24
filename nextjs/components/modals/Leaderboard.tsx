@@ -61,8 +61,8 @@ const Leaderboard: React.FC<{ toggleModal: () => void }> = ({ toggleModal }) => 
             <div className='absolute top-4 right-4 '>
                 <XButton toggleModal={toggleModal} />
             </div>
-            <div className='text-3xl mb-2 text-yellow-500'>Leaderboards</div>
-            <ol className=' bg-[#203b75] text-yellow-500 flex-grow flex-col '>
+            <div className='text-3xl mb-2 text-yellow-400'>Leaderboards</div>
+            <ol className=' bg-[#203b75] text-yellow-400 flex-grow flex-col '>
                 {Object.keys(data || {}).map((type, index) => (
                     // Your code here
                     <li

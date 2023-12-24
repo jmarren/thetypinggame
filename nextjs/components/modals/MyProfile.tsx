@@ -2,7 +2,6 @@
 
 import { useAuth } from "../AuthContext"
 import { useEffect, useState, Suspense } from 'react'
-import ModalCard from "./ModalCard"
 
 const MyProfile = () => {
     const auth = useAuth()
@@ -12,10 +11,12 @@ const MyProfile = () => {
     const [dateCreated, setDateCreated] = useState<string | null>(null)
     const [totalGames, setTotalGames] = useState<number | null>(null)
 
-    // useEffect(() => {
-    //     console.log(username)
-    // }, [username]);
 
+    const logOutButtonClicked = () => {
+        if (logout) {
+            logout();
+        }
+    }
 
 
 
@@ -62,7 +63,6 @@ const MyProfile = () => {
 
         }
         fetchDateCreated();
-
     }, [username]);
 
 
@@ -140,7 +140,7 @@ const MyProfile = () => {
                 <hr className='mt-6' />
 
                 <div className='mt-6'>
-                    <span className='flex justify-evenly'><button className=''>Change Password</button><button onClick={() => logout}>Log Out</button> </span>
+                    <span className='flex justify-evenly'><button className=''>Change Password</button><button onClick={logOutButtonClicked}>Log Out</button> </span>
                 </div>
             </div>
         </Suspense>

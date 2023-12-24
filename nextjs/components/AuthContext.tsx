@@ -97,6 +97,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     // }
 
     const logout = () => {
+        console.log('logout triggered')
         fetch(`https://mechanicalturk.one/api/user/logout`, {
             method: 'POST',
             headers: {
