@@ -16,7 +16,7 @@ const Leaderboard: React.FC<{ toggleModal: () => void }> = ({ toggleModal }) => 
     const [selected, setSelected] = useState<number | null>();
 
     useEffect(() => {
-        fetch(`https://mechanicalturk.one/api/leaderboard`)
+        fetch(`https://thetypinggame.com/api/leaderboard`)
             .then((response) => response.json())
             .then((data) => {
                 setData(data);

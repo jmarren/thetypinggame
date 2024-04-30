@@ -42,9 +42,9 @@ const MyProfile = () => {
 
         const fetchDateCreated = async () => {
             try {
-                const response = await fetch(`https://mechanicalturk.one/api/user/date-account-created/${username}`, {
+                const response = await fetch(`https://thetypinggame.com/api/user/date-account-created/${username}`, {
                     method: 'GET',
-                    credentials: 'include', 
+                    credentials: 'include',
                     headers: {
                         'Content-Type': 'application/json',
                     },
@@ -69,7 +69,7 @@ const MyProfile = () => {
     useEffect(() => {
         const fetchTotalGames = async () => {
             try {
-                const response = await fetch(`https://mechanicalturk.one/api/game-stats/total-games/${username}`, {
+                const response = await fetch(`https://thetypinggame.com/api/game-stats/total-games/${username}`, {
                     method: 'GET',
                     credentials: 'include', // Necessary for cookies to be sent
                     headers: {

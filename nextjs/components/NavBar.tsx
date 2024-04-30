@@ -1,6 +1,6 @@
 'use client'
 
-import React, {useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { ModalType, AssessmentType } from '@/types';
 
 interface NavBarProps {
@@ -32,7 +32,7 @@ const NavBar: React.FC<NavBarProps> = ({ openModal, closeModal, setText, navOpen
   const testServer = async () => {
     console.log('click');
     try {
-      const response = await fetch(`https://mechanicalturk.one/api/test`, {
+      const response = await fetch(`https://thetypinggame.com/api/test`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

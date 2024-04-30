@@ -25,7 +25,7 @@ const Practice: React.FC<PracticeProps> = ({ setText, toggleModal, updateAssessm
         const chars = encodeURIComponent(charsSelected.join(''));
         const length = lengthSelected;
 
-        fetch(`https://mechanicalturk.one/api/text/${chars}/${length}`)
+        fetch(`https://thetypinggame.com/api/text/${chars}/${length}`)
             .then(response => response.json())
             .then(data => {
                 console.log(data)

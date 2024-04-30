@@ -17,7 +17,7 @@ const CustomKeyboard = () => {
 
   useEffect(() => {
     if (isLoggedIn) {
-      fetch(`https://mechanicalturk.one/api/game-stats/user-accuracy/${username}`)
+      fetch(`https://thetypinggame.com/api/game-stats/user-accuracy/${username}`)
         .then(response => response.json())
         .then(data => {
           setAccuracyData(data);

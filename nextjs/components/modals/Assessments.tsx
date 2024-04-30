@@ -48,8 +48,8 @@ const Assessments: React.FC<AssessmentsProps> = ({ setText, toggleModal, updateA
     }
 
 
-    // fetch(`https://mechanicalturk.one/api/text/assessments/${testSelected}`)
-    fetch(`https://mechanicalturk.one/api/text/assessments/${testSelected}`)
+    // fetch(`https://thetypinggame.com/api/text/assessments/${testSelected}`)
+    fetch(`https://thetypinggame.com/api/text/assessments/${testSelected}`)
       .then(response => response.json())
       .then(data => {
         console.log(data)

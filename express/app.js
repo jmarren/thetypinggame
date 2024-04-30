@@ -22,7 +22,7 @@ const app = express();
 const port = 3004;
 const saltRounds = 10;
 const whitelist = ['http://localhost:3000', 'http://localhost:3000/layout1', 'http://localhost:3000/', 'http://localhost:3000/layout1/', 'http://localhost:3000/computer', 'http://localhost:3000/layout2', 'http://mechanicalturk.one', 'mechanicalturk.one', 'https://mechanicalturk.one','https://mechanicalturk.one/layout2', 'http://localhost:3000/'
- , '207.181.194.238', 'localhost:3000']
+ , '207.181.194.238', 'localhost:3000', 'thetypinggame.com', 'www.thetypinggame.com', 'https://thetypinggame.com']
 
 
 var corsOptions = {
