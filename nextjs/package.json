@@ -9,8 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@appland/appmap-agent-js": "^14.2.0",
-    "next": "14.0.3",
+    "next": "^14.2.3",
     "react": "^18",
     "react-dom": "^18"
   },
