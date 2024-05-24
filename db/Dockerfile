@@ -1,6 +1,6 @@
 FROM postgres:latest
 
 
-COPY init.sql /docker-entrypoint-initdb.d/
+COPY create-db.sql /docker-entrypoint-initdb.d/
 
 
